@@ -2,8 +2,6 @@
     <div>
         <input type="text" placeholder="What do you want to do today?" autofocus>
 
-        <p class="header">Todo today</p>
-
         <table>
             <thead>
                 <tr>
@@ -55,20 +53,31 @@
         -ms-transition: all 0.30s ease-in-out;
         -o-transition: all 0.30s ease-in-out;
         outline: none;
-        width: 50%;
+        width: 30%;
         border: 1px solid lightgray;
-        border-radius: 100px;
-        font-size: 20px;
+        border-radius: 10px;
+        font-size: 18px;
         font-family: 'open sans',arial,sans-serif;
-        padding: 20px 50px;
+        padding: 15px 25px;
         font-weight: 100;
     }
 
     input[type=text]:focus {
-        box-shadow: 0 0 5px lightskyblue;
-        border: 1px solid lightskyblue;
-        border-radius: 100px;
-        padding: 20px 50px;
+        box-shadow: 0 0 5px #68C7F8;
+        border: 1px solid #68C7F8;
+    }
+
+    ::placeholder {
+        color: lightgray;
+        opacity: 1; /* Firefox */
+    }
+
+    :-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: lightgray;
+    }
+
+    ::-ms-input-placeholder { /* Microsoft Edge */
+        color: lightgray;
     }
 
     .header {
@@ -77,8 +86,33 @@
         margin-top: 50px;
     }
 
-    table {
-        margin: 0 auto;
-        width: 50%;
+    /* table {
+        width: 100%;
+        margin-top: 50px !important;
+        font-family: 'open sans',arial,sans-serif;
     }
+
+    table thead {
+        text-align: left;
+    } */
+
+    table {
+        background:pink;
+        border:0;
+        border-collapse:separate;
+        border-spacing:0 5px;
+    }
+
+    thead tr th{
+        border-bottom: 1px solid red;
+        border-collapse:separate;
+        border-spacing:5px 5px;
+    }
+
+    tbody tr#first td{
+        border-top: 3px solid #4d4d4d;
+        border-collapse:separate;
+        border-spacing:5px 5px;
+    }
+
 </style>
