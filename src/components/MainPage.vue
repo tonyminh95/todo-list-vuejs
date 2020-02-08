@@ -1,6 +1,16 @@
 <template>
     <div>
-        <input type="text" placeholder="What do you want to do today?" autofocus>
+        <input type="text" placeholder="Title" autofocus id="title">
+
+        <input type="text" placeholder="Description" id="desciption">
+
+        <vue-datepicker placeholder="Deadline" class="date-picker"></vue-datepicker>
+
+        <a class="btn btn-create"><fa-icon :icon="['fas', 'plus']"></fa-icon></a>
+
+        <div style="margin-top: 50px">
+            <span class="open"></span> 150 open<span class="inprogress"></span> 200 in progress<span class="closed"></span> 150 closed
+        </div>
 
         <table>
             <thead>
@@ -8,15 +18,21 @@
                     <th>Title</th>
                     <th>Description</th>
                     <th>Deadline</th>
-                    <th>Status</th>
+                    <th colspan="3">Status</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="todo in todos" :key="todo.id">
-                    <td>{{ todo.title }}</td>
-                    <td>{{ todo.description }}</td>
-                    <td>{{ todo.deadline }}</td>
-                    <td>{{ todo.status }}</td>
+                    <td width="25%">{{ todo.title }}</td>
+                    <td width="35%">{{ todo.description }}</td>
+                    <td width="15%">{{ todo.deadline }}</td>
+                    <td width="15%">
+                        <div v-if="todo.status == 1"><span class="open"></span>open</div>
+                        <div v-if="todo.status == 2"><span class="inprogress"></span>in progress</div>
+                        <div v-if="todo.status == 3"><span class="closed"></span>closed</div>
+                    </td>
+                    <td width="5%"><a class="btn btn-edit"><fa-icon :icon="['fas', 'pencil-alt']"></fa-icon></a></td>
+                    <td width="5%"><a class="btn btn-delete"><fa-icon :icon="['far', 'trash-alt']"></fa-icon></a></td>
                 </tr>
             </tbody>
         </table>
@@ -30,9 +46,9 @@
         data: () => {
             return {
                 todos: [
-                    { id: 1, title: 'running', description: 'run for healthy', deadline: '12/02/2020', status: 'in progress' },
-                    { id: 2, title: 'eat', description: 'eat for life', deadline: '12/02/2020', status: 'in progress' },
-                    { id: 3, title: 'drink', description: 'drink for life', deadline: '12/02/2020', status: 'in progress' }
+                    { id: 1, title: 'running', description: 'run for healthy', deadline: '12/02/2020', status: '1' },
+                    { id: 2, title: 'eat', description: 'eat for life', deadline: '12/02/2020', status: '2' },
+                    { id: 3, title: 'drink', description: 'drink for life', deadline: '12/02/2020', status: '3' }
                 ]
             }
         }
@@ -48,23 +64,26 @@
     }
 
     input[type=text] {
-        -webkit-transition: all 0.30s ease-in-out;
-        -moz-transition: all 0.30s ease-in-out;
-        -ms-transition: all 0.30s ease-in-out;
-        -o-transition: all 0.30s ease-in-out;
         outline: none;
-        width: 30%;
-        border: 1px solid lightgray;
-        border-radius: 10px;
-        font-size: 18px;
+        border-width: 0 0 1px;
+        border-color: lightgray;
+        font-size: 20px;
         font-family: 'open sans',arial,sans-serif;
-        padding: 15px 25px;
         font-weight: 100;
+        padding: 10px 0;
+        margin-right: 50px;
+    }
+
+    #title {
+        width: 15%;
+    }
+
+    #desciption {
+        width: 35%;
     }
 
     input[type=text]:focus {
-        box-shadow: 0 0 5px #68C7F8;
-        border: 1px solid #68C7F8;
+        border-color: black;
     }
 
     ::placeholder {
@@ -80,39 +99,115 @@
         color: lightgray;
     }
 
-    .header {
-        font-family: 'open sans',arial,sans-serif;
-        font-size: 40px;
-        margin-top: 50px;
-    }
-
-    /* table {
-        width: 100%;
-        margin-top: 50px !important;
-        font-family: 'open sans',arial,sans-serif;
-    }
-
-    table thead {
-        text-align: left;
-    } */
-
     table {
-        background:pink;
-        border:0;
+        margin-top: 50px;
+        width: 100%;
         border-collapse:separate;
         border-spacing:0 5px;
+        font-family: 'open sans',arial,sans-serif;
     }
 
     thead tr th{
-        border-bottom: 1px solid red;
-        border-collapse:separate;
-        border-spacing:5px 5px;
+        padding: 16px;
+        text-align: left;
+        border-bottom: 1px solid lightgrey;
     }
 
-    tbody tr#first td{
-        border-top: 3px solid #4d4d4d;
-        border-collapse:separate;
-        border-spacing:5px 5px;
+    tbody tr td {
+        padding: 16px;
+    }
+
+    /* button */
+    .btn {
+        font-family: 'open sans',arial,sans-serif;
+        padding: 10px 15px;
+        border-radius: 5px;
+        width: 50px;
+        text-align: center;
+        position: relative;
+        background-position: center;
+        transition: background 0.8s;
+    }
+
+    .btn-create {
+        background-color: #c4e9fe;
+        color: #2c2834;
+    }
+
+    .btn-create:hover {
+        background: #a4deff radial-gradient(circle, transparent 1%, #a4deff 1%) center/15000%;
+    }
+
+    .btn-create:active {
+        background-color: #c4e9fe;
+        background-size: 100%;
+        transition: background 0s;
+    }
+
+    .btn-edit {
+        background-color: #feefd8;
+        color: #2c2834;
+    }
+
+    .btn-edit:hover {
+        background: #ffddab radial-gradient(circle, transparent 1%, #ffddab 1%) center/15000%;
+    }
+
+    .btn-edit:active {
+        background-color: #feefd8;
+        background-size: 100%;
+        transition: background 0s;
+    }
+
+    .btn-delete {
+        background-color: #ffddd9;
+        color: #2c2834;
+    }
+
+    .btn-delete:hover {
+        background: #f8b8b1 radial-gradient(circle, transparent 1%, #f8b8b1 1%) center/15000%;
+    }
+
+    .btn-delete:active {
+        background-color: #ffddd9;
+        background-size: 100%;
+        transition: background 0s;
+    }
+
+
+
+    .open {
+        width: 10px;
+        height: 10px;
+        border-radius: 100px;
+        background-color: #6de4da;
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    .inprogress {
+        width: 10px;
+        height: 10px;
+        border-radius: 100px;
+        background-color: #ffd28e;
+        display: inline-block;
+        margin-right: 10px;
+        margin-left: 40px;
+    }
+
+    .closed {
+        width: 10px;
+        height: 10px;
+        border-radius: 100px;
+        background-color: #ffa89f;
+        display: inline-block;
+        margin-right: 10px;
+        margin-left: 40px;
+    }
+
+    /* datepicker */
+    .date-picker {
+        display: inline-block;
     }
 
 </style>
