@@ -1,12 +1,11 @@
 <template>
-    <div>
-        <input type="text" placeholder="Title" autofocus id="title">
-
-        <input type="text" placeholder="Description" id="desciption">
-
-        <vue-datepicker placeholder="Deadline" class="date-picker"></vue-datepicker>
-
-        <a class="btn btn-create"><fa-icon :icon="['fas', 'plus']"></fa-icon></a>
+    <b-container>
+        <b-row>
+            <b-col><input type="text" placeholder="Title" autofocus id="title"></b-col>
+            <b-col><input type="text" placeholder="Description" id="desciption"></b-col>
+            <b-col><vue-datepicker placeholder="Deadline" class="date-picker"></vue-datepicker></b-col>
+            <b-col><a class="button btn-create"><fa-icon :icon="['fas', 'plus']"></fa-icon></a></b-col>
+        </b-row>
 
         <div style="margin-top: 50px">
             <span class="open"></span> 150 open<span class="inprogress"></span> 200 in progress<span class="closed"></span> 150 closed
@@ -31,12 +30,12 @@
                         <div v-if="todo.status == 2"><span class="inprogress"></span>in progress</div>
                         <div v-if="todo.status == 3"><span class="closed"></span>closed</div>
                     </td>
-                    <td width="5%"><a class="btn btn-edit"><fa-icon :icon="['fas', 'pencil-alt']"></fa-icon></a></td>
-                    <td width="5%"><a class="btn btn-delete"><fa-icon :icon="['far', 'trash-alt']"></fa-icon></a></td>
+                    <td width="5%"><a class="button btn-edit"><fa-icon :icon="['fas', 'pencil-alt']"></fa-icon></a></td>
+                    <td width="5%"><a class="button btn-delete"><fa-icon :icon="['far', 'trash-alt']"></fa-icon></a></td>
                 </tr>
             </tbody>
         </table>
-    </div>
+    </b-container>
 </template>
 
 <script>
@@ -71,15 +70,6 @@
         font-family: 'open sans',arial,sans-serif;
         font-weight: 100;
         padding: 10px 0;
-        margin-right: 50px;
-    }
-
-    #title {
-        width: 15%;
-    }
-
-    #desciption {
-        width: 35%;
     }
 
     input[type=text]:focus {
@@ -118,7 +108,7 @@
     }
 
     /* button */
-    .btn {
+    .button {
         font-family: 'open sans',arial,sans-serif;
         padding: 10px 15px;
         border-radius: 5px;
@@ -204,10 +194,4 @@
         margin-right: 10px;
         margin-left: 40px;
     }
-
-    /* datepicker */
-    .date-picker {
-        display: inline-block;
-    }
-
 </style>

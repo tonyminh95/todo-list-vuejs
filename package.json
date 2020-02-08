@@ -12,6 +12,8 @@
     "@fortawesome/free-regular-svg-icons": "^5.12.1",
     "@fortawesome/free-solid-svg-icons": "^5.12.1",
     "@fortawesome/vue-fontawesome": "^0.1.9",
+    "bootstrap": "^4.4.1",
+    "bootstrap-vue": "^2.4.0",
     "core-js": "^3.6.4",
     "vue": "^2.6.11",
     "vuejs-datepicker": "^1.6.2"
