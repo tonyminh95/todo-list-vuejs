@@ -1,37 +1,67 @@
 <template>
     <b-container>
-        <b-row>
-            <b-col><input type="text" placeholder="Title" autofocus id="title"></b-col>
-            <b-col><input type="text" placeholder="Description" id="desciption"></b-col>
-            <b-col><vue-datepicker placeholder="Deadline" class="date-picker"></vue-datepicker></b-col>
-            <b-col><a class="button btn-create"><fa-icon :icon="['fas', 'plus']"></fa-icon></a></b-col>
-        </b-row>
+        <b-modal id="create-modal" hide-footer hide-header>
+            <table width="100%" class="ml-3 mr-3">
+                <tbody>
+                    <tr>
+                        <td width="5%"></td>
+                        <td width="95%">
+                            <input type="text" class="title" placeholder="What do you want to do today?" autofocus v-model="todo.title">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="5%">
+                            <fa-icon :icon="['far', 'bookmark']" class="ic-form"></fa-icon>
+                        </td>
+                        <td width="95%">
+                            <input type="text" class="description" placeholder="Description" v-model="todo.description">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="5%">
+                            <fa-icon :icon="['far', 'clock']" class="ic-form"></fa-icon>
+                        </td>
+                        <td width="95%">
+                            <vue-datepicker placeholder="Deadline" class="date-picker" v-model="todo.deadline"></vue-datepicker>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
-        <div style="margin-top: 50px">
-            <span class="open"></span> 150 open<span class="inprogress"></span> 200 in progress<span class="closed"></span> 150 closed
+            <div class="text-right m-3">
+                <a class="button btn-create" v-on:click="onSubmit">Create</a>
+            </div>
+        </b-modal>
+
+        <div class="mt-5">
+            <a class="button btn-create d-inline" v-b-modal.create-modal><fa-icon :icon="['fas', 'plus']"></fa-icon></a>
+            <div class="d-inline ml-5"><span class="open"></span>150 open</div>
+            <div class="d-inline ml-5"><span class="inprogress"></span>200 in progress</div>
+            <div class="d-inline ml-5"><span class="closed"></span>150 closed</div>
         </div>
 
-        <table>
+        <table class="mt-5">
             <thead>
                 <tr>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Deadline</th>
-                    <th colspan="3">Status</th>
+                    <th width="25%">Title</th>
+                    <th width="35%">Description</th>
+                    <th width="15%">Deadline</th>
+                    <th width="15%">Status</th>
+                    <th colspan="2" width="10%"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="todo in todos" :key="todo.id">
-                    <td width="25%">{{ todo.title }}</td>
-                    <td width="35%">{{ todo.description }}</td>
-                    <td width="15%">{{ todo.deadline }}</td>
-                    <td width="15%">
+                    <td>{{ todo.title }}</td>
+                    <td >{{ todo.description }}</td>
+                    <td >{{ todo.deadline }}</td>
+                    <td>
                         <div v-if="todo.status == 1"><span class="open"></span>open</div>
                         <div v-if="todo.status == 2"><span class="inprogress"></span>in progress</div>
                         <div v-if="todo.status == 3"><span class="closed"></span>closed</div>
                     </td>
-                    <td width="5%"><a class="button btn-edit"><fa-icon :icon="['fas', 'pencil-alt']"></fa-icon></a></td>
-                    <td width="5%"><a class="button btn-delete"><fa-icon :icon="['far', 'trash-alt']"></fa-icon></a></td>
+                    <td><a class="button btn-edit"><fa-icon :icon="['fas', 'pencil-alt']"></fa-icon></a></td>
+                    <td><a class="button btn-delete"><fa-icon :icon="['far', 'trash-alt']"></fa-icon></a></td>
                 </tr>
             </tbody>
         </table>
@@ -39,18 +69,32 @@
 </template>
 
 <script>
+    import store from '@/store/index'
+
     export default {
         name: 'MainPage',
 
         data: () => {
             return {
-                todos: [
-                    { id: 1, title: 'running', description: 'run for healthy', deadline: '12/02/2020', status: '1' },
-                    { id: 2, title: 'eat', description: 'eat for life', deadline: '12/02/2020', status: '2' },
-                    { id: 3, title: 'drink', description: 'drink for life', deadline: '12/02/2020', status: '3' }
-                ]
+                todo: {
+                    title: null,
+                    description: null,
+                    deadline: null
+                }
             }
-        }
+        },
+
+        computed: {
+            todos: () => {
+                return store.state.todos
+            }
+        },
+
+        methods: {
+            onSubmit () {
+                store.dispatch('createNewTodo', this.todo)
+            }
+        },
     }
 </script>
 
@@ -64,34 +108,38 @@
 
     input[type=text] {
         outline: none;
-        border-width: 0 0 1px;
-        border-color: lightgray;
-        font-size: 20px;
+        border: none;
         font-family: 'open sans',arial,sans-serif;
         font-weight: 100;
-        padding: 10px 0;
+        width: 100%;
     }
 
     input[type=text]:focus {
         border-color: black;
     }
 
+    .title {
+        font-size: 20px;
+    }
+
+    .description {
+        font-size: 16px;
+    }
+
     ::placeholder {
-        color: lightgray;
+        color: rgb(180, 180, 180);
         opacity: 1; /* Firefox */
     }
 
     :-ms-input-placeholder { /* Internet Explorer 10-11 */
-        color: lightgray;
+        color: rgb(180, 180, 180);
     }
 
     ::-ms-input-placeholder { /* Microsoft Edge */
-        color: lightgray;
+        color: rgb(180, 180, 180);
     }
 
     table {
-        margin-top: 50px;
-        width: 100%;
         border-collapse:separate;
         border-spacing:0 5px;
         font-family: 'open sans',arial,sans-serif;
@@ -112,9 +160,6 @@
         font-family: 'open sans',arial,sans-serif;
         padding: 10px 15px;
         border-radius: 5px;
-        width: 50px;
-        text-align: center;
-        position: relative;
         background-position: center;
         transition: background 0.8s;
     }
@@ -164,8 +209,6 @@
         transition: background 0s;
     }
 
-
-
     .open {
         width: 10px;
         height: 10px;
@@ -182,7 +225,6 @@
         background-color: #ffd28e;
         display: inline-block;
         margin-right: 10px;
-        margin-left: 40px;
     }
 
     .closed {
@@ -192,6 +234,11 @@
         background-color: #ffa89f;
         display: inline-block;
         margin-right: 10px;
-        margin-left: 40px;
+    }
+
+    .ic-form {
+        width: 22px !important;
+        height: 22px !important;
+        color: rgb(180, 180, 180);
     }
 </style>
