@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import getters from './getters'
 
 Vue.use(Vuex)
 
@@ -7,20 +8,16 @@ export default new Vuex.Store({
     state: {
         todos: [
             { id: 1, title: 'running', description: 'run for healthy', deadline: '12/02/2020', status: '1' },
-            { id: 2, title: 'eat', description: 'eat for life', deadline: '12/02/2020', status: '2' },
+            { id: 2, title: 'eat', description: 'eat for life', deadline: '12/02/2020', status: '1' },
             { id: 3, title: 'drink', description: 'drink for life', deadline: '12/02/2020', status: '3' }
         ]
     },
 
-    getters: {
-        // getLastTodoId (state) {
-            // return state.todos.pop().id
-        // }
-    },
+    getters,
 
     actions: {
         createNewTodo (context, { title, description, deadline }) {
-            const id = context.state.todos[context.state.todos.length - 1].id + 1
+            const id = Math.max.apply(Math, context.state.todos.map(todo => todo.id)) + 1
 
             context.commit('addTodo', { id: id, title, description, deadline, status: '1' })
         }

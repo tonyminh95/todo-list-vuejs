@@ -1,6 +1,6 @@
 <template>
     <b-container>
-        <b-modal id="create-modal" hide-footer hide-header>
+        <!-- <b-modal id="create-modal" hide-footer hide-header>
             <table width="100%" class="ml-3 mr-3">
                 <tbody>
                     <tr>
@@ -31,13 +31,13 @@
             <div class="text-right m-3">
                 <a class="button btn-create" v-on:click="onSubmit">Create</a>
             </div>
-        </b-modal>
+        </b-modal> -->
 
         <div class="mt-5">
             <a class="button btn-create d-inline" v-b-modal.create-modal><fa-icon :icon="['fas', 'plus']"></fa-icon></a>
-            <div class="d-inline ml-5"><span class="open"></span>150 open</div>
-            <div class="d-inline ml-5"><span class="inprogress"></span>200 in progress</div>
-            <div class="d-inline ml-5"><span class="closed"></span>150 closed</div>
+            <a class="d-inline ml-5" v-on:click.prevent="filterByStatus(1)"><span class="open"></span>{{ openStatus }} open</a>
+            <a class="d-inline ml-5" v-on:click.prevent="filterByStatus(2)"><span class="inprogress"></span>{{ inProgressStatus }} in progress</a>
+            <a class="d-inline ml-5" v-on:click.prevent="filterByStatus(3)"><span class="closed"></span>{{ closedStatus }} closed</a>
         </div>
 
         <table class="mt-5">
@@ -53,12 +53,10 @@
             <tbody>
                 <tr v-for="todo in todos" :key="todo.id">
                     <td>{{ todo.title }}</td>
-                    <td >{{ todo.description }}</td>
-                    <td >{{ todo.deadline }}</td>
+                    <td>{{ todo.description }}</td>
+                    <td>{{ todo.deadline | moment("DD/MM/YYYY") }}</td>
                     <td>
-                        <div v-if="todo.status == 1"><span class="open"></span>open</div>
-                        <div v-if="todo.status == 2"><span class="inprogress"></span>in progress</div>
-                        <div v-if="todo.status == 3"><span class="closed"></span>closed</div>
+                        <div><span :class="statusColor(todo.status)"></span>{{ statusLabel(todo.status) }}</div>
                     </td>
                     <td><a class="button btn-edit"><fa-icon :icon="['fas', 'pencil-alt']"></fa-icon></a></td>
                     <td><a class="button btn-delete"><fa-icon :icon="['far', 'trash-alt']"></fa-icon></a></td>
@@ -70,31 +68,49 @@
 
 <script>
     import store from '@/store/index'
+    import { TODO_STATUS } from '@/store/instants'
 
     export default {
         name: 'MainPage',
 
         data: () => {
             return {
-                todo: {
-                    title: null,
-                    description: null,
-                    deadline: null
-                }
+                todos: []
+                // todo: {
+                //     title: null,
+                //     description: null,
+                //     deadline: null
+                // }
             }
         },
 
         computed: {
-            todos: () => {
-                return store.state.todos
-            }
+            // todos: () => store.state.todos,
+
+            openStatus: () => store.getters.getOpenStatus,
+
+            inProgressStatus: () => store.getters.getInProgressStatus,
+
+            closedStatus: () => store.getters.getClosedStatus
         },
 
         methods: {
-            onSubmit () {
-                store.dispatch('createNewTodo', this.todo)
-            }
+            // onSubmit () {
+            //     store.dispatch('createNewTodo', this.todo)
+            // },
+
+            filterByStatus (filter) {
+                this.todos = store.state.todos.filter(element => element.status == filter)
+            },
+
+            statusColor: (status) => status == TODO_STATUS.STATUS_OPEN ? 'open' : (status == TODO_STATUS.STATUS_INPROGRESS ? 'inprogress' : (status == TODO_STATUS.STATUS_CLOSED ? 'closed' : '')),
+
+            statusLabel: (status) => status == TODO_STATUS.STATUS_OPEN ? 'open' : (status == TODO_STATUS.STATUS_INPROGRESS ? 'in progress' : (status == TODO_STATUS.STATUS_CLOSED ? 'closed' : '')),
         },
+
+        created () {
+            this.todos = store.state.todos
+        }
     }
 </script>
 
