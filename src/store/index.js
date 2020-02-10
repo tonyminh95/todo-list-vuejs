@@ -7,9 +7,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         todos: [
-            { id: 1, title: 'running', description: 'run for healthy', deadline: '12/02/2020', status: '1' },
-            { id: 2, title: 'eat', description: 'eat for life', deadline: '12/02/2020', status: '1' },
-            { id: 3, title: 'drink', description: 'drink for life', deadline: '12/02/2020', status: '3' }
+            { id: 1, title: 'Go to the mall', description: 'Buy food and decore preparing for new year', deadline: '12/02/2020', status: '1' },
+            { id: 2, title: 'Go to the gym', description: 'Training for 6 packs', deadline: '12/02/2020', status: '2' },
+            { id: 3, title: 'Finding some girls', description: 'Have someone to go to the movie theater', deadline: '12/02/2020', status: '3' }
         ]
     },
 
