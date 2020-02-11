@@ -2,34 +2,60 @@
     <div class="container">
         <input class="title text-center" placeholder="What do you want to do?" autofocus>
 
-        <!-- <div class="mt-5">
-            <a class="button btn-create d-inline" v-b-modal.create-modal><fa-icon :icon="['fas', 'plus']"></fa-icon></a>
-            <a class="d-inline ml-5" v-on:click.prevent="filterByStatus(1)"><span class="open"></span>{{ openStatus }} open</a>
-            <a class="d-inline ml-5" v-on:click.prevent="filterByStatus(2)"><span class="inprogress"></span>{{ inProgressStatus }} in progress</a>
-            <a class="d-inline ml-5" v-on:click.prevent="filterByStatus(3)"><span class="closed"></span>{{ closedStatus }} closed</a>
-        </div> -->
-
         <div class="mt-5 row text-left">
-            <div class="col-1 offset-1">
-                <a><u>Filter</u></a>
+            <div class="col-2 offset-2">
+                <a @click.prevent="todayTask()"><u>Today task</u><div class="today-task">{{ countTodayTask() }}</div></a>
             </div>
-            <div class="col-1"><a><u>Sort</u></a></div>
+            <div class="col-2">
+                <a v-b-modal.filter-modal><u>Filter by status</u></a>
+            </div>
+            <div class="col-2">
+                <a v-b-modal.sort-modal><u>Sort by date</u></a>
+            </div>
         </div>
 
         <div class="row mt-3">
-            <table class="col-10 offset-1">
+            <table class="col-8 offset-2">
                 <tbody>
                     <tr v-for="todo in todos" :key="todo.id">
                         <td width="75%">{{ todo.title }}</td>
                         <td width="5%">{{ todo.deadline | moment("DD/MM/YYYY") }}</td>
                         <td width="5%">
-                            <div class="text-center status" :class="statusColor(todo.status)">{{ statusLabel(todo.status) }}</div>
+                            <div class="status" :class="statusColor(todo.status)">{{ statusLabel(todo.status) }}</div>
                         </td>
-                        <td width="5%">x</td>
+                        <td width="5%"><a @click.prevent="deleteTask(todo.id)">x</a></td>
                     </tr>
                 </tbody>
             </table>
         </div>
+
+        <b-modal id="filter-modal" hide-footer hide-header>
+            <div class="row">
+                <div class="col-3">
+                    <div class="none text-center rounded" @click.prevent="filterByStatus(0)">none</div>
+                </div>
+                <div class="col-3">
+                    <div class="open text-center rounded" @click.prevent="filterByStatus(1)">open</div>
+                </div>
+                <div class="col-3">
+                    <div class="inprogress text-center rounded" @click.prevent="filterByStatus(2)">in progress</div>
+                </div>
+                <div class="col-3">
+                    <div class="closed text-center rounded" @click.prevent="filterByStatus(3)">closed</div>
+                </div>
+            </div>
+        </b-modal>
+
+        <b-modal id="sort-modal" hide-footer hide-header>
+            <div class="row">
+                <div class="col-6">
+                    <div class="none text-center rounded" @click.prevent="sortByDeadline('asc')">asc</div>
+                </div>
+                <div class="col-6">
+                    <div class="open text-center rounded" @click.prevent="sortByDeadline('desc')">desc</div>
+                </div>
+            </div>
+        </b-modal>
     </div>
 </template>
 
@@ -67,12 +93,48 @@
             // },
 
             filterByStatus (filter) {
-                this.todos = store.state.todos.filter(element => element.status == filter)
+                this.todos = (filter == 0) ? store.state.todos : store.state.todos.filter(element => element.status == filter)
+                this.$bvModal.hide('filter-modal')
+            },
+
+            sortByDeadline (sort) {
+                if (sort === 'asc') {
+                    this.todos = store.state.todos.sort((pre, next) => new Date(next.deadline) - new Date(pre.deadline))
+                } else if (sort === 'desc') {
+                    this.todos = store.state.todos.sort((pre, next) => new Date(pre.deadline) - new Date(next.deadline))
+                }
+                this.$bvModal.hide('sort-modal')
             },
 
             statusColor: (status) => status == TODO_STATUS.STATUS_OPEN ? 'open' : (status == TODO_STATUS.STATUS_INPROGRESS ? 'inprogress' : (status == TODO_STATUS.STATUS_CLOSED ? 'closed' : '')),
 
             statusLabel: (status) => status == TODO_STATUS.STATUS_OPEN ? 'open' : (status == TODO_STATUS.STATUS_INPROGRESS ? 'in progress' : (status == TODO_STATUS.STATUS_CLOSED ? 'closed' : '')),
+
+            countTodayTask() {
+                const todayTask = store.state.todos.filter(todo => {
+                    const today = new Date()
+
+                    return todo.deadline == today.getFullYear() + '/' + String(today.getMonth() + 1).padStart(2, '0') + '/' + String(today.getDate()).padStart(2, '0')
+                })
+
+                return todayTask.length
+            },
+
+            todayTask() {
+                this.todos = store.state.todos.filter(todo => {
+                    const today = new Date()
+
+                    return todo.deadline == today.getFullYear() + '/' + String(today.getMonth() + 1).padStart(2, '0') + '/' + String(today.getDate()).padStart(2, '0')
+                })
+            },
+
+            deleteTask(id) {
+                const index = this.todos.findIndex(todo => todo.id === id);
+
+                this.todos = store.state.todos.slice(0, index)
+
+                console.log(index, this.todos, store.state.todos)
+            }
         },
 
         created () {
@@ -113,6 +175,11 @@
         width: 120px;
         padding: 5px 10px;
         border-radius: 5px;
+        text-align: center;
+    }
+
+    .none {
+        background-color: #d0e5f8;
     }
 
     .open {
@@ -145,6 +212,17 @@
 
     a:hover {
         cursor: pointer;
+    }
+
+    .today-task {
+        color: white;
+        background-color: #ff2b40;
+        border-radius: 100px;
+        width: 25px;
+        height: 25px;
+        display: inline-block;
+        text-align: center;
+        margin-left: 5px;
     }
 
 
