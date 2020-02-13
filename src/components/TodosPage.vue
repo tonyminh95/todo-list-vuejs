@@ -17,8 +17,9 @@
         <div class="row mt-3">
             <table class="col-8 offset-2">
                 <tbody>
-                    <tr v-for="todo in todos" :key="todo.id">
-                        <td width="75%">{{ todo.title }}</td>
+                    <tr v-for="todo in todos" :key="todo.id" @click="$bvModal.show('edit-modal')">
+                        <td width="35%">{{ todo.title }}</td>
+                        <td width="50%">{{ todo.desciption }}</td>
                         <td width="5%">{{ todo.deadline | moment("DD/MM/YYYY") }}</td>
                         <td width="5%">
                             <div class="status" :class="statusColor(todo.status)">{{ statusLabel(todo.status) }}</div>
@@ -30,21 +31,9 @@
         </div>
 
         <!-- modal -->
-        <b-modal id="filter-modal" hide-footer hide-header>
-            <div class="row">
-                <div class="col-3">
-                    <div class="none text-center rounded" @click.prevent="filterByStatus(0)">none</div>
-                </div>
-                <div class="col-3">
-                    <div class="open text-center rounded" @click.prevent="filterByStatus(1)">open</div>
-                </div>
-                <div class="col-3">
-                    <div class="inprogress text-center rounded" @click.prevent="filterByStatus(2)">in progress</div>
-                </div>
-                <div class="col-3">
-                    <div class="closed text-center rounded" @click.prevent="filterByStatus(3)">closed</div>
-                </div>
-            </div>
+        <b-modal id="edit-modal" hide-footer hide-header>
+            <input class="title" placeholder="What do you want to do?" autofocus v-model="title">
+            <textarea class="title" placeholder="description"></textarea>
         </b-modal>
 
         <b-modal id="filter-modal" hide-footer hide-header>
@@ -110,6 +99,14 @@
                 this.$store.dispatch('deleteTask', taskId)
             },
 
+            // today task
+            todayTask() {
+                this.$store.getters('getTodayTask')
+            },
+
+            // filter
+
+
 
 
             filterByStatus (filter) {
@@ -140,13 +137,7 @@
                 return todayTask.length
             },
 
-            todayTask() {
-                this.todos = this.$store.state.todos.filter(todo => {
-                    const today = new Date()
 
-                    return todo.deadline == today.getFullYear() + '/' + String(today.getMonth() + 1).padStart(2, '0') + '/' + String(today.getDate()).padStart(2, '0')
-                })
-            }
         },
 
         created () {
