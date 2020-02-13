@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <input class="title text-center" placeholder="What do you want to do?" autofocus>
+        <input @keyup.enter="createTask" class="title text-center" placeholder="What do you want to do?" autofocus v-model="title">
 
         <div class="mt-5 row text-left">
             <div class="col-2 offset-2">
@@ -28,6 +28,24 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- modal -->
+        <b-modal id="filter-modal" hide-footer hide-header>
+            <div class="row">
+                <div class="col-3">
+                    <div class="none text-center rounded" @click.prevent="filterByStatus(0)">none</div>
+                </div>
+                <div class="col-3">
+                    <div class="open text-center rounded" @click.prevent="filterByStatus(1)">open</div>
+                </div>
+                <div class="col-3">
+                    <div class="inprogress text-center rounded" @click.prevent="filterByStatus(2)">in progress</div>
+                </div>
+                <div class="col-3">
+                    <div class="closed text-center rounded" @click.prevent="filterByStatus(3)">closed</div>
+                </div>
+            </div>
+        </b-modal>
 
         <b-modal id="filter-modal" hide-footer hide-header>
             <div class="row">
@@ -60,7 +78,6 @@
 </template>
 
 <script>
-    import store from '@/store/index'
     import { TODO_STATUS } from '@/store/instants'
 
     export default {
@@ -68,12 +85,8 @@
 
         data: () => {
             return {
-                todos: []
-                // todo: {
-                //     title: null,
-                //     description: null,
-                //     deadline: null
-                // }
+                todos: [],
+                title: null
             }
         },
 
@@ -88,20 +101,27 @@
         // },
 
         methods: {
-            // onSubmit () {
-            //     store.dispatch('createNewTodo', this.todo)
-            // },
+            // crud
+            createTask () {
+                this.$store.dispatch('createTask', this.title)
+            },
+
+            deleteTask (taskId) {
+                this.$store.dispatch('deleteTask', taskId)
+            },
+
+
 
             filterByStatus (filter) {
-                this.todos = (filter == 0) ? store.state.todos : store.state.todos.filter(element => element.status == filter)
+                this.todos = (filter == 0) ? this.$store.state.todos : this.$store.state.todos.filter(element => element.status == filter)
                 this.$bvModal.hide('filter-modal')
             },
 
             sortByDeadline (sort) {
                 if (sort === 'asc') {
-                    this.todos = store.state.todos.sort((pre, next) => new Date(next.deadline) - new Date(pre.deadline))
+                    this.todos = this.$store.state.todos.sort((pre, next) => new Date(next.deadline) - new Date(pre.deadline))
                 } else if (sort === 'desc') {
-                    this.todos = store.state.todos.sort((pre, next) => new Date(pre.deadline) - new Date(next.deadline))
+                    this.todos = this.$store.state.todos.sort((pre, next) => new Date(pre.deadline) - new Date(next.deadline))
                 }
                 this.$bvModal.hide('sort-modal')
             },
@@ -111,7 +131,7 @@
             statusLabel: (status) => status == TODO_STATUS.STATUS_OPEN ? 'open' : (status == TODO_STATUS.STATUS_INPROGRESS ? 'in progress' : (status == TODO_STATUS.STATUS_CLOSED ? 'closed' : '')),
 
             countTodayTask() {
-                const todayTask = store.state.todos.filter(todo => {
+                const todayTask = this.$store.state.todos.filter(todo => {
                     const today = new Date()
 
                     return todo.deadline == today.getFullYear() + '/' + String(today.getMonth() + 1).padStart(2, '0') + '/' + String(today.getDate()).padStart(2, '0')
@@ -121,24 +141,16 @@
             },
 
             todayTask() {
-                this.todos = store.state.todos.filter(todo => {
+                this.todos = this.$store.state.todos.filter(todo => {
                     const today = new Date()
 
                     return todo.deadline == today.getFullYear() + '/' + String(today.getMonth() + 1).padStart(2, '0') + '/' + String(today.getDate()).padStart(2, '0')
                 })
-            },
-
-            deleteTask(id) {
-                const index = this.todos.findIndex(todo => todo.id === id);
-
-                this.todos = store.state.todos.slice(0, index)
-
-                console.log(index, this.todos, store.state.todos)
             }
         },
 
         created () {
-            this.todos = store.state.todos
+            this.todos = this.$store.state.todos
         }
     }
 </script>
@@ -204,6 +216,11 @@
         padding: 16px;
         text-align: left;
         border-bottom: 1px solid lightgrey;
+    }
+
+    tbody tr:hover {
+        background-color: #f1f1f1;
+        cursor: pointer;
     }
 
     tbody tr td {
