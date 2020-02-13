@@ -14,5 +14,9 @@ export default {
 
     // getTodosFilterByStatus: (state, status) => state.todos.filter(todo => todo.status == status)
 
-    getTodayTask: state => state.todos.filter(todo => todo.deadline == formattedDate(new Date()))
+    getTodayTask: state => state.todos.filter(todo => todo.deadline == formattedDate(new Date())),
+
+    getTaskByStatus: (state, status) => !status ? state.todos : state.todos.filter(todo => todo.status == status),
+
+    getTaskSortByDeadline: (state, sortType) => state.todos.sort((pre, next) => (sortType === 'asc') ? new Date(next.deadline) - new Date(pre.deadline) : Date(next.deadline) - new Date(pre.deadline))
 }

@@ -18,12 +18,13 @@
             <table class="col-8 offset-2">
                 <tbody>
                     <tr v-for="todo in todos" :key="todo.id" @click="$bvModal.show('edit-modal')">
-                        <td width="35%">{{ todo.title }}</td>
-                        <td width="50%">{{ todo.desciption }}</td>
+                        <td width="30%">{{ todo.title }}</td>
+                        <td width="50%">{{ todo.description }}</td>
                         <td width="5%">{{ todo.deadline | moment("DD/MM/YYYY") }}</td>
                         <td width="5%">
                             <div class="status" :class="statusColor(todo.status)">{{ statusLabel(todo.status) }}</div>
                         </td>
+                        <td width="5%"><a @click.prevent="updateTask(todo.id)"><fa-icon ></fa-icon></a></td>
                         <td width="5%"><a @click.prevent="deleteTask(todo.id)">x</a></td>
                     </tr>
                 </tbody>
@@ -39,7 +40,7 @@
         <b-modal id="filter-modal" hide-footer hide-header>
             <div class="row">
                 <div class="col-3">
-                    <div class="none text-center rounded" @click.prevent="filterByStatus(0)">none</div>
+                    <div class="none text-center rounded" @click.prevent="filterByStatus()">none</div>
                 </div>
                 <div class="col-3">
                     <div class="open text-center rounded" @click.prevent="filterByStatus(1)">open</div>
@@ -100,26 +101,18 @@
             },
 
             // today task
-            todayTask() {
+            todayTask () {
                 this.$store.getters('getTodayTask')
             },
 
             // filter
-
-
-
-
-            filterByStatus (filter) {
-                this.todos = (filter == 0) ? this.$store.state.todos : this.$store.state.todos.filter(element => element.status == filter)
+            getTaskByStatus (status) {
+                this.$store.getters('getTaskByStatus', status)
                 this.$bvModal.hide('filter-modal')
             },
 
-            sortByDeadline (sort) {
-                if (sort === 'asc') {
-                    this.todos = this.$store.state.todos.sort((pre, next) => new Date(next.deadline) - new Date(pre.deadline))
-                } else if (sort === 'desc') {
-                    this.todos = this.$store.state.todos.sort((pre, next) => new Date(pre.deadline) - new Date(next.deadline))
-                }
+            getTaskSortByDeadline (sortType) {
+                this.$store.getters('getTaskSortByDeadline', sortType)
                 this.$bvModal.hide('sort-modal')
             },
 
@@ -207,11 +200,6 @@
         padding: 16px;
         text-align: left;
         border-bottom: 1px solid lightgrey;
-    }
-
-    tbody tr:hover {
-        background-color: #f1f1f1;
-        cursor: pointer;
     }
 
     tbody tr td {
