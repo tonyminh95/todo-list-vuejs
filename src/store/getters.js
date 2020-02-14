@@ -1,7 +1,7 @@
 import { formattedDate } from "../utils";
 
 // import { countObjectProperties } from '@/utils'
-// import { TODO_STATUS } from './instants'
+import { TODO_STATUS } from './instants'
 
 // const countQuantitiesByStatus = status => state  => countObjectProperties(state.todos.filter(todo => todo.status == status))
 
@@ -16,7 +16,11 @@ export default {
 
     getTodayTask: state => state.todos.filter(todo => todo.deadline == formattedDate(new Date())),
 
-    getTaskByStatus: (state, status) => !status ? state.todos : state.todos.filter(todo => todo.status == status),
+    getCountTaskToday: state => state.todos.filter(todo => todo.deadline == formattedDate(new Date())).length,
 
-    getTaskSortByDeadline: (state, sortType) => state.todos.sort((pre, next) => (sortType === 'asc') ? new Date(next.deadline) - new Date(pre.deadline) : Date(next.deadline) - new Date(pre.deadline))
+    getOpenTask: state => state.todos.filter(todo => todo.status == TODO_STATUS.STATUS_OPEN),
+
+    // getTaskByStatus: status => state => ,
+
+    getTaskSortByDeadline: state => sortType => state.todos.sort((pre, next) => (sortType === 'asc') ? new Date(next.deadline) - new Date(pre.deadline) : Date(next.deadline) - new Date(pre.deadline))
 }

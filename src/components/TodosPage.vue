@@ -2,7 +2,7 @@
     <div class="container">
         <input @keyup.enter="createTask" class="title text-center" placeholder="What do you want to do?" autofocus v-model="title">
 
-        <div class="mt-5 row text-left">
+        <!-- <div class="mt-5 row text-left">
             <div class="col-2 offset-2">
                 <a @click.prevent="todayTask()"><u>Today task</u><div class="today-task">{{ countTodayTask() }}</div></a>
             </div>
@@ -12,19 +12,19 @@
             <div class="col-2">
                 <a v-b-modal.sort-modal><u>Sort by date</u></a>
             </div>
-        </div>
+        </div> -->
 
         <div class="row mt-3">
             <table class="col-8 offset-2">
                 <tbody>
-                    <tr v-for="todo in todos" :key="todo.id" @click="$bvModal.show('edit-modal')">
+                    <tr v-for="todo in todos" :key="todo.id">
                         <td width="30%">{{ todo.title }}</td>
                         <td width="50%">{{ todo.description }}</td>
                         <td width="5%">{{ todo.deadline | moment("DD/MM/YYYY") }}</td>
                         <td width="5%">
                             <div class="status" :class="statusColor(todo.status)">{{ statusLabel(todo.status) }}</div>
                         </td>
-                        <td width="5%"><a @click.prevent="updateTask(todo.id)"><fa-icon ></fa-icon></a></td>
+                        <td width="5%"><a v-b-modal.edit-modal @click.prevent="openEditModal(todo)"><fa-icon :icon="['far', 'edit']"></fa-icon></a></td>
                         <td width="5%"><a @click.prevent="deleteTask(todo.id)">x</a></td>
                     </tr>
                 </tbody>
@@ -33,23 +33,42 @@
 
         <!-- modal -->
         <b-modal id="edit-modal" hide-footer hide-header>
-            <input class="title" placeholder="What do you want to do?" autofocus v-model="title">
-            <textarea class="title" placeholder="description"></textarea>
+            <div class="row">
+                <div class="col-10 offset-2">
+                    <input class="title" placeholder="What do you want to do?" autofocus v-model="updateItem.title">
+                </div>
+            </div>
+            <div class="row mt-3 text-center">
+                <div class="col-2"><fa-icon :icon="['far', 'file']"></fa-icon></div>
+                <div class="col-10 offset-2">
+                    <textarea class="description" placeholder="description" v-model="updateItem.description"></textarea>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-2"><fa-icon :icon="['far', 'clock']"></fa-icon></div>
+                <div class="col-10 offset-2">
+                    <vue-datepicker class="date-picker" placeholder="deadline" style="border: none !important" v-model="updateItem.deadline"></vue-datepicker>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-2"><fa-icon :icon="['fas', 'circle-notch']"></fa-icon></div>
+                <div class="col-10"></div>
+            </div>
         </b-modal>
 
-        <b-modal id="filter-modal" hide-footer hide-header>
+        <!-- <b-modal id="filter-modal" hide-footer hide-header>
             <div class="row">
                 <div class="col-3">
-                    <div class="none text-center rounded" @click.prevent="filterByStatus()">none</div>
+                    <div class="none text-center rounded" @click.prevent="getTaskByStatus()">none</div>
                 </div>
                 <div class="col-3">
-                    <div class="open text-center rounded" @click.prevent="filterByStatus(1)">open</div>
+                    <div class="open text-center rounded" @click.prevent="getOpenTask">open</div>
                 </div>
                 <div class="col-3">
-                    <div class="inprogress text-center rounded" @click.prevent="filterByStatus(2)">in progress</div>
+                    <div class="inprogress text-center rounded" @click.prevent="getTaskByStatus(2)">in progress</div>
                 </div>
                 <div class="col-3">
-                    <div class="closed text-center rounded" @click.prevent="filterByStatus(3)">closed</div>
+                    <div class="closed text-center rounded" @click.prevent="getTaskByStatus(3)">closed</div>
                 </div>
             </div>
         </b-modal>
@@ -63,7 +82,7 @@
                     <div class="open text-center rounded" @click.prevent="sortByDeadline('desc')">desc</div>
                 </div>
             </div>
-        </b-modal>
+        </b-modal> -->
     </div>
 </template>
 
@@ -76,19 +95,15 @@
         data: () => {
             return {
                 todos: [],
+                updateItem: {
+                    title: null,
+                    description: null,
+                    deadline: null,
+                    status: null
+                },
                 title: null
             }
         },
-
-        // computed: {
-        //     // todos: () => store.state.todos,
-
-        //     openStatus: () => store.getters.getOpenStatus,
-
-        //     inProgressStatus: () => store.getters.getInProgressStatus,
-
-        //     closedStatus: () => store.getters.getClosedStatus
-        // },
 
         methods: {
             // crud
@@ -96,41 +111,49 @@
                 this.$store.dispatch('createTask', this.title)
             },
 
+            openEditModal (todo) {
+                this.updateItem = todo
+                console.log(this.updateItem)
+            },
+
             deleteTask (taskId) {
                 this.$store.dispatch('deleteTask', taskId)
             },
 
+
+
+
+
+
+
+
+
+
             // today task
-            todayTask () {
-                this.$store.getters('getTodayTask')
+            todayTask: () => this.$store.getters.getTodayTask,
+
+            countTodayTask () {
+                return this.$store.getters.getCountTaskToday
             },
 
             // filter
+            getOpenTask () {
+                return this.$store.getters.getOpenTask
+            },
+
             getTaskByStatus (status) {
-                this.$store.getters('getTaskByStatus', status)
                 this.$bvModal.hide('filter-modal')
+                return this.$store.getters.getTaskByStatus(status)
             },
 
             getTaskSortByDeadline (sortType) {
-                this.$store.getters('getTaskSortByDeadline', sortType)
                 this.$bvModal.hide('sort-modal')
+                return this.$store.getters.getTaskSortByDeadline(sortType)
             },
 
             statusColor: (status) => status == TODO_STATUS.STATUS_OPEN ? 'open' : (status == TODO_STATUS.STATUS_INPROGRESS ? 'inprogress' : (status == TODO_STATUS.STATUS_CLOSED ? 'closed' : '')),
 
             statusLabel: (status) => status == TODO_STATUS.STATUS_OPEN ? 'open' : (status == TODO_STATUS.STATUS_INPROGRESS ? 'in progress' : (status == TODO_STATUS.STATUS_CLOSED ? 'closed' : '')),
-
-            countTodayTask() {
-                const todayTask = this.$store.state.todos.filter(todo => {
-                    const today = new Date()
-
-                    return todo.deadline == today.getFullYear() + '/' + String(today.getMonth() + 1).padStart(2, '0') + '/' + String(today.getDate()).padStart(2, '0')
-                })
-
-                return todayTask.length
-            },
-
-
         },
 
         created () {
@@ -150,8 +173,14 @@
         background-color: transparent;
     }
 
-    .title:focus {
-        border-color: black;
+    .description {
+        outline: none;
+        border: none;
+        font-family: 'open sans',arial,sans-serif;
+        font-weight: 100;
+        width: 100%;
+        font-size: 18px;
+        background-color: transparent;
     }
 
     ::placeholder {
