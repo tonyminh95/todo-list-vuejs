@@ -2,6 +2,22 @@
     <div class="container">
         <input @keyup.enter="createTask" class="title text-center" placeholder="What do you want to do?" autofocus v-model="title">
 
+        <div class="row mt-3">
+            <table class="col-6 offset-3">
+                <tbody>
+                    <tr v-for="todo in todos" :key="todo.id">
+                        <td>
+                            <div>
+                                <div class="d-inline-block rounded-circle status" :class="getStatus(todo.status)"></div>
+                                {{ todo.title }}
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
         <!-- <div class="mt-5 row text-left">
             <div class="col-2 offset-2">
                 <a @click.prevent="todayTask()"><u>Today task</u><div class="today-task">{{ countTodayTask() }}</div></a>
@@ -14,7 +30,7 @@
             </div>
         </div> -->
 
-        <div class="row mt-3">
+        <!-- <div class="row mt-3">
             <table class="col-8 offset-2">
                 <tbody>
                     <tr v-for="todo in todos" :key="todo.id">
@@ -29,7 +45,7 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </div> -->
 
         <!-- modal -->
         <b-modal id="edit-modal" hide-footer hide-header>
@@ -88,6 +104,7 @@
 
 <script>
     import { TODO_STATUS } from '@/store/instants'
+    import { getStatus } from '@/utils/index'
 
     export default {
         name: 'TodosPage',
@@ -154,6 +171,9 @@
             statusColor: (status) => status == TODO_STATUS.STATUS_OPEN ? 'open' : (status == TODO_STATUS.STATUS_INPROGRESS ? 'inprogress' : (status == TODO_STATUS.STATUS_CLOSED ? 'closed' : '')),
 
             statusLabel: (status) => status == TODO_STATUS.STATUS_OPEN ? 'open' : (status == TODO_STATUS.STATUS_INPROGRESS ? 'in progress' : (status == TODO_STATUS.STATUS_CLOSED ? 'closed' : '')),
+
+
+            getStatus: status => getStatus(status)
         },
 
         created () {
@@ -197,10 +217,9 @@
     }
 
     .status {
-        width: 120px;
-        padding: 5px 10px;
-        border-radius: 5px;
-        text-align: center;
+        width: 10px;
+        height: 10px;
+        margin-right: 10px;
     }
 
     .none {
@@ -222,13 +241,8 @@
     table {
         border-collapse:separate;
         border-spacing: 0 10px;
-        font-family: 'open sans',arial,sans-serif;
-    }
-
-    thead tr th{
-        padding: 16px;
-        text-align: left;
-        border-bottom: 1px solid lightgrey;
+        font-family: 'open sans', arial, sans-serif;
+        width: 100%;
     }
 
     tbody tr td {
