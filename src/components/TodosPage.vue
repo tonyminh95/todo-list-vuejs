@@ -18,8 +18,8 @@
         </div>
 
 
-        <!-- <div class="mt-5 row text-left">
-            <div class="col-2 offset-2">
+<!-- <div class="mt-5 row text-left">
+            <div class="col-2 offset-3">
                 <a @click.prevent="todayTask()"><u>Today task</u><div class="today-task">{{ countTodayTask() }}</div></a>
             </div>
             <div class="col-2">
@@ -130,7 +130,6 @@
 
             openEditModal (todo) {
                 this.updateItem = todo
-                console.log(this.updateItem)
             },
 
             deleteTask (taskId) {
@@ -147,7 +146,9 @@
 
 
             // today task
-            todayTask: () => this.$store.getters.getTodayTask,
+            todayTask () {
+                return this.$store.getters.getTodayTask
+            },
 
             countTodayTask () {
                 return this.$store.getters.getCountTaskToday
@@ -223,19 +224,19 @@
     }
 
     .none {
-        background-color: #d0e5f8;
+        background-color: #a6d4fc;
     }
 
     .open {
-        background-color: #d0e7e2;
+        background-color: #a2e0d3;
     }
 
     .inprogress {
-        background-color: #faedd4;
+        background-color: #ffe1aa;
     }
 
     .closed {
-        background-color: #fecfd4;
+        background-color: #faa7af;
     }
 
     table {
