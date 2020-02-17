@@ -2,20 +2,20 @@
     <div class="container">
         <input @keyup.enter="createTask" class="title text-center" placeholder="What do you want to do?" autofocus v-model="title">
 
-        <div class="row mt-3">
+        <!-- <div class="row mt-3">
             <table class="col-6 offset-3">
                 <tbody>
                     <tr v-for="todo in todos" :key="todo.id">
                         <td>
                             <div>
-                                <div class="d-inline-block rounded-circle status" :class="getStatus(todo.status)"></div>
+                                <div class="d-inline-block rounded-circle status" :class="todo.status | status"></div>
                                 {{ todo.title }}
                             </div>
                         </td>
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </div> -->
 
 
 <!-- <div class="mt-5 row text-left">
@@ -104,7 +104,6 @@
 
 <script>
     import { TODO_STATUS } from '@/store/instants'
-    import { getStatus } from '@/utils/index'
 
     export default {
         name: 'TodosPage',
@@ -172,9 +171,6 @@
             statusColor: (status) => status == TODO_STATUS.STATUS_OPEN ? 'open' : (status == TODO_STATUS.STATUS_INPROGRESS ? 'inprogress' : (status == TODO_STATUS.STATUS_CLOSED ? 'closed' : '')),
 
             statusLabel: (status) => status == TODO_STATUS.STATUS_OPEN ? 'open' : (status == TODO_STATUS.STATUS_INPROGRESS ? 'in progress' : (status == TODO_STATUS.STATUS_CLOSED ? 'closed' : '')),
-
-
-            getStatus: status => getStatus(status)
         },
 
         created () {
