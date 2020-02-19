@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <TodosPage/>
+    <NewDesign/>
   </div>
 </template>
 
 <script>
-import TodosPage from './components/TodosPage.vue'
+import NewDesign from './components/NewDesign.vue'
 
 export default {
   name: 'App',
   components: {
-    TodosPage
+    NewDesign
   }
 }
 </script>
