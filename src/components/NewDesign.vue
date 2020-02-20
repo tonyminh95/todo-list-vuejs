@@ -31,6 +31,20 @@
                 <td>closed</td>
                 <td>Delete</td>
             </tr>
+
+            <tr>
+                <td>Hangout with friends</td>
+                <td>Improve English</td>
+                <td>12/12/2020</td>
+                <td>
+                    <select class="custom-select">
+                        <option>open</option>
+                        <option>is progress</option>
+                        <option>closed</option>
+                    </select>
+                </td>
+                <td>Delete</td>
+            </tr>
         </table>
     </div>
 </template>
@@ -51,6 +65,15 @@
         font-size: 25px;
         background-color: transparent;
     }
+
+    .custom-select {
+        outline: none;
+    }
+
+
+
+
+
 
     .description {
         outline: none;
