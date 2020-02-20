@@ -1,50 +1,29 @@
 <template>
     <div class="container">
-        <!-- <input @keyup.enter="createTask" class="title text-center" placeholder="What do you want to do?" autofocus v-model="title"> -->
+        <input @keyup.enter="createTask" class="title" placeholder="What do you want to do?" autofocus v-model="title">
 
-        <table class="table table-bordered" width="100%">
-            <tr>
-                <td>Title</td>
-                <td>Description</td>
-                <td>Deadline</td>
-                <td>Status</td>
-                <td>Delete</td>
-            </tr>
-            <tr>
-                <td>Go to the mall</td>
-                <td>Best friends come to the party</td>
-                <td>12/02/2020</td>
-                <td>open</td>
-                <td>Delete</td>
-            </tr>
-            <tr>
-                <td>Go to the gym</td>
-                <td>Training for 6 packs</td>
-                <td>03/08/2020</td>
-                <td>in progress</td>
-                <td>Delete</td>
-            </tr>
-             <tr>
-                <td>Hangout with friends</td>
-                <td>Improve English</td>
-                <td>12/12/2020</td>
-                <td>closed</td>
-                <td>Delete</td>
-            </tr>
-
-            <tr>
-                <td>Hangout with friends</td>
-                <td>Improve English</td>
-                <td>12/12/2020</td>
-                <td>
-                    <select class="custom-select">
-                        <option>open</option>
-                        <option>is progress</option>
-                        <option>closed</option>
-                    </select>
-                </td>
-                <td>Delete</td>
-            </tr>
+        <table class="table table-bordered mt-5" width="100%">
+            <thead>
+                <tr>
+                    <td>Title</td>
+                    <td>Description</td>
+                    <td>Deadline</td>
+                    <td>Status</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="todo in todos" :key="todo.id">
+                    <td @click="click = true">
+                        <div v-if="!click">{{ todo.title }}</div>
+                        <input v-else v-model="todo.title">
+                    </td>
+                    <td>{{ todo.description }}</td>
+                    <td>{{ todo.deadline }}</td>
+                    <td>{{ todo.status }}</td>
+                    <td>Delete</td>
+                </tr>
+            </tbody>
         </table>
     </div>
 </template>
@@ -52,19 +31,51 @@
 <script>
     export default {
         name: 'NewDesign',
+
+        data () {
+            return {
+                title: null,
+                click: false
+            }
+        },
+
+        computed: {
+            todos () {
+                return this.$store.state.todos
+            }
+        },
+
+        methods: {
+            createTask () {
+                if (this.title) {
+                    this.$store.dispatch('createTask', this.title)
+                    this.title = null
+                }
+            }
+        }
     }
 </script>
 
 <style>
+    table thead {
+        color: gray;
+    }
+
     .title {
         outline: none;
         border: none;
-        font-family: 'open sans',arial,sans-serif;
         font-weight: 100;
         width: 100%;
         font-size: 25px;
         background-color: transparent;
     }
+
+
+
+
+
+
+
 
     .custom-select {
         outline: none;
