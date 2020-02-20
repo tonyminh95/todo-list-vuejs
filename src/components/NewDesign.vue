@@ -14,7 +14,7 @@
             </thead>
             <tbody>
                 <tr v-for="todo in todos" :key="todo.id">
-                    <td @click="click = true">
+                    <td @click="test(index, todo.id)">
                         <div v-if="!click">{{ todo.title }}</div>
                         <input v-else v-model="todo.title">
                     </td>
@@ -51,6 +51,10 @@
                     this.$store.dispatch('createTask', this.title)
                     this.title = null
                 }
+            },
+
+            test (row) {
+                alert(row)
             }
         }
     }
