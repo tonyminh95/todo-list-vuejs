@@ -1,15 +1,17 @@
 <template>
     <div class="container">
-        <!-- <input @keyup.enter="createTask" class="title text-center" placeholder="What do you want to do?" autofocus v-model="title"> -->
+        <input @keyup.enter="createTask" class="title" placeholder="What do you want to do?" autofocus v-model="title">
 
-        <table class="table table-bordered" width="100%">
-            <tr>
-                <td>Title</td>
-                <td>Description</td>
-                <td>Deadline</td>
-                <td>Status</td>
-                <td>Delete</td>
-            </tr>
+        <table class="table table-bordered mt-5" width="100%">
+            <thead>
+                <tr>
+                    <td width="25%">Title</td>
+                    <td width="40%">Description</td>
+                    <td width="15%">Deadline</td>
+                    <td width="10%">Status</td>
+                    <td width="10%"></td>
+                </tr>
+            </thead>
             <tr>
                 <td>Go to the mall</td>
                 <td>Best friends come to the party</td>
@@ -24,11 +26,24 @@
                 <td>in progress</td>
                 <td>Delete</td>
             </tr>
-             <tr>
+            <tr>
                 <td>Hangout with friends</td>
                 <td>Improve English</td>
                 <td>12/12/2020</td>
                 <td>closed</td>
+                <td>Delete</td>
+            </tr>
+            <tr>
+                <td>Hangout with friends</td>
+                <td>Improve English</td>
+                <td>12/12/2020</td>
+                <td>
+                    <select class="select-status">
+                        <option><div class="status" style="color: red">open</div></option>
+                        <option><span class="status">in progress</span></option>
+                        <option><span class="status">closed</span></option>
+                    </select>
+                </td>
                 <td>Delete</td>
             </tr>
         </table>
@@ -42,15 +57,38 @@
 </script>
 
 <style>
+    table thead td {
+        color: lightgray;
+    }
+
     .title {
         outline: none;
         border: none;
-        font-family: 'open sans',arial,sans-serif;
         font-weight: 100;
         width: 100%;
         font-size: 25px;
         background-color: transparent;
     }
+
+    .select-status {
+        margin: -0.75rem;
+        height: 49px;
+        box-shadow: rgba(15, 15, 15, 0.05) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 3px 6px, rgba(15, 15, 15, 0.2) 0px 9px 24px;
+        border-radius: 3px;
+        outline: none;
+        border: none;
+        padding: 0.75rem;
+    }
+
+    .status {
+        padding: 10px;
+        background-color: rebeccapurple;
+    }
+
+
+
+
+
 
     .description {
         outline: none;
@@ -75,11 +113,7 @@
         color: rgb(180, 180, 180);
     }
 
-    .status {
-        width: 10px;
-        height: 10px;
-        margin-right: 10px;
-    }
+
 
     .none {
         background-color: #a6d4fc;
@@ -96,17 +130,6 @@
     .closed {
         background-color: #faa7af;
     }
-
-    /* table {
-        border-collapse:separate;
-        border-spacing: 0 10px;
-        font-family: 'open sans', arial, sans-serif;
-        width: 100%;
-    }
-
-    tbody tr td {
-        padding: 16px;
-    } */
 
     a:hover {
         cursor: pointer;
