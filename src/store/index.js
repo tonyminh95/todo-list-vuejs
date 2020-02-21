@@ -2,8 +2,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import getters from './getters'
 import actions from './actions'
-import { formattedDate } from '@/utils/index'
-import { TODO_STATUS } from './instants'
 
 Vue.use(Vuex)
 

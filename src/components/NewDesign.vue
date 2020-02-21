@@ -13,8 +13,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="todo in todos" :key="todo.id">
-                    <td @click="test(index, todo.id)">
+                <tr v-for="(todo, index) in todos" :key="todo.id">
+                    <td @click="">
                         <div v-if="!click">{{ todo.title }}</div>
                         <input v-else v-model="todo.title">
                     </td>
@@ -53,8 +53,7 @@
                 }
             },
 
-            test (row) {
-                alert(row)
+            test (index, id) {
             }
         }
     }
