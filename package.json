@@ -16,7 +16,6 @@
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.4.0",
     "core-js": "^3.6.4",
-    "v-switch-case": "^1.0.3",
     "vue": "^2.6.11",
     "vue-moment": "^4.1.0",
     "vuejs-datepicker": "^1.6.2",

@@ -14,9 +14,10 @@
             </thead>
             <tbody>
                 <tr v-for="(todo, index) in todos" :key="todo.id">
-                    <td @click="test(index, id)">
-                        <div v-if="!click">{{ todo.title }}</div>
-                        <input v-else v-model="todo.title">
+                    <!-- <td @click="test(index, id)"> -->
+                    <td v-switch="element">
+                        <div v-case="'label'">{{ todo.title }}</div>
+                        <input v-case="'input'" v-model="todo.title">
                     </td>
                     <td>{{ todo.description }}</td>
                     <td>{{ todo.deadline }}</td>
@@ -25,17 +26,30 @@
                 </tr>
             </tbody>
         </table>
+
+        <div v-switch="size">
+            <h1 v-case="'large'">Large</h1>
+            <h2 v-case="'medium'">Medium</h2>
+            <h3 v-case="'small'">Small</h3>
+        </div>
     </div>
 </template>
 
 <script>
+    import Vue from 'vue'
+    import VSwitch from 'v-switch-case'
+
+    Vue.use(VSwitch)
+
     export default {
         name: 'NewDesign',
 
         data () {
             return {
                 title: null,
-                click: false
+                click: false,
+                element: 'input',
+                size: 'large'
             }
         },
 
