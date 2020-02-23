@@ -14,7 +14,7 @@
             </thead>
             <tbody>
                 <tr v-for="(todo, index) in todos" :key="todo.id">
-                    <td @click="">
+                    <td @click="test(index, id)">
                         <div v-if="!click">{{ todo.title }}</div>
                         <input v-else v-model="todo.title">
                     </td>
