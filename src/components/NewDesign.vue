@@ -13,43 +13,26 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(todo, index) in todos" :key="todo.id">
-                    <!-- <td @click="test(index, id)"> -->
-                    <td v-switch="element">
-                        <div v-case="'label'">{{ todo.title }}</div>
-                        <input v-case="'input'" v-model="todo.title">
-                    </td>
-                    <td>{{ todo.description }}</td>
-                    <td>{{ todo.deadline }}</td>
-                    <td>{{ todo.status }}</td>
-                    <td>Delete</td>
-                </tr>
+                <task-row v-for="todo in todos" :key="todo.id" :todo="todo"></task-row>
             </tbody>
         </table>
-
-        <div v-switch="size">
-            <h1 v-case="'large'">Large</h1>
-            <h2 v-case="'medium'">Medium</h2>
-            <h3 v-case="'small'">Small</h3>
-        </div>
     </div>
 </template>
 
 <script>
-    import Vue from 'vue'
-    import VSwitch from 'v-switch-case'
-
-    Vue.use(VSwitch)
+    import TaskRow from './TaskRow.vue'
 
     export default {
         name: 'NewDesign',
 
+        components: {
+            TaskRow
+        },
+
         data () {
             return {
                 title: null,
-                click: false,
-                element: 'input',
-                size: 'large'
+                click: false
             }
         },
 
