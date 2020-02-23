@@ -48,7 +48,7 @@
         </div> -->
 
         <!-- modal -->
-        <b-modal id="edit-modal" hide-footer hide-header>
+        <!-- <b-modal id="edit-modal" hide-footer hide-header>
             <div class="row">
                 <div class="col-10 offset-2">
                     <input class="title" placeholder="What do you want to do?" autofocus v-model="updateItem.title">
@@ -70,7 +70,7 @@
                 <div class="col-2"><fa-icon :icon="['fas', 'circle-notch']"></fa-icon></div>
                 <div class="col-10"></div>
             </div>
-        </b-modal>
+        </b-modal> -->
 
         <!-- <b-modal id="filter-modal" hide-footer hide-header>
             <div class="row">

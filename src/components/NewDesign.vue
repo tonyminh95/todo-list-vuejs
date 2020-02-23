@@ -10,6 +10,7 @@
                     <td>Deadline</td>
                     <td>Status</td>
                     <td></td>
+                    <td></td>
                 </tr>
             </thead>
             <tbody>
@@ -48,9 +49,6 @@
                     this.$store.dispatch('createTask', this.title)
                     this.title = null
                 }
-            },
-
-            test (index, id) {
             }
         }
     }

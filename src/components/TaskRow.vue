@@ -1,12 +1,10 @@
 <template>
     <tr>
-        <td @click="click = true">
-            <div v-if="!click">{{ todo.title }}</div>
-            <input v-else ref="title" v-model="todo.title">
-        </td>
+        <td>{{ todo.title }}</td>
         <td>{{ todo.description }}</td>
         <td>{{ todo.deadline }}</td>
         <td>{{ todo.status }}</td>
+        <td><fa-icon :icon="['far', 'edit']" class="soft-red"></fa-icon></td>
         <td>Delete</td>
     </tr>
 </template>
