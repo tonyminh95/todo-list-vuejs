@@ -1,0 +1,16 @@
+.status {
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.status-open {
+    background-color: $soft-green;
+}
+
+.status-isprogress {
+    background-color: $soft-yellow;
+}
+
+.status-closed {
+    background-color: $soft-red;
+}

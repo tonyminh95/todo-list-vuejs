@@ -1,0 +1,41 @@
+@mixin btn($type) {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-position: center;
+    transition: background 0.8s;
+    color: $icon;
+
+    @if $type == edit {
+        background-color: $soft-yellow;
+
+        &:hover {
+            background: $light-yellow radial-gradient(circle, transparent 1%, $light-yellow 1%) center/15000%;
+        }
+
+        &:active {
+            background-color: $soft-yellow;
+            background-size: 100%;
+            transition: background 0s;
+        }
+    } @else if $type == delete {
+        background-color: $soft-red;
+
+        &:hover {
+            background: $light-red radial-gradient(circle, transparent 1%, $light-red 1%) center/15000%;
+        }
+
+        &:active {
+            background-color: $soft-red;
+            background-size: 100%;
+            transition: background 0s;
+        }
+    }
+  }
+
+.btn-edit {
+    @include btn($type: edit);
+}
+
+.btn-delete {
+    @include btn($type: delete);
+}

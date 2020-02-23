@@ -266,58 +266,6 @@
 
 
     /* button */
-    /* .button {
-        font-family: 'open sans',arial,sans-serif;
-        padding: 10px 15px;
-        border-radius: 5px;
-        background-position: center;
-        transition: background 0.8s;
-    }
-
-    .btn-create {
-        background-color: #c4e9fe;
-        color: #2c2834;
-    }
-
-    .btn-create:hover {
-        background: #a4deff radial-gradient(circle, transparent 1%, #a4deff 1%) center/15000%;
-    }
-
-    .btn-create:active {
-        background-color: #c4e9fe;
-        background-size: 100%;
-        transition: background 0s;
-    }
-
-    .btn-edit {
-        background-color: #feefd8;
-        color: #2c2834;
-    }
-
-    .btn-edit:hover {
-        background: #ffddab radial-gradient(circle, transparent 1%, #ffddab 1%) center/15000%;
-    }
-
-    .btn-edit:active {
-        background-color: #feefd8;
-        background-size: 100%;
-        transition: background 0s;
-    }
-
-    .btn-delete {
-        background-color: #ffddd9;
-        color: #2c2834;
-    }
-
-    .btn-delete:hover {
-        background: #f8b8b1 radial-gradient(circle, transparent 1%, #f8b8b1 1%) center/15000%;
-    }
-
-    .btn-delete:active {
-        background-color: #ffddd9;
-        background-size: 100%;
-        transition: background 0s;
-    } */
 
     /* .open {
         width: 10px;

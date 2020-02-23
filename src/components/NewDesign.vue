@@ -9,31 +9,40 @@
                     <td>Description</td>
                     <td>Deadline</td>
                     <td>Status</td>
-                    <td></td>
-                    <td></td>
+                    <td colspan="2"></td>
                 </tr>
             </thead>
             <tbody>
                 <task-row v-for="todo in todos" :key="todo.id" :todo="todo"></task-row>
             </tbody>
         </table>
+
+        <button id="show-modal" @click="showModal = true">Show Modal</button>
+
+        <task-delete v-if="showTaskDeleteModal" @close="showTaskDeleteModal = false">
+            <h3 slot="header">custom header</h3>
+        </task-delete>
     </div>
 </template>
 
 <script>
     import TaskRow from './TaskRow.vue'
+    import TaskDelete from './modals/TaskDelete'
 
     export default {
         name: 'NewDesign',
 
         components: {
-            TaskRow
+            TaskRow,
+            TaskDelete
         },
 
         data () {
             return {
                 title: null,
-                click: false
+                click: false,
+
+                showTaskDeleteModal: false
             }
         },
 

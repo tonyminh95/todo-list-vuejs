@@ -3,34 +3,33 @@
         <td>{{ todo.title }}</td>
         <td>{{ todo.description }}</td>
         <td>{{ todo.deadline }}</td>
-        <td>{{ todo.status }}</td>
-        <td><fa-icon :icon="['far', 'edit']" class="soft-red"></fa-icon></td>
-        <td>Delete</td>
+        <td>
+            <span :class="statusClass(todo.status)">{{ statusLabel(todo.status) }}</span>
+        </td>
+        <td class="text-center">
+            <a class="btn-edit"><fa-icon :icon="['far', 'edit']"></fa-icon></a>
+        </td>
+        <td class="text-center">
+            <a class="btn-delete"><fa-icon :icon="['far', 'trash-alt']"></fa-icon></a>
+        </td>
     </tr>
 </template>
 
 <script>
-export default {
-    name: 'TaskRow',
+    import { mapGetters } from 'vuex'
 
-    props: {
-        todo: Object
-    },
+    export default {
+        name: 'TaskRow',
 
-    data() {
-        return {
-            click: false
+        props: {
+            todo: Object
+        },
+
+        computed: {
+            ...mapGetters ({
+                statusLabel: 'getStatusLabel',
+                statusClass: 'getStatusClass'
+            })
         }
     }
-}
 </script>
-
-<style scoped>
-    input {
-        border: none;
-        -webkit-box-shadow: 0px 0px 5px 0px rgba(117,117,117,0.5);
-        -moz-box-shadow: 0px 0px 5px 0px rgba(117,117,117,0.5);
-        box-shadow: 0px 0px 5px 0px rgba(117,117,117,0.5);
-        outline: none;
-    }
-</style>
