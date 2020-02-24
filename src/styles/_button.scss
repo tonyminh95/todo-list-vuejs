@@ -19,13 +19,19 @@
     transition: background 0.8s;
     color: $icon;
 
-    @if $type == edit {
+    @if $type == create {
+        @include hoverAndActive($soft-green, $light-green)
+    } @else if $type == edit {
         @include hoverAndActive($soft-yellow, $light-yellow)
     } @else if $type == delete {
         @include hoverAndActive($soft-red, $light-red)
     } @else if $type == cancel {
         @include hoverAndActive($soft-gray, $light-gray)
     }
+}
+
+.btn-create {
+    @include btn(create);
 }
 
 .btn-edit {

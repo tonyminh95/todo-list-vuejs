@@ -7,7 +7,9 @@
             <span :class="statusClass(todo.status)">{{ statusLabel(todo.status) }}</span>
         </td>
         <td class="text-center">
-            <a class="btn-edit"><fa-icon :icon="['far', 'edit']"></fa-icon></a>
+            <a class="btn-edit" @click.prevent="$emit('editRow')">
+                <fa-icon :icon="['far', 'edit']"></fa-icon>
+            </a>
         </td>
         <td class="text-center">
             <a class="btn-delete" @click.prevent="$emit('deleteRow')">

@@ -1,39 +1,60 @@
 <template>
-    <!-- <transition name="modal-task-delete">
-        Bui Dang Minh -->
-    <!-- </transition> -->
-    <transition name="modal">
-        <div class="modal-mask">
-            <div class="modal-wrapper">
-                <div class="modal-container">
-                    <div class="modal-header">
-                        <slot name="header">
-                        default header
-                        </slot>
-                    </div>
+    <base-modal>
+        <div slot="header" class="text-warning">Edit task</div>
 
-                    <div class="modal-body">
-                        <slot name="body">
-                        default body
-                        </slot>
-                    </div>
-
-                    <div class="modal-footer">
-                        <slot name="footer">
-                            default footer
-                            <button class="modal-default-button" @click="$emit('close')">
-                                OK
-                            </button>
-                        </slot>
-                    </div>
-                </div>
-            </div>
+        <div slot="body">
+            <table class="table table-borderless" width="100%">
+                <!-- <tr>
+                    <td width="30%">Title</td>
+                    <td width="70%">
+                        <input v-model="todo.title" class="form-control">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td>
+                        <textarea rows="5" v-model="todo.description" class="form-control"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Deadline</td>
+                    <td>
+                        <vue-datepicker v-model="todo.deadline"></vue-datepicker>
+                    </td>
+                </tr> -->
+                <tr>
+                    <td>Status</td>
+                    <td>
+                        <base-toggle-button :status="todo.status"></base-toggle-button>
+                    </td>
+                </tr>
+            </table>
         </div>
-    </transition>
+
+        <div slot="footer">
+            <a class="btn-cancel mr-3" @click.prevent="$emit('cancelEdit')">Cancel</a>
+            <a class="btn-edit" @click.prevent="$emit('edit')">Edit</a>
+        </div>
+    </base-modal>
 </template>
 
 <script>
+    import BaseModal from '../bases/BaseModal'
+    import BaseToggleButton from '../bases/BaseToggleButton'
+
     export default {
-        name: 'TaskDelete'
+        name: 'TaskEdit',
+
+        props: {
+            todo: {
+                type: Object,
+                required: true
+            }
+        },
+
+        components: {
+            BaseModal,
+            BaseToggleButton
+        }
     }
 </script>

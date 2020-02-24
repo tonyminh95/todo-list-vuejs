@@ -6,12 +6,11 @@ export default {
         const deadline = formattedDate(new Date())
 
         commit('createTask', { id, title, description: null, deadline, status: 1 })
+    },
+
+    deleteTask: ({state, commit}, taskId) => {
+        const index = state.todos.findIndex(todo => todo.id == taskId);
+
+        commit('deleteTask', index)
     }
-    // ,
-
-    // deleteTask: ({state, commit}, taskId) => {
-    //     const index = state.todos.findIndex(todo => todo.id === taskId);
-
-    //     commit('deleteTask', index)
-    // }
 }

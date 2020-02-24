@@ -17,14 +17,22 @@
                     v-for="todo in todos"
                     :key="todo.id"
                     :todo="todo"
-                    @deleteRow="showTaskDeleteModal = true"
+                    @editRow="editTodo = todo, showTaskEditModal = true"
+                    @deleteRow="deleteTodoId = todo.id, showTaskDeleteModal = true"
                 ></task-row>
             </tbody>
         </table>
 
+        <task-edit
+            v-if="showTaskEditModal"
+            :todo="editTodo"
+            @cancelEdit="showTaskEditModal = false"
+        ></task-edit>
+
         <task-delete
             v-if="showTaskDeleteModal"
             @cancelDelete="showTaskDeleteModal = false"
+            @delete="deleteTask(deleteTodoId), showTaskDeleteModal = false"
         ></task-delete>
     </div>
 </template>
@@ -32,21 +40,26 @@
 <script>
     import TaskRow from './TaskRow.vue'
     import TaskDelete from './modals/TaskDelete'
+    import TaskEdit from './modals/TaskEdit'
+    import { mapActions } from 'vuex'
 
     export default {
         name: 'NewDesign',
 
         components: {
             TaskRow,
+            TaskEdit,
             TaskDelete
         },
 
         data () {
             return {
                 title: null,
-                click: false,
 
-                showTaskDeleteModal: false
+                showTaskEditModal: null,
+                editTodo: null,
+                showTaskDeleteModal: null,
+                deleteTodoId: null
             }
         },
 
@@ -57,6 +70,10 @@
         },
 
         methods: {
+            ...mapActions({
+                deleteTask: 'deleteTask'
+            }),
+
             createTask () {
                 if (this.title) {
                     this.$store.dispatch('createTask', this.title)
