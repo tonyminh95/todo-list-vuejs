@@ -1,4 +1,5 @@
 import { formattedDate } from "@/utils";
+import moment from "moment"
 
 export default {
     createTask: ({state, commit}, title) => {
@@ -11,12 +12,9 @@ export default {
     editTask ({state, commit}, item) {
         const index = state.todos.findIndex(todo => todo.id == item.id);
 
-        alert(moment("05/22/2012", 'MM/DD/YYYY',true).isValid());
-
-        console.log(item.deadline)
-        item.deadline = formattedDate(item.deadline)
-
-        console.log(item.deadline)
+        if (moment(item.deadline, 'yyyy/MM/dd', true).isValid()) {
+            item.deadline = formattedDate(item.deadline)
+        }
 
         commit('updateTask', { index, item })
     },
