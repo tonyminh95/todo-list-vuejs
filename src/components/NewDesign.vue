@@ -13,15 +13,19 @@
                 </tr>
             </thead>
             <tbody>
-                <task-row v-for="todo in todos" :key="todo.id" :todo="todo"></task-row>
+                <task-row
+                    v-for="todo in todos"
+                    :key="todo.id"
+                    :todo="todo"
+                    @deleteRow="showTaskDeleteModal = true"
+                ></task-row>
             </tbody>
         </table>
 
-        <button id="show-modal" @click="showModal = true">Show Modal</button>
-
-        <task-delete v-if="showTaskDeleteModal" @close="showTaskDeleteModal = false">
-            <h3 slot="header">custom header</h3>
-        </task-delete>
+        <task-delete
+            v-if="showTaskDeleteModal"
+            @cancelDelete="showTaskDeleteModal = false"
+        ></task-delete>
     </div>
 </template>
 

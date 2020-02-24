@@ -1,4 +1,18 @@
-@mixin btn($type) {
+@mixin hoverAndActive ($softColor, $lightColor) {
+    background-color: $softColor;
+
+    &:hover {
+        background: $lightColor radial-gradient(circle, transparent 1%, $lightColor 1%) center/15000%;
+    }
+
+    &:active {
+        background-color: $softColor;
+        background-size: 100%;
+        transition: background 0s;
+    }
+}
+
+@mixin btn ($type) {
     padding: 5px 10px;
     border-radius: 5px;
     background-position: center;
@@ -6,36 +20,22 @@
     color: $icon;
 
     @if $type == edit {
-        background-color: $soft-yellow;
-
-        &:hover {
-            background: $light-yellow radial-gradient(circle, transparent 1%, $light-yellow 1%) center/15000%;
-        }
-
-        &:active {
-            background-color: $soft-yellow;
-            background-size: 100%;
-            transition: background 0s;
-        }
+        @include hoverAndActive($soft-yellow, $light-yellow)
     } @else if $type == delete {
-        background-color: $soft-red;
-
-        &:hover {
-            background: $light-red radial-gradient(circle, transparent 1%, $light-red 1%) center/15000%;
-        }
-
-        &:active {
-            background-color: $soft-red;
-            background-size: 100%;
-            transition: background 0s;
-        }
+        @include hoverAndActive($soft-red, $light-red)
+    } @else if $type == cancel {
+        @include hoverAndActive($soft-gray, $light-gray)
     }
-  }
+}
 
 .btn-edit {
-    @include btn($type: edit);
+    @include btn(edit);
 }
 
 .btn-delete {
-    @include btn($type: delete);
+    @include btn(delete);
+}
+
+.btn-cancel {
+    @include btn(cancel);
 }

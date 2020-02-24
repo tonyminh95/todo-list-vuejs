@@ -10,7 +10,9 @@
             <a class="btn-edit"><fa-icon :icon="['far', 'edit']"></fa-icon></a>
         </td>
         <td class="text-center">
-            <a class="btn-delete"><fa-icon :icon="['far', 'trash-alt']"></fa-icon></a>
+            <a class="btn-delete" @click.prevent="$emit('deleteRow')">
+                <fa-icon :icon="['far', 'trash-alt']"></fa-icon>
+            </a>
         </td>
     </tr>
 </template>
