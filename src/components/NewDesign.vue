@@ -5,11 +5,11 @@
         <table class="table table-bordered mt-5" width="100%">
             <thead>
                 <tr>
-                    <td>Title</td>
-                    <td>Description</td>
-                    <td>Deadline</td>
-                    <td>Status</td>
-                    <td colspan="2"></td>
+                    <td width="20%">Title</td>
+                    <td width="40%">Description</td>
+                    <td width="15%">Deadline</td>
+                    <td width="15%">Status</td>
+                    <td width="10%" colspan="2"></td>
                 </tr>
             </thead>
             <tbody>
@@ -27,6 +27,7 @@
             v-if="showTaskEditModal"
             :todo="editTodo"
             @cancelEdit="showTaskEditModal = false"
+            @edit="editTask($event), showTaskEditModal = false"
         ></task-edit>
 
         <task-delete
@@ -71,6 +72,7 @@
 
         methods: {
             ...mapActions({
+                editTask: 'editTask',
                 deleteTask: 'deleteTask'
             }),
 

@@ -21,6 +21,8 @@ export default new Vuex.Store({
     mutations: {
         createTask: (state, todo) => state.todos.push(todo),
 
+        updateTask: (state, { index, item }) => state.todos[index] = item,
+
         deleteTask: (state, index) => state.todos.splice(index, 1)
     }
 })

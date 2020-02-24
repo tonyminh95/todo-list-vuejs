@@ -14,7 +14,7 @@
 
 <script>
     export default {
-        name: 'BaseToggleButton',
+        name: 'StatusToggleButton',
 
         props: {
             status: {
@@ -53,6 +53,7 @@
 
             changeStatus (index) {
                 this.baseStatuses.map((baseStatus, key) => baseStatus.status = (key == index ? index + 1 : 0))
+                this.$emit('changeStatus', index + 1)
             }
         },
 
