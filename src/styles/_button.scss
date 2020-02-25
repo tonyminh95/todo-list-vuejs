@@ -1,0 +1,47 @@
+@mixin hoverAndActive ($softColor, $lightColor) {
+    background-color: $softColor;
+
+    &:hover {
+        background: $lightColor radial-gradient(circle, transparent 1%, $lightColor 1%) center/15000%;
+    }
+
+    &:active {
+        background-color: $softColor;
+        background-size: 100%;
+        transition: background 0s;
+    }
+}
+
+@mixin btn ($type) {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-position: center;
+    transition: background 0.8s;
+    color: $icon;
+
+    @if $type == create {
+        @include hoverAndActive($soft-green, $light-green)
+    } @else if $type == edit {
+        @include hoverAndActive($soft-yellow, $light-yellow)
+    } @else if $type == delete {
+        @include hoverAndActive($soft-red, $light-red)
+    } @else if $type == cancel {
+        @include hoverAndActive($soft-gray, $light-gray)
+    }
+}
+
+.btn-create {
+    @include btn(create);
+}
+
+.btn-edit {
+    @include btn(edit);
+}
+
+.btn-delete {
+    @include btn(delete);
+}
+
+.btn-cancel {
+    @include btn(cancel);
+}

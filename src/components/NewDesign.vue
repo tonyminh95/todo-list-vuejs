@@ -1,64 +1,118 @@
 <template>
     <div class="container">
-        <!-- <input @keyup.enter="createTask" class="title text-center" placeholder="What do you want to do?" autofocus v-model="title"> -->
+        <input @keyup.enter="createTask" class="title" placeholder="What do you want to do?" autofocus v-model="title">
 
-        <table class="table table-bordered" width="100%">
-            <tr>
-                <td>Title</td>
-                <td>Description</td>
-                <td>Deadline</td>
-                <td>Status</td>
-                <td>Delete</td>
-            </tr>
-            <tr>
-                <td>Go to the mall</td>
-                <td>Best friends come to the party</td>
-                <td>12/02/2020</td>
-                <td>open</td>
-                <td>Delete</td>
-            </tr>
-            <tr>
-                <td>Go to the gym</td>
-                <td>Training for 6 packs</td>
-                <td>03/08/2020</td>
-                <td>in progress</td>
-                <td>Delete</td>
-            </tr>
-             <tr>
-                <td>Hangout with friends</td>
-                <td>Improve English</td>
-                <td>12/12/2020</td>
-                <td>closed</td>
-                <td>Delete</td>
-            </tr>
+        <div class="mt-5 d-inline-block"><u>Today task</u> <span class="today-task">{{ countTodayTask }}</span></div>
+
+        <filter-dropdown class="d-inline-block ml-4"></filter-dropdown>
+        <sort-dropdown class="d-inline-block ml-4"></sort-dropdown>
+
+        <table class="table table-bordered mt-3" width="100%">
+            <thead>
+                <tr>
+                    <td width="20%">Title</td>
+                    <td width="40%">Description</td>
+                    <td width="15%">Deadline</td>
+                    <td width="15%">Status</td>
+                    <td width="10%" colspan="2"></td>
+                </tr>
+            </thead>
+            <tbody>
+                <task-row
+                    v-for="todo in todos"
+                    :key="todo.id"
+                    :todo="todo"
+                    @editRow="editTodo = todo, showTaskEditModal = true"
+                    @deleteRow="deleteTodoId = todo.id, showTaskDeleteModal = true"
+                ></task-row>
+            </tbody>
         </table>
+
+        <task-edit
+            v-if="showTaskEditModal"
+            :todo="editTodo"
+            @cancelEdit="showTaskEditModal = false"
+            @edit="editTask($event), showTaskEditModal = false"
+        ></task-edit>
+
+        <task-delete
+            v-if="showTaskDeleteModal"
+            @cancelDelete="showTaskDeleteModal = false"
+            @delete="deleteTask(deleteTodoId), showTaskDeleteModal = false"
+        ></task-delete>
     </div>
 </template>
 
 <script>
+    import TaskRow from './TaskRow.vue'
+    import TaskDelete from './modals/TaskDelete'
+    import TaskEdit from './modals/TaskEdit'
+    import FilterDropdown from './dropdowns/FilterDropdown'
+    import SortDropdown from './dropdowns/SortDropdown'
+    import { mapActions, mapGetters } from 'vuex'
+
     export default {
         name: 'NewDesign',
+
+        components: {
+            TaskRow,
+            TaskEdit,
+            TaskDelete,
+            FilterDropdown,
+            SortDropdown
+        },
+
+        data () {
+            return {
+                title: null,
+                showTaskEditModal: null,
+                editTodo: null,
+                showTaskDeleteModal: null,
+                deleteTodoId: null
+            }
+        },
+
+        computed: {
+            ...mapGetters({
+                countTodayTask: 'countTodayTask'
+            }),
+
+            todos () {
+                return this.$store.state.todos
+            }
+        },
+
+        methods: {
+            ...mapActions({
+                editTask: 'editTask',
+                deleteTask: 'deleteTask'
+            }),
+
+            createTask () {
+                if (this.title) {
+                    this.$store.dispatch('createTask', this.title)
+                    this.title = null
+                }
+            }
+        }
     }
 </script>
 
 <style>
+    table thead {
+        color: gray;
+    }
+
+    table tbody td:first-child {
+        word-break: break-all;
+    }
+
     .title {
         outline: none;
         border: none;
-        font-family: 'open sans',arial,sans-serif;
         font-weight: 100;
         width: 100%;
         font-size: 25px;
-        background-color: transparent;
-    }
-
-    .description {
-        outline: none;
-        border: none;
-        font-family: 'open sans',arial,sans-serif;
-        font-weight: 100;
-        width: 100%;
-        font-size: 18px;
         background-color: transparent;
     }
 
@@ -75,39 +129,6 @@
         color: rgb(180, 180, 180);
     }
 
-    .status {
-        width: 10px;
-        height: 10px;
-        margin-right: 10px;
-    }
-
-    .none {
-        background-color: #a6d4fc;
-    }
-
-    .open {
-        background-color: #a2e0d3;
-    }
-
-    .inprogress {
-        background-color: #ffe1aa;
-    }
-
-    .closed {
-        background-color: #faa7af;
-    }
-
-    /* table {
-        border-collapse:separate;
-        border-spacing: 0 10px;
-        font-family: 'open sans', arial, sans-serif;
-        width: 100%;
-    }
-
-    tbody tr td {
-        padding: 16px;
-    } */
-
     a:hover {
         cursor: pointer;
     }
@@ -122,95 +143,4 @@
         text-align: center;
         margin-left: 5px;
     }
-
-
-
-
-
-    /* button */
-    /* .button {
-        font-family: 'open sans',arial,sans-serif;
-        padding: 10px 15px;
-        border-radius: 5px;
-        background-position: center;
-        transition: background 0.8s;
-    }
-
-    .btn-create {
-        background-color: #c4e9fe;
-        color: #2c2834;
-    }
-
-    .btn-create:hover {
-        background: #a4deff radial-gradient(circle, transparent 1%, #a4deff 1%) center/15000%;
-    }
-
-    .btn-create:active {
-        background-color: #c4e9fe;
-        background-size: 100%;
-        transition: background 0s;
-    }
-
-    .btn-edit {
-        background-color: #feefd8;
-        color: #2c2834;
-    }
-
-    .btn-edit:hover {
-        background: #ffddab radial-gradient(circle, transparent 1%, #ffddab 1%) center/15000%;
-    }
-
-    .btn-edit:active {
-        background-color: #feefd8;
-        background-size: 100%;
-        transition: background 0s;
-    }
-
-    .btn-delete {
-        background-color: #ffddd9;
-        color: #2c2834;
-    }
-
-    .btn-delete:hover {
-        background: #f8b8b1 radial-gradient(circle, transparent 1%, #f8b8b1 1%) center/15000%;
-    }
-
-    .btn-delete:active {
-        background-color: #ffddd9;
-        background-size: 100%;
-        transition: background 0s;
-    } */
-
-    /* .open {
-        width: 10px;
-        height: 10px;
-        border-radius: 100px;
-        background-color: #6de4da;
-        display: inline-block;
-        margin-right: 10px;
-    } */
-
-    /* .inprogress {
-        width: 10px;
-        height: 10px;
-        border-radius: 100px;
-        background-color: #ffd28e;
-        display: inline-block;
-        margin-right: 10px;
-    }
-
-    .closed {
-        width: 10px;
-        height: 10px;
-        border-radius: 100px;
-        background-color: #ffa89f;
-        display: inline-block;
-        margin-right: 10px;
-    } */
-
-    /* .ic-form {
-        width: 22px !important;
-        height: 22px !important;
-        color: rgb(180, 180, 180);
-    } */
 </style>
