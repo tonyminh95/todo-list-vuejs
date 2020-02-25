@@ -1,6 +1,6 @@
 <template>
     <transition name="dropdown">
-        <ul>
+        <ul class="base-dropdown">
             <li v-for="(item, index) in items" :key="index">
                 {{ item }}
             </li>
@@ -20,13 +20,3 @@
         }
     }
 </script>
-
-<style scoped>
-    ul {
-        list-style-type: none;
-        -webkit-box-shadow: 0px 0px 5px 2px rgba(158,158,158,0.57);
-        -moz-box-shadow: 0px 0px 5px 2px rgba(158,158,158,0.57);
-        box-shadow: 0px 0px 5px 2px rgba(158,158,158,0.57);
-        display: inline-block;
-    }
-</style>

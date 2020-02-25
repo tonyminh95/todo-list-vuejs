@@ -2,15 +2,10 @@
     <div class="container">
         <input @keyup.enter="createTask" class="title" placeholder="What do you want to do?" autofocus v-model="title">
 
-        <div class="mt-5"><u>Today task</u> <span class="today-task">{{ countTodayTask }}</span></div>
+        <div class="mt-5 d-inline-block"><u>Today task</u> <span class="today-task">{{ countTodayTask }}</span></div>
 
-        <filter-dropdown></filter-dropdown>
-
-        <ul class="mt-5">
-            <li>a</li>
-            <li>b</li>
-            <li>c</li>
-        </ul>
+        <filter-dropdown class="d-inline-block ml-4"></filter-dropdown>
+        <sort-dropdown class="d-inline-block ml-4"></sort-dropdown>
 
         <table class="table table-bordered mt-3" width="100%">
             <thead>
@@ -53,6 +48,7 @@
     import TaskDelete from './modals/TaskDelete'
     import TaskEdit from './modals/TaskEdit'
     import FilterDropdown from './dropdowns/FilterDropdown'
+    import SortDropdown from './dropdowns/SortDropdown'
     import { mapActions, mapGetters } from 'vuex'
 
     export default {
@@ -62,7 +58,8 @@
             TaskRow,
             TaskEdit,
             TaskDelete,
-            FilterDropdown
+            FilterDropdown,
+            SortDropdown
         },
 
         data () {
