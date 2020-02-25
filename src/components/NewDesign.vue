@@ -2,7 +2,15 @@
     <div class="container">
         <input @keyup.enter="createTask" class="title" placeholder="What do you want to do?" autofocus v-model="title">
 
-        <div class="mt-5">Today task <span class="today-task">2</span></div>
+        <div class="mt-5"><u>Today task</u> <span class="today-task">{{ countTodayTask }}</span></div>
+
+        <filter-dropdown></filter-dropdown>
+
+        <ul class="mt-5">
+            <li>a</li>
+            <li>b</li>
+            <li>c</li>
+        </ul>
 
         <table class="table table-bordered mt-3" width="100%">
             <thead>
@@ -44,7 +52,8 @@
     import TaskRow from './TaskRow.vue'
     import TaskDelete from './modals/TaskDelete'
     import TaskEdit from './modals/TaskEdit'
-    import { mapActions } from 'vuex'
+    import FilterDropdown from './dropdowns/FilterDropdown'
+    import { mapActions, mapGetters } from 'vuex'
 
     export default {
         name: 'NewDesign',
@@ -52,7 +61,8 @@
         components: {
             TaskRow,
             TaskEdit,
-            TaskDelete
+            TaskDelete,
+            FilterDropdown
         },
 
         data () {
@@ -66,6 +76,10 @@
         },
 
         computed: {
+            ...mapGetters({
+                countTodayTask: 'countTodayTask'
+            }),
+
             todos () {
                 return this.$store.state.todos
             }

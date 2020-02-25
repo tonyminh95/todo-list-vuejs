@@ -16,8 +16,6 @@ export default {
 
     getTodayTask: state => state.todos.filter(todo => todo.deadline == formattedDate(new Date())),
 
-    getCountTaskToday: state => state.todos.filter(todo => todo.deadline == formattedDate(new Date())).length,
-
     getOpenTask: state => state.todos.filter(todo => todo.status == TODO_STATUS.STATUS_OPEN),
 
     // getTaskByStatus: status => state => ,
@@ -26,9 +24,7 @@ export default {
 
 
 
-
-
-
+    countTodayTask: state => state.todos.filter(todo => todo.deadline == formattedDate(new Date())).length,
 
     getStatusLabel () {
         return (status) => {
