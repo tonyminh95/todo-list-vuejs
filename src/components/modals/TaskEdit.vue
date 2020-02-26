@@ -25,7 +25,7 @@
                 <tr>
                     <td>Status</td>
                     <td>
-                        <status-toggle-button :status="todo.status" @changeStatus="item.status = $event"></status-toggle-button>
+                        <status-toggle-button :status="item.status" @changeStatus="item.status = $event"></status-toggle-button>
                     </td>
                 </tr>
             </table>
@@ -33,7 +33,7 @@
 
         <div slot="footer">
             <a class="btn-cancel mr-3" @click.prevent="$emit('cancelEdit')">Cancel</a>
-            <a class="btn-edit" @click.prevent="$emit('edit', item)">Edit</a>
+            <a class="btn-edit" @click.prevent="$emit('edit')">Edit</a>
         </div>
     </base-modal>
 </template>
@@ -45,10 +45,9 @@
     export default {
         name: 'TaskEdit',
 
-        props: {
-            todo: {
-                type: Object,
-                required: true
+        computed: {
+            item () {
+                return this.$store.state.updateTask
             }
         },
 
@@ -57,11 +56,11 @@
             StatusToggleButton
         },
 
-        data () {
-            return {
-                item: {...this.todo}
-            }
-        }
+        // data () {
+        //     return {
+        //         item: {...this.todo}
+        //     }
+        // }
     }
 </script>
 

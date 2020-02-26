@@ -13,7 +13,9 @@ export default new Vuex.Store({
             { id: 2, title: 'Go to the gym', description: 'Training for 6 packs', deadline: '2020/06/24', status: 2 },
             { id: 3, title: 'Finding some girls', description: 'Have someone to go to the movie theater', deadline: '2020/01/02', status: 3 }
         ],
-        tasks: null
+        tasks: null,
+        updateTask: null,
+        deleteTask: null
     },
 
     getters,

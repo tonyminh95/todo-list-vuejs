@@ -22,23 +22,22 @@
                     v-for="task in tasks"
                     :key="task.id"
                     :todo="task"
-                    @editRow="editTodo = task, showTaskEditModal = true"
-                    @deleteRow="deleteTodoId = task.id, showTaskDeleteModal = true"
+                    @editRow="$store.state.updateTask = {...task}, showTaskEditModal = true"
+                    @deleteRow="$store.state.deleteTask = task, showTaskDeleteModal = true"
                 ></task-row>
             </tbody>
         </table>
 
-        <!-- <task-edit
+        <task-edit
             v-if="showTaskEditModal"
-            :todo="editTodo"
             @cancelEdit="showTaskEditModal = false"
-            @edit="editTask($event), showTaskEditModal = false"
-        ></task-edit> -->
+            @edit="updateTask(), showTaskEditModal = false"
+        ></task-edit>
 
         <task-delete
             v-if="showTaskDeleteModal"
             @cancelDelete="showTaskDeleteModal = false"
-            @delete="deleteTask(deleteTodoId), showTaskDeleteModal = false"
+            @delete="deleteTask(), showTaskDeleteModal = false"
         ></task-delete>
     </div>
 </template>
@@ -49,10 +48,9 @@
     import TaskToday from './TaskToday'
     import FilterDropdown from './dropdowns/FilterDropdown'
     import SortDropdown from './dropdowns/SortDropdown'
-    // import TaskEdit from './modals/TaskEdit'
+    import TaskEdit from './modals/TaskEdit'
     import TaskDelete from './modals/TaskDelete'
-
-    // import { mapGetters } from 'vuex'
+    import { mapActions } from 'vuex'
 
     export default {
         name: 'NewDesign',
@@ -63,17 +61,15 @@
             TaskToday,
             FilterDropdown,
             SortDropdown,
-        //     // TaskEdit,
+            TaskEdit,
             TaskDelete
         },
 
         data () {
             return {
                 title: null,
-                // showTaskEditModal: null,
-                // editTodo: null,
+                showTaskEditModal: null,
                 showTaskDeleteModal: null,
-                deleteTodoId: null
             }
         },
 
@@ -84,10 +80,7 @@
         },
 
         methods: {
-        //     // ...mapActions({
-        //     //     editTask: 'editTask',
-        //     //     deleteTask: 'deleteTask',
-        //     // }),
+            ...mapActions(['updateTask', 'deleteTask']),
 
             createTask () {
                 if (this.title) {

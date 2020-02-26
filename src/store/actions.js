@@ -9,10 +9,8 @@ export default {
         commit('createTask', { id, title, description: null, deadline, status: 1 })
     },
 
-
-
-
-    editTask ({state, commit}, item) {
+    updateTask ({state, commit}) {
+        const item = state.updateTask
         const index = state.todos.findIndex(todo => todo.id == item.id);
 
         if (moment(item.deadline, 'yyyy/MM/dd', true).isValid()) {
@@ -22,17 +20,11 @@ export default {
         commit('updateTask', { index, item })
     },
 
-    deleteTask: ({state, commit}, taskId) => {
-        const index = state.todos.findIndex(todo => todo.id == taskId);
+    deleteTask: ({state, commit}) => {
+        const index = state.todos.findIndex(todo => todo.id == state.deleteTask.id);
 
         commit('deleteTask', index)
     },
-
-
-
-
-
-
 
     fetchTasks: ({state, commit}) => commit('setTasks', state.todos),
 
