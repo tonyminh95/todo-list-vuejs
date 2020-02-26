@@ -1,31 +1,36 @@
 <template>
     <div>
-        <div @click="check = !check"><u>Sort by deadline</u></div>
+        <div class="clickable mb-2" v-click-outside="test" @click="check = !check"><u>Sort by deadline</u></div>
 
-        <base-dropdown :items="['asc', 'desc']" v-if="check"></base-dropdown>
+        <ul class="base-dropdown" v-if="check">
+            <li v-for="(sort, index) in sorts" :key="index">
+                {{ sort }}
+            </li>
+        </ul>
     </div>
 </template>
 
 <script>
-    import BaseDropdown from '../bases/BaseDropdown'
+    import ClickOutside from 'vue-click-outside'
 
     export default {
         name: 'FilterDropdown',
 
-        components: {
-            BaseDropdown
-        },
-
         data () {
             return {
+                sorts: ['asc', 'desc'],
                 check: null
+            }
+        },
+
+        directives: {
+            ClickOutside
+        },
+
+        methods: {
+            test () {
+                this.check = false
             }
         }
     }
 </script>
-
-<style lang="sass" scoped>
-    div
-        cursor: pointer;
-        margin-bottom: 10px;
-</style>
