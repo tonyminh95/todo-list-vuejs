@@ -1,10 +1,11 @@
 <template>
     <div class="container">
-        <input @keyup.enter="createTask" class="title" placeholder="What do you want to do?" autofocus v-model="title">
+        <!-- <input @keyup.enter="createTask" class="title" placeholder="What do you want to do?" autofocus v-model="title"> -->
 
-        <today-task></today-task>
-        <filter-dropdown class="d-inline-block ml-4 mt-5"></filter-dropdown>
-        <sort-dropdown class="d-inline-block ml-4"></sort-dropdown>
+        <task-all></task-all>
+        <task-today class="ml-5"></task-today>
+        <filter-dropdown class="d-inline-block ml-5 mt-5"></filter-dropdown>
+        <sort-dropdown class="d-inline-block ml-5"></sort-dropdown>
 
         <table class="table table-bordered mt-3" width="100%">
             <thead>
@@ -17,17 +18,23 @@
                 </tr>
             </thead>
             <tbody>
-                <task-row
-                    v-for="todo in todos"
-                    :key="todo.id"
-                    :todo="todo"
-                    @editRow="editTodo = todo, showTaskEditModal = true"
-                    @deleteRow="deleteTodoId = todo.id, showTaskDeleteModal = true"
-                ></task-row>
+                <tr v-for="task in tasks" :key="task.id">
+                    <td>{{ task.title }}</td>
+                    <td>{{ task.description }}</td>
+                    <td>{{ task.deadline }}</td>
+                    <td>{{ task.status }}</td>
+                </tr>
+                <!-- <task-row
+                    v-for="task in tasks"
+                    :key="task.id"
+                    :todo="task"
+                    @editRow="editTodo = task, showTaskEditModal = true"
+                    @deleteRow="deleteTodoId = task.id, showTaskDeleteModal = true"
+                ></task-row> -->
             </tbody>
         </table>
 
-        <task-edit
+        <!-- <task-edit
             v-if="showTaskEditModal"
             :todo="editTodo"
             @cancelEdit="showTaskEditModal = false"
@@ -38,59 +45,66 @@
             v-if="showTaskDeleteModal"
             @cancelDelete="showTaskDeleteModal = false"
             @delete="deleteTask(deleteTodoId), showTaskDeleteModal = false"
-        ></task-delete>
+        ></task-delete> -->
     </div>
 </template>
 
 <script>
-    import TaskRow from './TaskRow.vue'
-    import TaskDelete from './modals/TaskDelete'
-    import TaskEdit from './modals/TaskEdit'
-    import TodayTask from './TaskToday'
+    // import TaskRow from './TaskRow'
+    import TaskAll from './TaskAll'
+    import TaskToday from './TaskToday'
     import FilterDropdown from './dropdowns/FilterDropdown'
     import SortDropdown from './dropdowns/SortDropdown'
-    import { mapActions } from 'vuex'
+    // import TaskDelete from './modals/TaskDelete'
+    // import TaskEdit from './modals/TaskEdit'
+
+    // import { mapGetters } from 'vuex'
 
     export default {
         name: 'NewDesign',
 
         components: {
-            TaskRow,
-            TaskEdit,
-            TaskDelete,
-            TodayTask,
+            // TaskRow,
+            TaskAll,
+            TaskToday,
             FilterDropdown,
-            SortDropdown
+            SortDropdown,
+        //     // TaskEdit,
+        //     // TaskDelete,
         },
 
-        data () {
-            return {
-                title: null,
-                showTaskEditModal: null,
-                editTodo: null,
-                showTaskDeleteModal: null,
-                deleteTodoId: null
-            }
-        },
+        // data () {
+        //     return {
+        //         title: null,
+        //         showTaskEditModal: null,
+        //         editTodo: null,
+        //         showTaskDeleteModal: null,
+        //         deleteTodoId: null
+        //     }
+        // },
 
         computed: {
-            todos () {
-                return this.$store.state.todos
+            tasks () {
+                return this.$store.state.tasks
             }
         },
 
-        methods: {
-            ...mapActions({
-                editTask: 'editTask',
-                deleteTask: 'deleteTask'
-            }),
+        // methods: {
+        //     // ...mapActions({
+        //     //     editTask: 'editTask',
+        //     //     deleteTask: 'deleteTask',
+        //     // }),
 
-            createTask () {
-                if (this.title) {
-                    this.$store.dispatch('createTask', this.title)
-                    this.title = null
-                }
-            }
+        //     createTask () {
+        //         if (this.title) {
+        //             this.$store.dispatch('createTask', this.title)
+        //             this.title = null
+        //         }
+        //     }
+        // },
+
+        created () {
+            this.$store.dispatch('fetchTasks')
         }
     }
 </script>

@@ -23,5 +23,31 @@ export default {
         const index = state.todos.findIndex(todo => todo.id == taskId);
 
         commit('deleteTask', index)
+    },
+
+
+
+
+
+
+
+    fetchTasks: ({state, commit}) => commit('setTasks', state.todos),
+
+    filterTasksAll: ({state, commit}) => commit('setTasks', state.todos),
+
+    filterTasksToday: ({state, commit}) => {
+        const tasks = state.todos.filter(todo => todo.deadline == formattedDate(new Date))
+
+        commit('setTasks', tasks)
+    },
+
+    filterTasksByStatus: ({state, commit}, status) => {
+        const tasks = status == 0 ? state.todos : state.todos.filter(todo => todo.status === status)
+
+        commit('setTasks', tasks)
+    },
+
+    sortTasksByDeadline: () => {
+        const tasks = state.todos.map
     }
 }

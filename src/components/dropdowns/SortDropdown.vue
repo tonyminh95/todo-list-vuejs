@@ -1,9 +1,9 @@
 <template>
     <div>
-        <div class="clickable mb-2" v-click-outside="test" @click="check = !check"><u>Sort by deadline</u></div>
+        <div class="clickable" v-click-outside="hideDropdown" @click="isShow = !isShow"><u>Sort by deadline</u></div>
 
-        <ul class="base-dropdown" v-if="check">
-            <li v-for="(sort, index) in sorts" :key="index">
+        <ul class="base-dropdown mt-2" v-if="isShow">
+            <li v-for="(sort, index) in sorts" :key="index" @click="sortTasksByDeadline(index)">
                 {{ sort }}
             </li>
         </ul>
@@ -12,6 +12,7 @@
 
 <script>
     import ClickOutside from 'vue-click-outside'
+    import { mapActions } from 'vuex'
 
     export default {
         name: 'FilterDropdown',
@@ -19,7 +20,7 @@
         data () {
             return {
                 sorts: ['asc', 'desc'],
-                check: null
+                isShow: false
             }
         },
 
@@ -28,8 +29,14 @@
         },
 
         methods: {
-            test () {
-                this.check = false
+            ...mapActions(['sortTasksByDeadline']),
+
+            showDropdown () {
+                this.isShow = !this.isShow
+            },
+
+            hideDropdown () {
+                this.isShow = false
             }
         }
     }
