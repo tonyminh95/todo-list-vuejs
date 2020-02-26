@@ -9,6 +9,9 @@ export default {
         commit('createTask', { id, title, description: null, deadline, status: 1 })
     },
 
+
+
+
     editTask ({state, commit}, item) {
         const index = state.todos.findIndex(todo => todo.id == item.id);
 
@@ -36,18 +39,27 @@ export default {
     filterTasksAll: ({state, commit}) => commit('setTasks', state.todos),
 
     filterTasksToday: ({state, commit}) => {
-        const tasks = state.todos.filter(todo => todo.deadline == formattedDate(new Date))
+        const tasks = [...state.todos].filter(todo => todo.deadline === formattedDate(new Date))
 
         commit('setTasks', tasks)
     },
 
     filterTasksByStatus: ({state, commit}, status) => {
-        const tasks = status == 0 ? state.todos : state.todos.filter(todo => todo.status === status)
+        const tasks = [...state.todos].filter(todo => todo.status === status + 1)
 
         commit('setTasks', tasks)
     },
 
-    sortTasksByDeadline: () => {
-        const tasks = state.todos.map
+    sortTasksByDeadline: ({state, commit}, sortType) => {
+        const tasks = [...state.todos].sort((pre, next) =>
+        (sortType == 'asc')
+            ?
+            new Date(next.deadline) - new Date(pre.deadline)
+            :
+            new Date(pre.deadline) - new Date(next.deadline)
+
+        )
+
+        commit('setTasks', tasks)
     }
 }

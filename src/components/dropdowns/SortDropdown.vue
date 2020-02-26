@@ -3,7 +3,7 @@
         <div class="clickable" v-click-outside="hideDropdown" @click="isShow = !isShow"><u>Sort by deadline</u></div>
 
         <ul class="base-dropdown mt-2" v-if="isShow">
-            <li v-for="(sort, index) in sorts" :key="index" @click="sortTasksByDeadline(index)">
+            <li v-for="(sort, index) in sorts" :key="index" @click="sortTasksByDeadline(sort)">
                 {{ sort }}
             </li>
         </ul>

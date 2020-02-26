@@ -5,10 +5,5 @@ export default {
 
     deleteTask: (state, index) => state.todos.splice(index, 1),
 
-
-
-
-
-
     setTasks: (state, todos) => state.tasks = todos
 }

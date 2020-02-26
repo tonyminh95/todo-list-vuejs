@@ -19,7 +19,7 @@
 
         data () {
             return {
-                filters: ['All', 'Open', 'In progress', 'Closed'],
+                filters: ['Open', 'In progress', 'Closed'],
                 isShow: false
             }
         },

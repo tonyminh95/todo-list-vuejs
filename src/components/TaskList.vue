@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <!-- <input @keyup.enter="createTask" class="title" placeholder="What do you want to do?" autofocus v-model="title"> -->
+        <input @keyup.enter="createTask" class="title" placeholder="What do you want to do?" autofocus v-model="title">
 
         <task-all></task-all>
         <task-today class="ml-5"></task-today>
@@ -18,19 +18,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="task in tasks" :key="task.id">
-                    <td>{{ task.title }}</td>
-                    <td>{{ task.description }}</td>
-                    <td>{{ task.deadline }}</td>
-                    <td>{{ task.status }}</td>
-                </tr>
-                <!-- <task-row
+                <task-row
                     v-for="task in tasks"
                     :key="task.id"
                     :todo="task"
                     @editRow="editTodo = task, showTaskEditModal = true"
                     @deleteRow="deleteTodoId = task.id, showTaskDeleteModal = true"
-                ></task-row> -->
+                ></task-row>
             </tbody>
         </table>
 
@@ -39,24 +33,24 @@
             :todo="editTodo"
             @cancelEdit="showTaskEditModal = false"
             @edit="editTask($event), showTaskEditModal = false"
-        ></task-edit>
+        ></task-edit> -->
 
         <task-delete
             v-if="showTaskDeleteModal"
             @cancelDelete="showTaskDeleteModal = false"
             @delete="deleteTask(deleteTodoId), showTaskDeleteModal = false"
-        ></task-delete> -->
+        ></task-delete>
     </div>
 </template>
 
 <script>
-    // import TaskRow from './TaskRow'
+    import TaskRow from './TaskRow'
     import TaskAll from './TaskAll'
     import TaskToday from './TaskToday'
     import FilterDropdown from './dropdowns/FilterDropdown'
     import SortDropdown from './dropdowns/SortDropdown'
-    // import TaskDelete from './modals/TaskDelete'
     // import TaskEdit from './modals/TaskEdit'
+    import TaskDelete from './modals/TaskDelete'
 
     // import { mapGetters } from 'vuex'
 
@@ -64,24 +58,24 @@
         name: 'NewDesign',
 
         components: {
-            // TaskRow,
+            TaskRow,
             TaskAll,
             TaskToday,
             FilterDropdown,
             SortDropdown,
         //     // TaskEdit,
-        //     // TaskDelete,
+            TaskDelete
         },
 
-        // data () {
-        //     return {
-        //         title: null,
-        //         showTaskEditModal: null,
-        //         editTodo: null,
-        //         showTaskDeleteModal: null,
-        //         deleteTodoId: null
-        //     }
-        // },
+        data () {
+            return {
+                title: null,
+                // showTaskEditModal: null,
+                // editTodo: null,
+                showTaskDeleteModal: null,
+                deleteTodoId: null
+            }
+        },
 
         computed: {
             tasks () {
@@ -89,19 +83,19 @@
             }
         },
 
-        // methods: {
+        methods: {
         //     // ...mapActions({
         //     //     editTask: 'editTask',
         //     //     deleteTask: 'deleteTask',
         //     // }),
 
-        //     createTask () {
-        //         if (this.title) {
-        //             this.$store.dispatch('createTask', this.title)
-        //             this.title = null
-        //         }
-        //     }
-        // },
+            createTask () {
+                if (this.title) {
+                    this.$store.dispatch('createTask', this.title)
+                    this.title = null
+                }
+            }
+        },
 
         created () {
             this.$store.dispatch('fetchTasks')
