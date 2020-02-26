@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div @click="check = !check"><u>Filter by status</u></div>
+        <div class="clickable mb-2" @click="check = !check"><u>Filter by status</u></div>
 
         <base-dropdown :items="['All', 'Open', 'In progress', 'Closed']" v-if="check"></base-dropdown>
     </div>
@@ -23,9 +23,3 @@
         }
     }
 </script>
-
-<style lang="sass" scoped>
-    div
-        cursor: pointer;
-        margin-bottom: 10px;
-</style>
