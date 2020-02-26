@@ -13,6 +13,9 @@ Vue.filter('status', status)
 
 Vue.use(require('vue-moment'));
 
+// import ClickOutside from 'vue-click-outside'
+// Vue.use(ClickOutside)
+
 library.add(fas, far)
 
 Vue.component('fa-icon', FontAwesomeIcon)

@@ -1,24 +1,35 @@
 <template>
     <div>
-        <div class="clickable mb-2" @click="check = !check"><u>Filter by status</u></div>
+        <div class="clickable mb-2" v-click-outside="test" @click="check = !check"><u>Filter by status</u></div>
 
-        <base-dropdown :items="['All', 'Open', 'In progress', 'Closed']" v-if="check"></base-dropdown>
+        <ul class="base-dropdown" v-if="check">
+            <li v-for="(filter, index) in filters" :key="index">
+                {{ filter }}
+            </li>
+        </ul>
     </div>
 </template>
 
 <script>
-    import BaseDropdown from '../bases/BaseDropdown'
+    import ClickOutside from 'vue-click-outside'
 
     export default {
         name: 'FilterDropdown',
 
-        components: {
-            BaseDropdown
-        },
-
         data () {
             return {
+                filters: ['All', 'Open', 'In progress', 'Closed'],
                 check: null
+            }
+        },
+
+        directives: {
+            ClickOutside
+        },
+
+        methods: {
+            test () {
+                this.check = false
             }
         }
     }
