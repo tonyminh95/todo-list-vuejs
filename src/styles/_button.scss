@@ -1,12 +1,12 @@
-@mixin hoverAndActive ($softColor, $lightColor) {
+@mixin hoverAndActive ($softColor) {
     background-color: $softColor;
 
     &:hover {
-        background: $lightColor radial-gradient(circle, transparent 1%, $lightColor 1%) center/15000%;
+        background: darken($color: $softColor, $amount: 15%) radial-gradient(circle, transparent 1%, darken($color: $softColor, $amount: 15%) 1%) center/15000%;
     }
 
     &:active {
-        background-color: $softColor;
+        background-color: lighten($color: $softColor, $amount: 15%);
         background-size: 100%;
         transition: background 0s;
     }
@@ -20,13 +20,13 @@
     color: $icon;
 
     @if $type == create {
-        @include hoverAndActive($soft-green, $light-green)
+        @include hoverAndActive($soft-green)
     } @else if $type == edit {
-        @include hoverAndActive($soft-yellow, $light-yellow)
+        @include hoverAndActive($soft-yellow)
     } @else if $type == delete {
-        @include hoverAndActive($soft-red, $light-red)
+        @include hoverAndActive($soft-red)
     } @else if $type == cancel {
-        @include hoverAndActive($soft-gray, $light-gray)
+        @include hoverAndActive($soft-gray)
     }
 }
 
