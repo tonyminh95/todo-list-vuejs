@@ -15,7 +15,7 @@
 </script>
 
 <style lang="sass">
-    @import "@/styles/global.scss";
+    @import "@/styles/main.scss";
 
     @font-face
         font-family: 'Open Sans';

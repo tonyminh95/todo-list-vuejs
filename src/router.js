@@ -13,7 +13,7 @@ export default new Router({
             component: TaskList
         },
         {
-            path: 'datatable',
+            path: '/datatable',
             name: 'datatable',
             component: DatatableTest
         }
