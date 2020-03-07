@@ -7,6 +7,7 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import 'bootstrap/dist/css/bootstrap.css'
 import store from '@/store/index'
+import router from './router'
 // filter
 import { status } from '@/utils'
 Vue.filter('status', status)
@@ -24,6 +25,7 @@ Vue.component('vue-datepicker', Datepicker)
 Vue.config.productionTip = false
 
 new Vue({
+  router,
   store,
   render: h => h(App),
 }).$mount('#app')
