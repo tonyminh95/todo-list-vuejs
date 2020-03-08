@@ -24,7 +24,7 @@
             </tbody>
         </table> -->
 
-        <div class="text-center mb-3">
+        <div style="margin-bottom: 100px; text-align: center">
             <pagination />
         </div>
 
