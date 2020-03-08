@@ -12,25 +12,26 @@
 }
 
 .pagination {
-    display: inline-block;
+    // list-style: none;
+    // padding: 0;
 
-    &__prev {
-        @extend %pagination_btn;
-        border-top-left-radius: 20px;
-        border-bottom-left-radius: 20px;
-    }
+    // &__prev {
+    //     @extend %pagination_btn;
+    //     border-top-left-radius: 20px;
+    //     border-bottom-left-radius: 20px;
+    // }
 
-    &__next {
-        @extend %pagination_btn;
-        border-top-right-radius: 20px;
-        border-bottom-right-radius: 20px;
-        margin-left: 10px;
-    }
+    // &__next {
+    //     @extend %pagination_btn;
+    //     border-top-right-radius: 20px;
+    //     border-bottom-right-radius: 20px;
+    //     margin-left: 10px;
+    // }
 
-    &__number {
-        @extend %pagination_btn;
-        margin-left: 10px;
-    }
+    // &__number {
+    //     @extend %pagination_btn;
+    //     margin-left: 10px;
+    // }
 }
 
 
