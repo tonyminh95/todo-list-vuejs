@@ -1,13 +1,83 @@
-$soft-red: #ffddd9;
-$soft-yellow: #feefd8;
-$soft-green: #b3eee1;
-$soft-blue: #c4e9fe;
-$soft-gray: #f0f0f0;
-
-$icon: #2c2834;
-
 // Colors
-$color-background-default: #eef3fa;
+// (main color)
+$color-navy: navy;
+$color-gray: gray;
+$color-white: white;
+$color-teal: teal;
+
+// (custom color)
+$theme-colors: (
+    // 'primary': #c4e9fe,
+    // 'secondary': #f0f0f0,
+    // 'success': #b3eee1,
+    'edit': #feefd8,
+    'delete': #ffddd9,
+    // 'info': #8affffee,
+);
+// $color-primary: #c4e9fe;
+// $color-secondary: #f0f0f0;
+// $color-success: #b3eee1;
+// $color-delete: #ffddd9;
+// $color-warning: #feefd8;
+// $color-info: #8affffee;
+
+$color-background-default: #f6f5f8;
+$color-icon: #2c2834;
 
 // Dimensions
-// $default-dimesion: 0.8rem;
+$default-dimension: .8rem;
+$default-letter-spacing: .1rem;
+
+// (table)
+$table-cell-padding: $default-dimension $default-dimension * 2;
+$table-cell-line-height: 3rem;
+$table-cell-header-color: lighten($color-navy, 15);
+$table-row-border-radius: 10px;
+$table-row-margin-bottom: $default-dimension;
+
+// (button - icon)
+$button-border-radius: 5px;
+$icon-size-default: 2rem;
+
+
+
+
+
+
+$gray-base:              #000 !default;
+$line-height-base:        1.428571429 !default; // 20/14
+$gray-light:             lighten($gray-base, 46.7%) !default; // #777
+$table-border-color:            #ddd !default;
+$body-bg:               #fff !default;
+$table-condensed-cell-padding:  5px !default;
+$table-bg-accent:               #f9f9f9 !default;
+$table-bg-hover:                #f5f5f5 !default;
+$font-size-base:          14px !default;
+$table-bg:                      transparent !default;
+$table-cell-padding:            8px !default;
+$line-height-computed:    floor(($font-size-base * $line-height-base)) !default; // ~20px
+$text-muted:                  $gray-light !default;
+$table-bg-active:               $table-bg-hover !default;
+$state-success-text:             #3c763d !default;
+$state-success-bg:               #dff0d8 !default;
+$state-success-border:           darken(adjust-hue($state-success-bg, -10), 5%) !default;
+
+$state-info-text:                #31708f !default;
+$state-info-bg:                  #d9edf7 !default;
+$state-info-border:              darken(adjust-hue($state-info-bg, -10), 7%) !default;
+
+$state-warning-text:             #8a6d3b !default;
+$state-warning-bg:               #fcf8e3 !default;
+$state-warning-border:           darken(adjust-hue($state-warning-bg, -10), 5%) !default;
+
+$state-danger-text:              #a94442 !default;
+$state-danger-bg:                #f2dede !default;
+$state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !default;
+
+$screen-sm:                  768px !default;
+$screen-sm-min:              $screen-sm !default;
+$screen-xs-max:              ($screen-sm-min - 1) !default;
+
+// "success": #28a745,
+//     "info": #17a2b8,
+//     "warning": #ffc107,

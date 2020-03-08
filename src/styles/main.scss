@@ -2,10 +2,10 @@
 
 @import 'base';
 
-@import 'button';
-@import 'card';
+@import 'components/button';
+@import 'components/datatable';
+@import 'components/pagination';
 
 @import 'status';
 @import 'modal';
 @import 'dropdown';
-@import 'common';
