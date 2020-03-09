@@ -1,7 +1,7 @@
 .pagination {
     list-style: none;
 
-    > li {
+    &__button {
         display: inline-block;
         padding: 0.5rem 1rem;
         border: 1px solid $color-gray;
@@ -29,6 +29,18 @@
         &:not(:first-child) {
             margin-left: 0.8rem;
         }
+    }
+
+    &__active {
+        border: 1px solid $color-navy;
+        color: $color-navy;
+        border-radius: 10px 0 10px 0;
+    }
+
+    &__disable {
+        border: 1px solid lighten($color-gray, 15%);
+        color: lighten($color-gray, 15%);
+        // border-radius: 10px 0 10px 0;
     }
 }
 
