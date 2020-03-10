@@ -1,0 +1,14 @@
+.condition {
+    > li {
+        display: inline-block;
+        cursor: pointer;
+
+        &:not(:first-child) {
+            margin-left: $medium-dimension;
+        }
+
+        &:hover {
+            color: $color-navy;
+        }
+    }
+}

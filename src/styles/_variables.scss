@@ -26,7 +26,11 @@ $color-icon: #2c2834;
 
 // Dimensions
 $default-dimension: .8rem;
+$medium-dimension: 4rem;
 $default-letter-spacing: .1rem;
+// (border radius)
+$border-radius-small: .5rem;
+$border-radius-medium: 1rem;
 
 // (table)
 $table-cell-padding: $default-dimension $default-dimension * 2;
@@ -44,40 +48,40 @@ $icon-size-default: 2rem;
 
 
 
-$gray-base:              #000 !default;
-$line-height-base:        1.428571429 !default; // 20/14
-$gray-light:             lighten($gray-base, 46.7%) !default; // #777
-$table-border-color:            #ddd !default;
-$body-bg:               #fff !default;
-$table-condensed-cell-padding:  5px !default;
-$table-bg-accent:               #f9f9f9 !default;
-$table-bg-hover:                #f5f5f5 !default;
-$font-size-base:          14px !default;
-$table-bg:                      transparent !default;
-$table-cell-padding:            8px !default;
-$line-height-computed:    floor(($font-size-base * $line-height-base)) !default; // ~20px
-$text-muted:                  $gray-light !default;
-$table-bg-active:               $table-bg-hover !default;
-$state-success-text:             #3c763d !default;
-$state-success-bg:               #dff0d8 !default;
-$state-success-border:           darken(adjust-hue($state-success-bg, -10), 5%) !default;
+// $gray-base:              #000 !default;
+// $line-height-base:        1.428571429 !default; // 20/14
+// $gray-light:             lighten($gray-base, 46.7%) !default; // #777
+// $table-border-color:            #ddd !default;
+// $body-bg:               #fff !default;
+// $table-condensed-cell-padding:  5px !default;
+// $table-bg-accent:               #f9f9f9 !default;
+// $table-bg-hover:                #f5f5f5 !default;
+// $font-size-base:          14px !default;
+// $table-bg:                      transparent !default;
+// $table-cell-padding:            8px !default;
+// $line-height-computed:    floor(($font-size-base * $line-height-base)) !default; // ~20px
+// $text-muted:                  $gray-light !default;
+// $table-bg-active:               $table-bg-hover !default;
+// $state-success-text:             #3c763d !default;
+// $state-success-bg:               #dff0d8 !default;
+// $state-success-border:           darken(adjust-hue($state-success-bg, -10), 5%) !default;
 
-$state-info-text:                #31708f !default;
-$state-info-bg:                  #d9edf7 !default;
-$state-info-border:              darken(adjust-hue($state-info-bg, -10), 7%) !default;
+// $state-info-text:                #31708f !default;
+// $state-info-bg:                  #d9edf7 !default;
+// $state-info-border:              darken(adjust-hue($state-info-bg, -10), 7%) !default;
 
-$state-warning-text:             #8a6d3b !default;
-$state-warning-bg:               #fcf8e3 !default;
-$state-warning-border:           darken(adjust-hue($state-warning-bg, -10), 5%) !default;
+// $state-warning-text:             #8a6d3b !default;
+// $state-warning-bg:               #fcf8e3 !default;
+// $state-warning-border:           darken(adjust-hue($state-warning-bg, -10), 5%) !default;
 
-$state-danger-text:              #a94442 !default;
-$state-danger-bg:                #f2dede !default;
-$state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !default;
+// $state-danger-text:              #a94442 !default;
+// $state-danger-bg:                #f2dede !default;
+// $state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !default;
 
-$screen-sm:                  768px !default;
-$screen-sm-min:              $screen-sm !default;
-$screen-xs-max:              ($screen-sm-min - 1) !default;
+// $screen-sm:                  768px !default;
+// $screen-sm-min:              $screen-sm !default;
+// $screen-xs-max:              ($screen-sm-min - 1) !default;
 
-// "success": #28a745,
-//     "info": #17a2b8,
-//     "warning": #ffc107,
+// // "success": #28a745,
+// //     "info": #17a2b8,
+// //     "warning": #ffc107,
