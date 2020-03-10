@@ -48,7 +48,7 @@
 
         computed: {
             numberOfPages () {
-                return Math.trunc(this.list_size / this.page_size) + 1
+                return Math.ceil(this.list_size / this.page_size)
             }
         },
 

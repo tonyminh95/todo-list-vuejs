@@ -4,6 +4,7 @@ $color-navy: navy;
 $color-gray: gray;
 $color-white: white;
 $color-teal: teal;
+$color-black: black;
 
 // (custom color)
 $theme-colors: (
@@ -25,7 +26,7 @@ $color-background-default: #f6f5f8;
 $color-icon: #2c2834;
 
 // Dimensions
-$default-dimension: .8rem;
+$default-dimension: 1rem;
 $medium-dimension: 4rem;
 $default-letter-spacing: .1rem;
 // (border radius)
@@ -33,9 +34,12 @@ $border-radius-small: .5rem;
 $border-radius-medium: 1rem;
 
 // (table)
+$table-header-background-color: #e9eff3;
 $table-cell-padding: $default-dimension $default-dimension * 2;
+
+
+
 $table-cell-line-height: 3rem;
-$table-cell-header-color: lighten($color-navy, 15);
 $table-row-border-radius: 10px;
 $table-row-margin-bottom: $default-dimension;
 
