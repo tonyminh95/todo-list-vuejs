@@ -1,9 +1,8 @@
 <template>
     <div>
-        <div v-click-outside="hideDropdown" @click="showDropdown = !showDropdown">
+        <div v-click-outside="hideDropdown" @click="showDropdown = !showDropdown" class="u-cursor-pointer">
             <slot name="dropdownButton"></slot>
         </div>
-
 
         <ul class="u-margin-top-xsmall dropdown" v-if="showDropdown">
             <li v-for="(item, index) in items" :key="index" @click="$emit('chosen-item', index)">

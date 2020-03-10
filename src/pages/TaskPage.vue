@@ -8,9 +8,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="body in bodies" :key="body.id">
+                <tr v-for="item in items" :key="item.id">
                     <td v-for="(header, index) in headers" :key="index">
-                        {{ body[header.title] }}
+                        {{ item[header.title] }}
                     </td>
                 </tr>
             </tbody>
@@ -18,20 +18,18 @@
                 <tr>
                     <td :colspan="headers.length">
                         <ul>
-                            <!-- <li class="u-display-inline-block u-margin-right-small"> -->
-                            <li>
-                                <dropdown :items="entries" >
+                            <li class="u-display-inline-block u-margin-right-small">
+                                <dropdown :items="entries" @chosen-item="page_size = entries[$event]">
                                     <div slot="dropdownButton">
-                                        <!-- Row per pages <span class="u-border-bottom">{{ numberOfEntries }}</span> -->
-                                        <fa-icon :icon="['fas', 'sort-down']"></fa-icon>
+                                        Row per pages <span class="u-border-bottom">{{ page_size }}</span> <fa-icon :icon="['fas', 'sort-down']"></fa-icon>
                                     </div>
                                 </dropdown>
                             </li>
-                            <li>
+                            <li class="u-display-inline-block">
                                 <pagination
                                     :page_size="page_size"
                                     :list_size="bodies.length"
-                                    @page-number="test"
+                                    @page-number="page_number = $event"
                                 />
                             </li>
                         </ul>
@@ -57,7 +55,8 @@
 
         data() {
             return {
-                page_size: 1,
+                page_size: 10,
+                page_number: 1,
                 entries: [10, 25, 50, 75, 100],
                 headers: [
                     { width: '20%', title: 'title' },
@@ -95,6 +94,12 @@
                         status: 'closed'
                     },
                 ]
+            }
+        },
+
+        computed: {
+            items () {
+                return this.bodies.slice(this.page_size * (this.page_number - 1), this.page_size * (this.page_number - 1) + this.page_size)
             }
         }
     }

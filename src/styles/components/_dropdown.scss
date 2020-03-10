@@ -5,6 +5,7 @@
     -webkit-box-shadow: 0px 0px 10px 5px rgba(lighten($color-gray, 40%), 0.57);
     -moz-box-shadow: 0px 0px 10px 5px rgba(lighten($color-gray, 40%),0.57);
     box-shadow: 0px 0px 10px 5px rgba(lighten($color-gray, 40%),0.57);
+    text-align: left;
 
     > li {
         padding: $default-dimension $default-dimension * 2;
