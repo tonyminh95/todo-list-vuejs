@@ -1,35 +1,20 @@
 <template>
-    <div>
-        <ul class="condition">
-            <!--  -->
-            <li>
-                <dropdown :items="items">
-                    <div slot="dropdownButton">
-                        Show <span class="u-border-bottom">{{ numberOfEntries }}</span> entries
-                        <fa-icon :icon="['fas', 'sort-down']"></fa-icon>
-                    </div>
-                </dropdown>
-            </li>
-            <li>
-                <dropdown :items="items">
-                    <div slot="dropdownButton">
-                        Filter <fa-icon :icon="['fas', 'sort-down']"></fa-icon>
-                    </div>
-                </dropdown>
-            </li>
-            <li>
-                <dropdown :items="items">
-                    <div slot="dropdownButton">
-                        Sort <fa-icon :icon="['fas', 'sort-down']"></fa-icon>
-                    </div>
-                </dropdown>
-            </li>
-        </ul>
-    </div>
+    <ul class="condition">
+        <li>
+            <dropdown :items="entries" @chosen-item="chosenItem">
+                <div slot="dropdownButton">
+                    Show <span class="u-border-bottom">{{ numberOfEntries }}</span> entries
+                    <fa-icon :icon="['fas', 'sort-down']"></fa-icon>
+                </div>
+            </dropdown>
+        </li>
+        <li>
+            Filter <input >
+        </li>
+    </ul>
 </template>
 
 <script>
-    import ClickOutside from 'vue-click-outside'
     import Dropdown from '@/components/bases/BaseDropdown'
 
     export default {
@@ -39,21 +24,17 @@
             Dropdown
         },
 
-        directives: {
-            ClickOutside
-        },
-
         data () {
             return {
                 numberOfEntries: 10,
-                showDropdown: false,
-                items: [1, 2, 3, 4]
+                entries: [10, 25, 50, 75, 100]
             }
         },
 
         methods: {
-            hideDropdown () {
-                this.showDropdown = false
+            chosenItem (index) {
+                this.numberOfEntries = this.entries[index]
+                this.$emit('chosen-item', this.numberOfEntries)
             }
         }
     }

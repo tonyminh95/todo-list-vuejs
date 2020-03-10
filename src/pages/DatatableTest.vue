@@ -1,22 +1,9 @@
 <template>
     <div style="width: 90%; margin: 0 auto; margin-top: 100px;">
 
-        <pagination
-            class="u-text-center u-margin-bottom-medium"
-            :page_size="page_size"
-            :list_size="bodies.length"
-            @page-number="test"
-        />
+        <condition class="u-margin-bottom-small" @chosen-item="page_size = $event"/>
 
-        <condition />
-        <!-- <select v-model="page_size">
-            <option>10</option>
-            <option>25</option>
-            <option>50</option>
-            <option>100</option>
-        </select> -->
-
-        <!-- <table class="table">
+        <table class="table u-margin-bottom-small">
             <thead>
                 <tr>
                     <th v-for="(head, index) in heads" :key="index">{{ head }}</th>
@@ -26,16 +13,23 @@
                 <tr v-for="item in items" :key="item.id">
                     <td v-for="(head, index) in heads" :key="index">
                         {{ item[head] }}
-                    </td> -->
+                    </td>
 
                     <!-- <td v-if="body.propertyType == 'button'" class="datatable__button-box">
                         <div v-for="(type, index) in button.types" :key="index" :class="[`btn-${type.item} btn-icon`]">
                             <fa-icon :icon="type.icon"></fa-icon>
                         </div>
                     </td> -->
-                <!-- </tr>
+                </tr>
             </tbody>
-        </table> -->
+        </table>
+
+        <pagination
+            class="u-text-center"
+            :page_size="page_size"
+            :list_size="bodies.length"
+            @page-number="test"
+        />
     </div>
 </template>
 
@@ -59,7 +53,7 @@
 
         data() {
             return {
-                page_size: 100,
+                page_size: 10,
                 page_number: 1,
                 // datas: [
                 //     {
@@ -151,6 +145,10 @@
         methods: {
             test(pageNumber) {
                 this.page_number = pageNumber
+            },
+
+            chosenItem (index) {
+                alert(index)
             }
         },
     }

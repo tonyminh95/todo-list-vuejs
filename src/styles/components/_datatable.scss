@@ -1,46 +1,46 @@
-.table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0 0.5rem;
+// .table {
+//     width: 100%;
+//     border-collapse: separate;
+//     border-spacing: 0 0.5rem;
 
-    > thead,
-    > tbody {
-        > tr {
-            > th,
-            > td {
-                padding: $table-cell-padding;
-                line-height: $table-cell-line-height;
-                text-align: left;
-            }
-        }
-    }
+//     > thead,
+//     > tbody {
+//         > tr {
+//             > th,
+//             > td {
+//                 padding: $table-cell-padding;
+//                 line-height: $table-cell-line-height;
+//                 text-align: left;
+//             }
+//         }
+//     }
 
-    > thead {
-        text-transform: uppercase;
-        color: $table-cell-header-color;
-    }
+//     > thead {
+//         text-transform: uppercase;
+//         color: $table-cell-header-color;
+//     }
 
-    > tbody {
-        > tr {
-            > td {
-                background: #fff;
-                color: $color-gray;
-            }
+//     > tbody {
+//         > tr {
+//             > td {
+//                 background: #fff;
+//                 color: $color-gray;
+//             }
 
-            > td:first-child {
-                border-top-left-radius: $table-row-border-radius;
-                border-bottom-left-radius: $table-row-border-radius;
-            }
+//             > td:first-child {
+//                 border-top-left-radius: $table-row-border-radius;
+//                 border-bottom-left-radius: $table-row-border-radius;
+//             }
 
-            > td:last-child {
-                border-top-right-radius: $table-row-border-radius;
-                border-bottom-right-radius: $table-row-border-radius;
-            }
-        }
-    }
+//             > td:last-child {
+//                 border-top-right-radius: $table-row-border-radius;
+//                 border-bottom-right-radius: $table-row-border-radius;
+//             }
+//         }
+//     }
 
-    &__button-box {
-        width: 1%;
-        white-space:nowrap;
-    }
-}
+//     &__button-box {
+//         width: 1%;
+//         white-space:nowrap;
+//     }
+// }

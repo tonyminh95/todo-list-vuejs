@@ -8,8 +8,8 @@
 
     > li {
         padding: $default-dimension $default-dimension * 2;
-        cursor: pointer;
         background-color: $color-white;
+        cursor: pointer;
 
         &:first-child {
             border-radius: $border-radius-small $border-radius-small 0 0;

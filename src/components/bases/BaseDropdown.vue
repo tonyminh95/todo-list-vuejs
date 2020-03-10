@@ -6,7 +6,7 @@
 
 
         <ul class="u-margin-top-xsmall dropdown" v-if="showDropdown">
-            <li v-for="(item, index) in items" :key="index">
+            <li v-for="(item, index) in items" :key="index" @click="$emit('chosen-item', index)">
                 {{ item }}
             </li>
         </ul>

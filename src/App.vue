@@ -3,6 +3,7 @@
         <div id="nav">
             <router-link to="/">Task List</router-link>
             <router-link to="/datatable">Data table</router-link>
+            <router-link to="/tasks">Task page</router-link>
         </div>
         <router-view/>
     </div>

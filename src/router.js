@@ -1,7 +1,8 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import TaskList from '@/components/TaskList';
-import DatatableTest from '@/pages/DatatableTest';
+import Vue from 'vue'
+import Router from 'vue-router'
+import TaskList from '@/components/TaskList'
+import DatatableTest from '@/pages/DatatableTest'
+import TaskPage from '@/pages/TaskPage'
 
 Vue.use(Router)
 
@@ -16,6 +17,11 @@ export default new Router({
             path: '/datatable',
             name: 'datatable',
             component: DatatableTest
+        },
+        {
+            path: '/tasks',
+            name: 'task',
+            component: TaskPage
         }
     ]
 })
