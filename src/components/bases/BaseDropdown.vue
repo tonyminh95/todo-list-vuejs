@@ -5,7 +5,7 @@
         </div>
 
 
-        <ul class="u-margin-top-small dropdown" v-if="showDropdown">
+        <ul class="u-margin-top-xsmall dropdown" v-if="showDropdown">
             <li v-for="(item, index) in items" :key="index">
                 {{ item }}
             </li>
