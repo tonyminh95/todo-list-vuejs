@@ -4,7 +4,13 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th v-for="(header, index) in headers" :key="index" :width="header.width">{{ header.title }}</th>
+                    <th v-for="(header, index) in headers" :key="index" :width="header.width">
+                        {{ header.title }}
+                        <span v-if="typeof header.sort !== 'undefined'" @click="header.sort = !header.sort" class="table__sort-icon">
+                            <fa-icon :icon="['fas', 'sort-amount-down-alt']" v-if="header.sort"></fa-icon>
+                            <fa-icon :icon="['fas', 'sort-amount-up-alt']" v-else></fa-icon>
+                        </span>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -53,15 +59,19 @@
             Dropdown
         },
 
-        data() {
+        data () {
             return {
+                actions: new Map([
+                    ['sort_asc', this.minh],
+                    ['sort_desc', () => { alert(2) }]
+                ]),
                 page_size: 10,
                 page_number: 1,
                 entries: [10, 25, 50, 75, 100],
                 headers: [
-                    { width: '20%', title: 'title' },
-                    { width: '55%', title: 'description' },
-                    { width: '10%', title: 'deadline' },
+                    { width: '20%', title: 'title', sort: true },
+                    { width: '50%', title: 'description', sort: false },
+                    { width: '15%', title: 'deadline', sort: true },
                     { width: '15%', title: 'status' },
                 ],
                 bodies: [
@@ -101,6 +111,16 @@
             items () {
                 return this.bodies.slice(this.page_size * (this.page_number - 1), this.page_size * (this.page_number - 1) + this.page_size)
             }
+        },
+
+        methods: {
+            minh () {
+                return 123
+            }
+        },
+
+        created () {
+            console.log(this.actions.get('sort_asc').call(this))
         }
     }
 </script>

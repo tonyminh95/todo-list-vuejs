@@ -68,4 +68,13 @@
     // //         width: 1%;
     // //         white-space:nowrap;
     // //     }
+
+    &__sort-icon {
+        background-color: transparent;
+        cursor: pointer;
+
+        > svg {
+            background-color: transparent;
+        }
+    }
 }
