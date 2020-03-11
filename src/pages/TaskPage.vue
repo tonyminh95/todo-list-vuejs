@@ -1,12 +1,14 @@
 <template>
     <div style="width: 85%; margin: 0 auto; margin-top: 50px;">
 
+        <div>Datatable</div>
+
         <table class="table">
             <thead>
                 <tr>
                     <th v-for="(header, index) in headers" :key="index" :width="header.width">
                         {{ header.title }}
-                        <span v-if="typeof header.sort !== 'undefined'" @click="header.sort = !header.sort" class="table__sort-icon">
+                        <span v-if="typeof header.sort !== 'undefined'" @click="sort(index)" class="table__sort-icon">
                             <fa-icon :icon="['fas', 'sort-amount-down-alt']" v-if="header.sort"></fa-icon>
                             <fa-icon :icon="['fas', 'sort-amount-up-alt']" v-else></fa-icon>
                         </span>
@@ -62,9 +64,12 @@
         data () {
             return {
                 actions: new Map([
-                    ['sort_asc', this.minh],
+                    ['sort_asc', this.sortAsc],
                     ['sort_desc', () => { alert(2) }]
                 ]),
+
+
+
                 page_size: 10,
                 page_number: 1,
                 entries: [10, 25, 50, 75, 100],
@@ -110,12 +115,33 @@
         computed: {
             items () {
                 return this.bodies.slice(this.page_size * (this.page_number - 1), this.page_size * (this.page_number - 1) + this.page_size)
+            },
+
+            // test() {
+                // this.actions.get('pagination')
+                // this.actions.get('pagination')
+                // this.actions.get('pagination')
+                // this.actions.get('pagination')
+            // },
+
+            test2() {
+                return this.bodiesslice(this.page_size * (this.page_number - 1), this.page_size * (this.page_number - 1) + this.page_size)
             }
         },
 
         methods: {
-            minh () {
+            sortAsc () {
                 return 123
+            },
+
+            sortDesc () {
+                return 234
+            },
+
+            sort (index) {
+                const header = this.headers[index]
+                header.sort = !header.sort
+                alert(header.title)
             }
         },
 
