@@ -1,96 +1,31 @@
 <template>
     <div style="width: 85%; margin: 0 auto; margin-top: 50px;">
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th :colspan="headers.length">
-                        <div class="table__header">
-                            <span class="heading-primary">table title here</span>
-                            <input type="text" placeholder="Search" class="table__header__search-input">
-                        </div>
-                    </th>
-                </tr>
-                <tr>
-                    <th :colspan="headers.length">
-                        <div class="table__header">
-                            <div class="btn-create">new task +</div>
+        <datatable
+            :table_name="'task management'"
+            :headers="headers"
+            :bodies="bodies"
 
-                            <ul class="table__header__pagination">
-                                <li class="u-display-inline-block u-margin-right-small">
-                                    <dropdown :items="entries" @chosen-item="page_size = entries[$event]" :position="'right'">
-                                        <div slot="dropdownButton">
-                                            Row per pages <span class="u-border-bottom">{{ page_size }}</span> <fa-icon :icon="['fas', 'sort-down']"></fa-icon>
-                                        </div>
-                                    </dropdown>
-                                </li>
-                                <li class="u-display-inline-block">
-                                    <pagination
-                                        :page_size="page_size"
-                                        :list_size="bodies.length"
-                                        @page-number="page_number = $event"
-                                    />
-                                </li>
-                            </ul>
-                        </div>
-                    </th>
-                </tr>
-                <tr>
-                    <th v-for="(header, index) in headers" :key="index" :width="header.width">
-                        {{ header.title }}
-                        <span v-if="typeof header.sort !== 'undefined'" @click="sort(index)" class="u-cursor-pointer">
-                            <fa-icon :icon="['fas', 'sort-amount-down-alt']" v-if="header.sort"></fa-icon>
-                            <fa-icon :icon="['fas', 'sort-amount-up-alt']" v-else></fa-icon>
-                        </span>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="item in items" :key="item.id">
-                    <td v-for="(header, index) in headers" :key="index">
-                        <div v-if="header.type === 'status'" :class="'status status-' + matchTheWord(status.get(item[header.title]))">
-                            {{ status.get(item[header.title]) }}
-                        </div>
-                        <div v-else>
-                            {{ item[header.title] }}
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+            :page_size="page_size"
+            :page_number="page_number"
+            :entries="entries"
+        />
 
     </div>
 </template>
 
 <script>
-    import Pagination from '@/components/bases/BasePagination'
-    import Dropdown from '@/components/bases/BaseDropdown'
+    import Datatable from '@/components/Datatable'
 
     export default {
         name: 'TaskPage',
 
         components: {
-            Pagination,
-            Dropdown
+            Datatable
         },
 
         data () {
             return {
-                status: new Map([
-                    [0, 'open'],
-                    [1, 'in progress'],
-                    [2, 'closed']
-                ]),
-                // actions: new Map([
-                //     ['sort_asc', this.sortAsc],
-                //     ['sort_desc', () => { alert(2) }]
-                // ]),
-
-
-
-                page_size: 10,
-                page_number: 1,
-                entries: [10, 25, 50, 75, 100],
                 headers: [
                     { width: '20%', title: 'title', sort: true },
                     { width: '50%', title: 'description', sort: false },
@@ -126,7 +61,24 @@
                         deadline: '13/12/2020',
                         status: 2
                     }
-                ]
+                ],
+
+
+
+
+                status: new Map([
+                    [0, 'open'],
+                    [1, 'in progress'],
+                    [2, 'closed']
+                ]),
+                page_size: 10,
+                page_number: 1,
+                entries: [10, 25, 50, 75, 100],
+
+                // actions: new Map([
+                //     ['sort_asc', this.sortAsc],
+                //     ['sort_desc', () => { alert(2) }]
+                // ]),
             }
         },
 
