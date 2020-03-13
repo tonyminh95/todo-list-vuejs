@@ -35,11 +35,6 @@
                         </div>
                     </th>
                 </tr>
-
-
-
-
-
                 <tr>
                     <th v-for="(header, index) in headers" :key="index" :width="header.width">
                         {{ header.title }}
@@ -53,7 +48,9 @@
             <tbody>
                 <tr v-for="item in items" :key="item.id">
                     <td v-for="(header, index) in headers" :key="index">
-                        {{ item[header.title] }}
+                        <div :class="{ 'status' : header.type === 'status' }">
+                            {{ item[header.title] }}
+                        </div>
                     </td>
                 </tr>
             </tbody>
@@ -89,8 +86,8 @@
                 headers: [
                     { width: '20%', title: 'title', sort: true },
                     { width: '50%', title: 'description', sort: false },
-                    { width: '15%', title: 'deadline', sort: true },
-                    { width: '15%', title: 'status' },
+                    { width: '15%', title: 'deadline', sort: true, type: 'ss' },
+                    { width: '15%', title: 'status', type: 'status' },
                 ],
                 bodies: [
                     {
