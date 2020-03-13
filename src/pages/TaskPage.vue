@@ -1,10 +1,45 @@
 <template>
     <div style="width: 85%; margin: 0 auto; margin-top: 50px;">
 
-        <div>Datatable</div>
-
         <table class="table">
             <thead>
+                <tr>
+                    <th :colspan="headers.length">
+                        <div class="table__header">
+                            <span class="heading-primary">table title here</span>
+                            <input type="text" placeholder="Search" class="table__header__search-input">
+                        </div>
+                    </th>
+                </tr>
+                <tr>
+                    <th :colspan="headers.length">
+                        <div class="table__header">
+                            <div class="btn-create">new task +</div>
+
+                            <ul class="table__header__pagination">
+                                <li class="u-display-inline-block u-margin-right-small">
+                                    <dropdown :items="entries" @chosen-item="page_size = entries[$event]">
+                                        <div slot="dropdownButton">
+                                            Row per pages <span class="u-border-bottom">{{ page_size }}</span> <fa-icon :icon="['fas', 'sort-down']"></fa-icon>
+                                        </div>
+                                    </dropdown>
+                                </li>
+                                <li class="u-display-inline-block">
+                                    <pagination
+                                        :page_size="page_size"
+                                        :list_size="bodies.length"
+                                        @page-number="page_number = $event"
+                                    />
+                                </li>
+                            </ul>
+                        </div>
+                    </th>
+                </tr>
+
+
+
+
+
                 <tr>
                     <th v-for="(header, index) in headers" :key="index" :width="header.width">
                         {{ header.title }}
@@ -22,28 +57,6 @@
                     </td>
                 </tr>
             </tbody>
-            <tfoot>
-                <tr>
-                    <td :colspan="headers.length">
-                        <ul>
-                            <li class="u-display-inline-block u-margin-right-small">
-                                <dropdown :items="entries" @chosen-item="page_size = entries[$event]">
-                                    <div slot="dropdownButton">
-                                        Row per pages <span class="u-border-bottom">{{ page_size }}</span> <fa-icon :icon="['fas', 'sort-down']"></fa-icon>
-                                    </div>
-                                </dropdown>
-                            </li>
-                            <li class="u-display-inline-block">
-                                <pagination
-                                    :page_size="page_size"
-                                    :list_size="bodies.length"
-                                    @page-number="page_number = $event"
-                                />
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-            </tfoot>
         </table>
 
     </div>
@@ -70,9 +83,9 @@
 
 
 
-                page_size: 10,
+                page_size: 1,
                 page_number: 1,
-                entries: [10, 25, 50, 75, 100],
+                entries: [1, 10, 25, 50, 75, 100],
                 headers: [
                     { width: '20%', title: 'title', sort: true },
                     { width: '50%', title: 'description', sort: false },
@@ -107,7 +120,7 @@
                         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Varius quam quisque id diam vel quam. Convallis posuere morbi leo urna. Eu lobortis elementum nibh tellus molestie nunc. Lacus vestibulum sed arcu non odio.',
                         deadline: '13/12/2020',
                         status: 'closed'
-                    },
+                    }
                 ]
             }
         },

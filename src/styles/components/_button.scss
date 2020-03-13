@@ -30,39 +30,42 @@
     }
 }
 
-// .btn-create {
-//     @include btn(create);
-// }
-
-.btn-edit {
+.btn-create {
     @extend %btn;
     @extend %table-button;
 
-    @include btn(edit);
+    @include btn(create);
 }
 
-.btn-delete {
-    @extend %btn;
-    @extend %table-button;
+// .btn-edit {
+//     @extend %btn;
+//     @extend %table-button;
 
-    @include btn(delete);
-}
-
-// .btn-cancel {
-//     @include btn(cancel);
+//     @include btn(edit);
 // }
 
-.btn-icon {
-    position: relative;
-    width: $icon-size-default;
-    height: $icon-size-default;
-    color: $color-icon;
+// .btn-delete {
+//     @extend %btn;
+//     @extend %table-button;
 
-    > svg {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: transparent;
-    }
-}
+//     @include btn(delete);
+// }
+
+// // .btn-cancel {
+// //     @include btn(cancel);
+// // }
+
+// .btn-icon {
+//     position: relative;
+//     width: $icon-size-default;
+//     height: $icon-size-default;
+//     color: $color-icon;
+
+//     > svg {
+//         position: absolute;
+//         top: 50%;
+//         left: 50%;
+//         transform: translate(-50%, -50%);
+//         background-color: transparent;
+//     }
+// }
