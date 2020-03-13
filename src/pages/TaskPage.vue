@@ -18,7 +18,7 @@
 
                             <ul class="table__header__pagination">
                                 <li class="u-display-inline-block u-margin-right-small">
-                                    <dropdown :items="entries" @chosen-item="page_size = entries[$event]">
+                                    <dropdown :items="entries" @chosen-item="page_size = entries[$event]" :position="'right'">
                                         <div slot="dropdownButton">
                                             Row per pages <span class="u-border-bottom">{{ page_size }}</span> <fa-icon :icon="['fas', 'sort-down']"></fa-icon>
                                         </div>
@@ -38,7 +38,7 @@
                 <tr>
                     <th v-for="(header, index) in headers" :key="index" :width="header.width">
                         {{ header.title }}
-                        <span v-if="typeof header.sort !== 'undefined'" @click="sort(index)" class="table__sort-icon">
+                        <span v-if="typeof header.sort !== 'undefined'" @click="sort(index)" class="u-cursor-pointer">
                             <fa-icon :icon="['fas', 'sort-amount-down-alt']" v-if="header.sort"></fa-icon>
                             <fa-icon :icon="['fas', 'sort-amount-up-alt']" v-else></fa-icon>
                         </span>
@@ -48,7 +48,10 @@
             <tbody>
                 <tr v-for="item in items" :key="item.id">
                     <td v-for="(header, index) in headers" :key="index">
-                        <div :class="{ 'status' : header.type === 'status' }">
+                        <div v-if="header.type === 'status'" :class="'status status-' + matchTheWord(status.get(item[header.title]))">
+                            {{ status.get(item[header.title]) }}
+                        </div>
+                        <div v-else>
                             {{ item[header.title] }}
                         </div>
                     </td>
@@ -73,16 +76,21 @@
 
         data () {
             return {
-                actions: new Map([
-                    ['sort_asc', this.sortAsc],
-                    ['sort_desc', () => { alert(2) }]
+                status: new Map([
+                    [0, 'open'],
+                    [1, 'in progress'],
+                    [2, 'closed']
                 ]),
+                // actions: new Map([
+                //     ['sort_asc', this.sortAsc],
+                //     ['sort_desc', () => { alert(2) }]
+                // ]),
 
 
 
-                page_size: 1,
+                page_size: 10,
                 page_number: 1,
-                entries: [1, 10, 25, 50, 75, 100],
+                entries: [10, 25, 50, 75, 100],
                 headers: [
                     { width: '20%', title: 'title', sort: true },
                     { width: '50%', title: 'description', sort: false },
@@ -95,28 +103,28 @@
                         title: 'Maecenas pharetra convallis posuere morbi',
                         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ornare suspendisse sed nisi lacus sed viverra tellus. Sed risus pretium quam vulputate dignissim. Amet massa vitae tortor condimentum. Ultricies lacus sed turpis tincidunt id aliquet risus feugiat in.',
                         deadline: '13/02/2020',
-                        status: 'open'
+                        status: 0
                     },
                     {
                         id: 2,
                         title: 'Volutpat blandit aliquam etiam erat',
                         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Netus et malesuada fames ac turpis egestas maecenas. Fermentum odio eu feugiat pretium nibh ipsum consequat nisl vel. Lobortis mattis aliquam faucibus purus in massa. Dignissim suspendisse in est ante in.',
                         deadline: '26/08/2020',
-                        status: 'open'
+                        status: 0
                     },
                     {
                         id: 3,
                         title: 'Massa tincidunt dui ut ornare',
                         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Est placerat in egestas erat imperdiet sed euismod. Nisi quis eleifend quam adipiscing vitae proin sagittis nisl. Interdum velit laoreet id donec ultrices tincidunt. Tortor at auctor urna nunc id cursus metus aliquam eleifend.',
                         deadline: '03/05/2020',
-                        status: 'in progress'
+                        status: 1
                     },
                     {
                         id: 4,
                         title: 'Diam phasellus vestibulum lorem sed',
                         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Varius quam quisque id diam vel quam. Convallis posuere morbi leo urna. Eu lobortis elementum nibh tellus molestie nunc. Lacus vestibulum sed arcu non odio.',
                         deadline: '13/12/2020',
-                        status: 'closed'
+                        status: 2
                     }
                 ]
             }
@@ -134,29 +142,36 @@
                 // this.actions.get('pagination')
             // },
 
-            test2() {
-                return this.bodiesslice(this.page_size * (this.page_number - 1), this.page_size * (this.page_number - 1) + this.page_size)
-            }
+            // test2() {
+            //     return this.bodiesslice(this.page_size * (this.page_number - 1), this.page_size * (this.page_number - 1) + this.page_size)
+            // }
         },
 
         methods: {
-            sortAsc () {
-                return 123
-            },
+            // sortAsc () {
+            //     return 123
+            // },
 
-            sortDesc () {
-                return 234
-            },
+            // sortDesc () {
+            //     return 234
+            // },
 
-            sort (index) {
-                const header = this.headers[index]
-                header.sort = !header.sort
-                alert(header.title)
+            // sort (index) {
+            //     const header = this.headers[index]
+            //     header.sort = !header.sort
+            //     alert(header.title)
+            //     console.log(this.actions.get('sort_asc').call(this))
+            // },
+
+
+
+
+
+
+
+            matchTheWord (word) {
+                return word.replace(' ', '-')
             }
-        },
-
-        created () {
-            console.log(this.actions.get('sort_asc').call(this))
         }
     }
 </script>

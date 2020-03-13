@@ -4,7 +4,7 @@
             <slot name="dropdownButton"></slot>
         </div>
 
-        <ul class="u-margin-top-xsmall dropdown" v-if="showDropdown">
+        <ul class="u-margin-top-xsmall dropdown" :class="'dropdown-' + position"  v-if="showDropdown">
             <li v-for="(item, index) in items" :key="index" @click="$emit('chosen-item', index)">
                 {{ item }}
             </li>
@@ -26,6 +26,10 @@
             items: {
                 required: true,
                 type: Array
+            },
+
+            position: {
+                type: String
             }
         },
 

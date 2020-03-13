@@ -14,6 +14,9 @@ $theme-colors: (
     'edit': #feefd8,
     'delete': #ffddd9,
     // 'info': #8affffee,
+    'open': #ffddd9,
+    'inprogress': #feefd8,
+    'closed': #b3eee1,
 );
 // $color-primary: #c4e9fe;
 // $color-secondary: #f0f0f0;
@@ -32,6 +35,7 @@ $default-letter-spacing: .05rem;
 // (border radius)
 $border-radius-small: .5rem;
 $border-radius-medium: 1rem;
+$border-radius-large: 1.5rem;
 
 // (table)
 $table-header-background-color: #e9eff3;
