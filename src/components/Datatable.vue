@@ -5,7 +5,7 @@
                 <th :colspan="headers.length">
                     <div class="table__header">
                         <span class="heading-primary">{{ tableName }}</span>
-                        <input type="text" placeholder="Search" class="table__header__search-input">
+                        <input type="text" placeholder="Search" class="table__header__search-input" v-model="search">
                     </div>
                 </th>
             </tr>
@@ -36,7 +36,7 @@
             <tr>
                 <th v-for="(header, index) in headers" :key="index" :width="header.width">
                     {{ header.title }}
-                    <span v-if="typeof header.sort !== 'undefined'" @click="sort(index)" class="u-cursor-pointer">
+                    <span v-if="typeof header.sort !== 'undefined'" @click="sortCondition(header.title, header.type), header.sort = !header.sort" class="u-cursor-pointer">
                         <fa-icon :icon="['fas', 'sort-amount-down-alt']" v-if="header.sort"></fa-icon>
                         <fa-icon :icon="['fas', 'sort-amount-up-alt']" v-else></fa-icon>
                     </span>
@@ -46,12 +46,13 @@
         <tbody>
             <tr v-for="item in items" :key="item.id">
                 <td v-for="(header, index) in headers" :key="index">
-                    <div v-if="header.type === 'status'" :class="'status status-' + matchTheWord(status.get(item[header.title]))">
+                    <!-- <div v-if="header.type === 'status'" :class="'status status-' + matchTheWord(status.get(item[header.title]))">
                         {{ status.get(item[header.title]) }}
-                    </div>
-                    <div v-else>
+                    </div> -->
+                    <!-- <div v-else>
                         {{ item[header.title] }}
-                    </div>
+                    </div> -->
+                    <div v-html="$options.filters.highlightText(item[header.title], search)"></div>
                 </td>
             </tr>
         </tbody>
@@ -61,6 +62,7 @@
 <script>
 // import Pagination from '@/components/bases/BasePagination'
 // import Dropdown from '@/components/bases/BaseDropdown'
+import moment from "moment"
 
 export default {
     name: 'Datatable',
@@ -89,6 +91,66 @@ export default {
     computed: {
         tableName () {
             return this.table_name ? this.table_name : 'table name here'
+        },
+
+        items () {
+            return this.bodies
+                    .filter(body => {
+                        const filter = {...body}
+                        delete filter.id
+
+                        return Object.values(filter).toString().includes(this.search)
+                    })
+                    .sort((prev, next) => {
+                        const action = this.sortActions.get(this.sortObjectType)
+
+                        return action.call(this, prev[this.sortObject], next[this.sortObject])
+                    })
+        }
+    },
+
+    data() {
+        return {
+            search: '',
+            sortObject: 'id',
+            sortObjectType: 'number',
+            sortType: 1,
+            sortActions: new Map([
+                ['number', this.sortedByNumber],
+                ['status', this.sortedByNumber],
+                ['text', this.sortedByString],
+                ['date', this.sortedByDate]
+            ])
+        }
+    },
+
+    filters: {
+        highlightText (value, search) {
+            return value.toString().replace(search, '<span class="text-highlight">' + search + '</span>')
+        }
+    },
+
+    methods: {
+        sortCondition (headerTitle, headerType) {
+            this.sortObject = headerTitle
+            this.sortType *= -1
+            this.sortObjectType = headerType
+        },
+
+        sortedByNumber (prev, next) {
+            return (prev - next) * this.sortType
+        },
+
+        sortedByString (prev, next) {
+            if (prev.toLowerCase() < next.toLowerCase()) return this.sortType
+            if (prev.toLowerCase() > next.toLowerCase()) return this.sortType * -1
+            return 0
+        },
+
+        sortedByDate (prev, next) {
+            if (moment(prev, 'DD/MM/YYYY') < moment(next, 'DD/MM/YYYY')) return this.sortType
+            if (moment(prev, 'DD/MM/YYYY') > moment(next, 'DD/MM/YYYY')) return this.sortType * -1
+            return 0
         }
     }
 }

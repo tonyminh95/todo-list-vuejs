@@ -2,3 +2,7 @@
     font-size: 1.5rem;
     color: $color-black;
 }
+
+.text-highlight {
+    background-color: map-get($theme-colors, edit);
+}
