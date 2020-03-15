@@ -22,31 +22,32 @@
                 Create Task
             </div>
 
-            <div slot="body">
-                <div>
+            <div slot="body" class="form">
+                <div class="form__item">
                     <label>Title</label>
                     <div>
                         <input type="text">
                     </div>
                 </div>
 
-                <div>
+                <div class="form__item">
                     <label>Description</label>
                     <div>
-                        <textarea name="" id="" cols="30" rows="10"></textarea>
+                        <textarea rows="5"></textarea>
                     </div>
                 </div>
 
-                <div>
+                <div class="form__item">
                     <label>Deadline</label>
                     <div>
-                        <textarea name="" id="" cols="30" rows="10"></textarea>
+                        <vue-datepicker :format="'yyyy/MM/dd'"></vue-datepicker>
                     </div>
                 </div>
 
-                <div class="form-control">
+                <div class="form__item">
                     <label>Status</label>
-                    <toggle-button class="u-margin-top-xsmall"></toggle-button>
+                    <status-toggle-button
+                    />
                 </div>
             </div>
 
@@ -79,7 +80,7 @@
 <script>
     import Datatable from '@/components/Datatable'
     import Modal from '@/components/bases/BaseModal'
-    import ToggleButton from '@/components/buttons/StatusToggleButton'
+    import StatusToggleButton from '@/components/bases/BaseToggleButton'
 
     export default {
         name: 'TaskPage',
@@ -87,7 +88,7 @@
         components: {
             Datatable,
             Modal,
-            ToggleButton
+            StatusToggleButton
         },
 
         computed: {
