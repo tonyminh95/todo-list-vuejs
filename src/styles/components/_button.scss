@@ -37,35 +37,23 @@
     @include btn(create);
 }
 
-// .btn-edit {
-//     @extend %btn;
-//     @extend %table-button;
+.btn-edit {
+    @extend %btn;
+    @extend %table-button;
 
-//     @include btn(edit);
-// }
+    @include btn(edit);
+}
 
-// .btn-delete {
-//     @extend %btn;
-//     @extend %table-button;
+.btn-delete {
+    @extend %btn;
+    @extend %table-button;
 
-//     @include btn(delete);
-// }
+    @include btn(delete);
+}
 
-// // .btn-cancel {
-// //     @include btn(cancel);
-// // }
+.btn-cancel {
+    @extend %btn;
+    @extend %table-button;
 
-// .btn-icon {
-//     position: relative;
-//     width: $icon-size-default;
-//     height: $icon-size-default;
-//     color: $color-icon;
-
-//     > svg {
-//         position: absolute;
-//         top: 50%;
-//         left: 50%;
-//         transform: translate(-50%, -50%);
-//         background-color: transparent;
-//     }
-// }
+    @include btn(cancel);
+}

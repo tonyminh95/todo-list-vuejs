@@ -12,7 +12,9 @@
             <tr>
                 <th :colspan="headers.length">
                     <div class="table__header">
-                        <div class="btn-create">new +</div>
+                        <div class="btn-create" @click="$emit('create')">new +</div>
+
+                        <slot name="moreFilter"></slot>
 
                         <ul class="table__header__pagination">
                             <li class="u-display-inline-block u-margin-right-small">
@@ -36,7 +38,11 @@
             <tr>
                 <th v-for="(header, index) in headers" :key="index" :width="header.width">
                     {{ header.title }}
-                    <span v-if="typeof header.sort !== 'undefined'" @click="sortCondition(header.title, header.type), header.sort = !header.sort" class="u-cursor-pointer">
+                    <span
+                        v-if="typeof header.sort !== 'undefined'"
+                        @click="sortCondition(header.title, header.type), header.sort = !header.sort"
+                        class="u-cursor-pointer"
+                    >
                         <fa-icon :icon="['fas', 'sort-amount-down-alt']" v-if="header.sort"></fa-icon>
                         <fa-icon :icon="['fas', 'sort-amount-up-alt']" v-else></fa-icon>
                     </span>
@@ -46,10 +52,25 @@
         <tbody>
             <tr v-for="item in items" :key="item.id">
                 <td v-for="(header, index) in headers" :key="index">
-                    <div v-if="header.type === 'status'" :class="statusClass(header.statusType[item[header.title]])">
+                    <div
+                        v-if="header.type === 'status'"
+                        :class="statusClass(header.statusType[item[header.title]])"
+                    >
                         {{ header.statusType[item[header.title]] }}
                     </div>
-                    <div v-else-if="header.type === 'text'" v-html="$options.filters.highlightText(item[header.title], search)">
+                    <div
+                        v-else-if="header.type === 'text'"
+                        v-html="$options.filters.highlightText(item[header.title], search)">
+                    </div>
+                    <div v-else-if="header.type === 'button'">
+                        <span
+                            v-for="(action, index) in header.buttons"
+                            :key="index"
+                            :class="[`btn-${action.type}`]"
+                            @click="buttonActions[action.type].call(this, item.id)"
+                        >
+                            <fa-icon :icon="action.icon"></fa-icon>
+                        </span>
                     </div>
                     <div v-else>
                         {{ item[header.title] }}
@@ -64,7 +85,6 @@
 import Pagination from '@/components/bases/BasePagination'
 import Dropdown from '@/components/bases/BaseDropdown'
 import moment from "moment"
-// import { matchedWord } from '@/utils'
 
 export default {
     name: 'Datatable',
@@ -108,7 +128,7 @@ export default {
                         return Object.values(filter).toString().toLowerCase().includes(this.search.toLowerCase())
                     })
                     .sort((prev, next) => {
-                        const action = this.sortActions.get(this.sortObjectType)
+                        const action = this.sortActions[this.sortObjectType]
 
                         return action.call(this, prev[this.sortObject], next[this.sortObject])
                     })
@@ -125,17 +145,23 @@ export default {
             sortObject: 'id',
             sortObjectType: 'number',
             sortType: 1,
-            sortActions: new Map([
-                ['number', this.sortedByNumber],
-                ['status', this.sortedByNumber],
-                ['text', this.sortedByString],
-                ['date', this.sortedByDate]
-            ]),
+            sortActions: {
+                number: this.sortedByNumber,
+                status: this.sortedByNumber,
+                text: this.sortedByString,
+                date: this.sortedByDate
+            },
 
             // pagination
             page_size: 10,
             page_number: 1,
-            entries: [10, 25, 50, 75, 100]
+            entries: [10, 25, 50, 75, 100],
+
+            // button
+            buttonActions: {
+                edit: this.editObject,
+                delete: this.deleteObject
+            }
         }
     },
 
@@ -143,7 +169,7 @@ export default {
         highlightText (value, search) {
             return search
                 ?
-                    value.toString().replace(new RegExp(search, 'gi'), (matched) => '<span class="text-highlight">' + matched + '</span>')
+                    value.toString().replace(new RegExp(search, 'gi'), (matched) => `<span class="text-highlight">${matched}</span>`)
                 :
                     value
             }
@@ -175,7 +201,16 @@ export default {
 
         // status
         statusClass (status) {
-            return 'status status-' + status.replace(' ', '-')
+            return `status status-${status.replace(' ', '-')}`
+        },
+
+        // button
+        editObject (id) {
+            this.$emit('edit', id)
+        },
+
+        deleteObject (id) {
+            this.$emit('delete', id)
         }
     }
 }

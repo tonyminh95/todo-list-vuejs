@@ -23,7 +23,7 @@
                     :key="task.id"
                     :todo="task"
                     @editRow="$store.state.updateTask = {...task}, showTaskEditModal = true"
-                    @deleteRow="$store.state.deleteTask = task, showTaskDeleteModal = true"
+                    @deleteRow="$store.state.deleteTask = task"
                 ></task-row>
             </tbody>
         </table>
@@ -33,12 +33,6 @@
             @cancelEdit="showTaskEditModal = false"
             @edit="updateTask(), showTaskEditModal = false"
         ></task-edit>
-
-        <task-delete
-            v-if="showTaskDeleteModal"
-            @cancelDelete="showTaskDeleteModal = false"
-            @delete="deleteTask(), showTaskDeleteModal = false"
-        ></task-delete>
     </div>
 </template>
 
@@ -49,7 +43,6 @@
     import FilterDropdown from './dropdowns/FilterDropdown'
     import SortDropdown from './dropdowns/SortDropdown'
     import TaskEdit from './modals/TaskEdit'
-    import TaskDelete from './modals/TaskDelete'
     import { mapActions } from 'vuex'
 
     export default {
@@ -61,15 +54,13 @@
             TaskToday,
             FilterDropdown,
             SortDropdown,
-            TaskEdit,
-            TaskDelete
+            TaskEdit
         },
 
         data () {
             return {
                 title: null,
                 showTaskEditModal: null,
-                showTaskDeleteModal: null,
             }
         },
 

@@ -9,7 +9,7 @@ $color-black: black;
 // (custom color)
 $theme-colors: (
     // 'primary': #c4e9fe,
-    // 'secondary': #f0f0f0,
+    'cancel': #f0f0f0,
     'create': #b3eee1,
     'edit': #feefd8,
     'delete': #ffddd9,
@@ -50,6 +50,9 @@ $table-row-margin-bottom: $default-dimension;
 // (button - icon)
 $button-border-radius: 5px;
 $icon-size-default: 2rem;
+
+// (modal)
+$modal-width: 30rem;
 
 
 

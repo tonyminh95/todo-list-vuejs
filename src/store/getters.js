@@ -42,5 +42,11 @@ export default {
 
 
 
-    getAllTask: state => state.todos.filter(todo => todo)
+    getAllTask: state => state.todos.filter(todo => todo),
+
+
+
+
+
+    fetchTask: state => state.tasks
 }

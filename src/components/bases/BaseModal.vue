@@ -1,16 +1,16 @@
 <template>
     <transition name="modal">
-        <div class="modal-container">
-            <div class="modal-content">
-                <div class="modal-header">
+        <div class="modal">
+            <div class="modal__content">
+                <div :class="`modal__content__header-${modalType}`">
                     <slot name="header"></slot>
                 </div>
 
-                <div class="modal-body">
+                <div class="modal__content__body">
                     <slot name="body"></slot>
                 </div>
 
-                <div class="modal-footer">
+                <div class="modal__content__footer u-text-right">
                     <slot name="footer"></slot>
                 </div>
             </div>
@@ -20,6 +20,13 @@
 
 <script>
     export default {
-        name: 'BaseModal'
+        name: 'BaseModal',
+
+        props: {
+            modalType: {
+                type: String,
+                default: 'default'
+            }
+        }
     }
 </script>

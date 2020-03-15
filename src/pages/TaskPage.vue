@@ -5,23 +5,106 @@
             :table_name="'task management'"
             :headers="headers"
             :bodies="bodies"
-        />
+            @create="createModal = true"
+            @edit="editModal = true"
+            @delete="deleteModal = true, targetObjectId = $event"
+        >
+            <!-- <div slot="moreFilter" class="u-display-inline-block u-margin-left-small">
+            </div> -->
+        </datatable>
 
+        <!-- modal -->
+        <modal
+            v-if="createModal"
+            :modalType="'create'"
+        >
+            <div slot="header">
+                Create Task
+            </div>
+
+            <div slot="body">
+                <div>
+                    <label>Title</label>
+                    <div>
+                        <input type="text">
+                    </div>
+                </div>
+
+                <div>
+                    <label>Description</label>
+                    <div>
+                        <textarea name="" id="" cols="30" rows="10"></textarea>
+                    </div>
+                </div>
+
+                <div>
+                    <label>Deadline</label>
+                    <div>
+                        <textarea name="" id="" cols="30" rows="10"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-control">
+                    <label>Status</label>
+                    <toggle-button class="u-margin-top-xsmall"></toggle-button>
+                </div>
+            </div>
+
+            <div slot="footer">
+                <span class="btn-cancel" @click="createModal = false">Cancel</span>
+                <span class="btn-create" @click="createModal = false">Create</span>
+            </div>
+        </modal>
+
+        <modal
+            v-if="deleteModal"
+            :modalType="'delete'"
+        >
+            <div slot="header">
+                Delete Task
+            </div>
+
+            <div slot="body">
+                Do you really want to delete this task?
+            </div>
+
+            <div slot="footer">
+                <span class="btn-cancel" @click="deleteModal = false">Cancel</span>
+                <span class="btn-delete" @click="$store.dispatch('deleteTask', targetObjectId), deleteModal = false">Delete</span>
+            </div>
+        </modal>
     </div>
 </template>
 
 <script>
     import Datatable from '@/components/Datatable'
+    import Modal from '@/components/bases/BaseModal'
+    import ToggleButton from '@/components/buttons/StatusToggleButton'
 
     export default {
         name: 'TaskPage',
 
         components: {
-            Datatable
+            Datatable,
+            Modal,
+            ToggleButton
+        },
+
+        computed: {
+            bodies () {
+                return this.$store.getters.fetchTask
+            }
         },
 
         data () {
             return {
+                // modal
+                createModal: false,
+                editModal: false,
+                deleteModal: false,
+                targetObjectId: null,
+
+                // datatable
                 headers: [
                     {
                         width: '20%',
@@ -30,7 +113,7 @@
                         type: 'text'
                     },
                     {
-                        width: '50%',
+                        width: '40%',
                         title: 'description',
                         sort: true,
                         type: 'text'
@@ -46,36 +129,14 @@
                         title: 'status',
                         type: 'status',
                         statusType: ['open', 'in progress', 'closed']
-                    }
-                ],
-                bodies: [
-                    {
-                        id: 1,
-                        title: 'Maecenas Minhpharetra convallis posuere morbiminh',
-                        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ornare suspendisse sed nisi lacus sed viverra tellus. Sed risus pretium quam vulputate dignissim. Amet massa vitae tortor condimentum. Ultricies lacus sed turpis tincidunt id aliquet risus feugiat in.',
-                        deadline: '03/02/2020',
-                        status: 0
                     },
                     {
-                        id: 2,
-                        title: 'Volutpat blandit aliqMinhuam etiam erat',
-                        description: 'Lorem ipsum dolor minhsit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Netus et malesuada fames ac turpis egestas maecenas. Fermentum odio eu feugiat pretium nibh ipsum consequat nisl vel. Lobortis mattis aliquam faucibus purus in massa. Dignissim suspendisse in est ante in.',
-                        deadline: '26/08/2020',
-                        status: 0
-                    },
-                    {
-                        id: 3,
-                        title: 'Massa tincidunt dui ut minhornare',
-                        description: 'Lorem ipsum dolor sit amet, consectetur adMInHipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Est placerat in egestas erat imperdiet sed euismod. Nisi quis eleifend quam adipiscing vitae proin sagittis nisl. Interdum velit laoreet id donec ultrices tincidunt. Tortor at auctor urna nunc id cursus metus aliquam eleifend.',
-                        deadline: '13/05/2020',
-                        status: 1
-                    },
-                    {
-                        id: 4,
-                        title: 'Diam phasellus vestibulum lorem sed',
-                        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Varius quam quisque id diam vel quam. Convallis posuere morbi leo urna. Eu lobortis elementum nibh tellus molestie nunc. Lacus vestibulum sed arcu non odio.',
-                        deadline: '03/12/2020',
-                        status: 2
+                        width: '10%',
+                        type: 'button',
+                        buttons: [
+                            { type: 'edit', icon: ['far', 'edit'] },
+                            { type: 'delete', icon: ['far', 'trash-alt'] }
+                        ]
                     }
                 ]
             }
