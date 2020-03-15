@@ -12,9 +12,9 @@
             <tr>
                 <th :colspan="headers.length">
                     <div class="table__header">
-                        <div class="btn-create">new task +</div>
+                        <div class="btn-create">new +</div>
 
-                        <!-- <ul class="table__header__pagination">
+                        <ul class="table__header__pagination">
                             <li class="u-display-inline-block u-margin-right-small">
                                 <dropdown :items="entries" @chosen-item="page_size = entries[$event]" :position="'right'">
                                     <div slot="dropdownButton">
@@ -29,7 +29,7 @@
                                     @page-number="page_number = $event"
                                 />
                             </li>
-                        </ul> -->
+                        </ul>
                     </div>
                 </th>
             </tr>
@@ -46,13 +46,14 @@
         <tbody>
             <tr v-for="item in items" :key="item.id">
                 <td v-for="(header, index) in headers" :key="index">
-                    <!-- <div v-if="header.type === 'status'" :class="'status status-' + matchTheWord(status.get(item[header.title]))">
+                    <div v-if="header.type === 'status'" :class="statusClass">
                         {{ status.get(item[header.title]) }}
-                    </div> -->
-                    <!-- <div v-else>
+                    </div>
+                    <div v-else-if="header.type === 'text'" v-html="$options.filters.highlightText(item[header.title], search)">
+                    </div>
+                    <div v-else>
                         {{ item[header.title] }}
-                    </div> -->
-                    <div v-html="$options.filters.highlightText(item[header.title], search)"></div>
+                    </div>
                 </td>
             </tr>
         </tbody>
@@ -60,16 +61,17 @@
 </template>
 
 <script>
-// import Pagination from '@/components/bases/BasePagination'
-// import Dropdown from '@/components/bases/BaseDropdown'
+import Pagination from '@/components/bases/BasePagination'
+import Dropdown from '@/components/bases/BaseDropdown'
 import moment from "moment"
+// import { matchedWord } from '@/utils'
 
 export default {
     name: 'Datatable',
 
     components: {
-        // Pagination,
-        // Dropdown
+        Pagination,
+        Dropdown
     },
 
     props: {
@@ -99,19 +101,29 @@ export default {
                         const filter = {...body}
                         delete filter.id
 
-                        return Object.values(filter).toString().includes(this.search)
+                        this.headers.forEach(element => {
+                            if (element.type !== 'text') {
+                                delete filter[element.title]
+                            }
+                        });
+
+                        return Object.values(filter).toString().toLowerCase().includes(this.search.toLowerCase())
                     })
                     .sort((prev, next) => {
                         const action = this.sortActions.get(this.sortObjectType)
 
                         return action.call(this, prev[this.sortObject], next[this.sortObject])
                     })
+                    .slice(this.page_size * (this.page_number - 1), this.page_size * (this.page_number - 1) + this.page_size)
         }
     },
 
     data() {
         return {
+            // search
             search: '',
+
+            // sort
             sortObject: 'id',
             sortObjectType: 'number',
             sortType: 1,
@@ -120,17 +132,34 @@ export default {
                 ['status', this.sortedByNumber],
                 ['text', this.sortedByString],
                 ['date', this.sortedByDate]
-            ])
+            ]),
+
+            // pagination
+            page_size: 10,
+            page_number: 1,
+            entries: [10, 25, 50, 75, 100],
+
+            // status
+            status: new Map([
+                [0, 'open'],
+                [1, 'in progress'],
+                [2, 'closed']
+            ]),
         }
     },
 
     filters: {
         highlightText (value, search) {
-            return value.toString().replace(search, '<span class="text-highlight">' + search + '</span>')
-        }
+            return search
+                ?
+                    value.toString().replace(new RegExp(search, 'gi'), (matched) => '<span class="text-highlight">' + matched + '</span>')
+                :
+                    value
+            }
     },
 
     methods: {
+        // sort
         sortCondition (headerTitle, headerType) {
             this.sortObject = headerTitle
             this.sortType *= -1
@@ -151,6 +180,11 @@ export default {
             if (moment(prev, 'DD/MM/YYYY') < moment(next, 'DD/MM/YYYY')) return this.sortType
             if (moment(prev, 'DD/MM/YYYY') > moment(next, 'DD/MM/YYYY')) return this.sortType * -1
             return 0
+        },
+
+        // status
+        statusClass () {
+            // return 'status status-' + textReplace(status.get(item[header.title]))
         }
     }
 }

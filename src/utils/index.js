@@ -6,11 +6,18 @@ const formattedDate = date => date.getFullYear() + '/' + appendLeadingZeroes(dat
 
 const status = status => (status == 1) ? 'open' : (status == 2) ? 'inprogress' : (status == 3) ? 'closed' : 'none'
 
+
+const textReplace = text => text.replace(' ', '-')
+
 export {
     countObjectProperties,
     formattedDate,
 
-    status
+    status,
+
+
+
+    textReplace
 }
 
 
