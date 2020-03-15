@@ -46,8 +46,8 @@
         <tbody>
             <tr v-for="item in items" :key="item.id">
                 <td v-for="(header, index) in headers" :key="index">
-                    <div v-if="header.type === 'status'" :class="statusClass">
-                        {{ status.get(item[header.title]) }}
+                    <div v-if="header.type === 'status'" :class="statusClass(header.statusType[item[header.title]])">
+                        {{ header.statusType[item[header.title]] }}
                     </div>
                     <div v-else-if="header.type === 'text'" v-html="$options.filters.highlightText(item[header.title], search)">
                     </div>
@@ -75,9 +75,7 @@ export default {
     },
 
     props: {
-        table_name: {
-            type: String
-        },
+        table_name: String,
 
         headers: {
             required: true,
@@ -137,14 +135,7 @@ export default {
             // pagination
             page_size: 10,
             page_number: 1,
-            entries: [10, 25, 50, 75, 100],
-
-            // status
-            status: new Map([
-                [0, 'open'],
-                [1, 'in progress'],
-                [2, 'closed']
-            ]),
+            entries: [10, 25, 50, 75, 100]
         }
     },
 
@@ -183,8 +174,8 @@ export default {
         },
 
         // status
-        statusClass () {
-            // return 'status status-' + textReplace(status.get(item[header.title]))
+        statusClass (status) {
+            return 'status status-' + status.replace(' ', '-')
         }
     }
 }

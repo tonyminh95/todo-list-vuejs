@@ -23,10 +23,30 @@
         data () {
             return {
                 headers: [
-                    { width: '20%', title: 'title', sort: true, type: 'text' },
-                    { width: '50%', title: 'description', sort: true, type: 'text'},
-                    { width: '15%', title: 'deadline', sort: true, type: 'date' },
-                    { width: '15%', title: 'status', type: 'status' },
+                    {
+                        width: '20%',
+                        title: 'title',
+                        sort: true,
+                        type: 'text'
+                    },
+                    {
+                        width: '50%',
+                        title: 'description',
+                        sort: true,
+                        type: 'text'
+                    },
+                    {
+                        width: '15%',
+                        title: 'deadline',
+                        sort: true,
+                        type: 'date'
+                    },
+                    {
+                        width: '15%',
+                        title: 'status',
+                        type: 'status',
+                        statusType: ['open', 'in progress', 'closed']
+                    }
                 ],
                 bodies: [
                     {
