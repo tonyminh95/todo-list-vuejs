@@ -1,17 +1,22 @@
 <template>
     <div id="app">
-        <div id="nav">
+        <!-- <div id="nav">
             <router-link to="/">Task List</router-link>
             <router-link to="/datatable">Data table</router-link>
             <router-link to="/tasks">Task page</router-link>
         </div>
-        <router-view/>
+        <router-view/> -->
+        <task/>
     </div>
 </template>
 
 <script>
+import Task from '@/pages/TaskPage'
     export default {
-        name: 'App'
+        name: 'App',
+        components: {
+            Task
+        }
     }
 </script>
 

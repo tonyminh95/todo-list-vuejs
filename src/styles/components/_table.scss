@@ -1,80 +1,84 @@
 .table {
     width: 100%;
-    -webkit-box-shadow: 0px 0px 10px 5px rgba(lighten($color-gray, 40%), 0.57);
-    -moz-box-shadow: 0px 0px 10px 5px rgba(lighten($color-gray, 40%),0.57);
-    box-shadow: 0px 0px 10px 5px rgba(lighten($color-gray, 40%),0.57);
+    -webkit-box-shadow: 0px 0px 10px 5px rgba($color-gray, 0.35);
+    -moz-box-shadow: 0px 0px 10px 5px rgba($color-gray, 0.35);
+    box-shadow: 0px 0px 10px 5px rgba($color-gray, 0.35);
     border-collapse: collapse;
     text-align: left;
     border-radius: $border-radius-medium;
 
     > thead,
-    > tbody {
+    > tbody,
+    > tfoot {
         > tr {
-            > th {
-                background-color: $table-header-background-color;
-
-                &:first-child {
-                    border-radius: $border-radius-medium 0 0 0;
-                }
-
-                &:last-child {
-                    border-radius: 0 $border-radius-medium 0 0;
-                }
-            }
-
-            > td {
-                background-color: $color-white;
-                vertical-align: top;
-            }
-
             > th,
             > td {
                 padding: $table-cell-padding;
-            }
-
-            &:not(:first-child) {
-                border-top: 1px solid lighten($color-gray, 40%);
+                background-color: $color-white;
             }
         }
     }
 
-    > thead  > tr {
+    > thead > tr {
         text-transform: uppercase;
-        border-bottom: 2px solid lighten($color-gray, 40%);
+
+        &:first-child > th {
+            border-radius: $border-radius-medium $border-radius-medium 0 0;
+        }
+
+        &:last-child > th {
+            border-top: 1px solid lighten($color-gray, 40%);
+            border-bottom: 2px solid lighten($color-gray, 40%);
+        }
+    }
+
+    &__header {
+        position: relative;
+
+        &__search-input {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translate(0, -50%);
+            outline: none;
+            border: 1px solid lighten($color-gray, 40%);
+            padding: $default-dimension / 2 $default-dimension;
+            border-radius: $border-radius-large;
+            font-size: $default-dimension;
+        }
+
+        &__pagination {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translate(0, -50%);
+
+            > li:first-child {
+                position: relative;
+            }
+        }
     }
 
     > tbody > tr {
         cursor: pointer;
+        vertical-align: top;
 
-        &:hover {
-            > td {
-                background-color: lighten($color-gray, 46%);
+        &:hover > td {
+            background-color: lighten($color-gray, 45%);
+        }
+
+        &:last-child {
+            > td:first-child {
+                border-radius: 0 0 0 $border-radius-medium;
+            }
+
+            > td:last-child {
+                border-radius: 0 0 $border-radius-medium 0;
             }
         }
-    }
 
-    > tfoot {
-        > tr {
-            > td {
-                border-top: 1px solid lighten($color-gray, 40%);
-                text-align: right;
-                padding: $table-cell-padding;
-                border-radius: 0 0 $border-radius-medium $border-radius-medium;
-            }
-        }
-    }
-
-    // //     &__button-box {
-    // //         width: 1%;
-    // //         white-space:nowrap;
-    // //     }
-
-    &__sort-icon {
-        background-color: transparent;
-        cursor: pointer;
-
-        > svg {
-            background-color: transparent;
+        &:not(:last-child) {
+            border-bottom: 1px solid lighten($color-gray, 40%)
         }
     }
 }

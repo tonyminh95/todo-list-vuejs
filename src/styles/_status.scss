@@ -1,16 +1,24 @@
-.status {
-    padding: 5px 10px;
-    border-radius: 5px;
+@mixin status ($type) {
+    background-color: map-get($theme-colors, $type);
+}
+
+%status {
+    padding: $default-dimension / 2 $default-dimension;
+    border-radius: $border-radius-small;
+    display: inline-block;
 }
 
 .status-open {
-    // background-color: $color-success;
+    @extend %status;
+    @include status(open)
 }
 
-.status-isprogress {
-    // background-color: $color-warning;
+.status-in-progress {
+    @extend %status;
+    @include status(inprogress)
 }
 
 .status-closed {
-    // background-color: $color-delete;
+    @extend %status;
+    @include status(closed)
 }

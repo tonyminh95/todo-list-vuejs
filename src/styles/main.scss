@@ -2,14 +2,15 @@
 
 @import 'base';
 
+@import 'base/typography';
 @import 'base/utilities';
 
-// @import 'components/button';
+@import 'components/button';
 // @import 'components/condition';
 @import 'components/dropdown';
 @import 'components/pagination';
 @import 'components/table';
 
-// @import 'status';
+@import 'status';
 // @import 'modal';
 
