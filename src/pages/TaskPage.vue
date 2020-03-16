@@ -47,6 +47,8 @@
                 <div class="form__item">
                     <label>Status</label>
                     <status-toggle-button
+                        :entries="['open', 'in progress', 'closed']"
+                        @chosen-target="test"
                     />
                 </div>
             </div>
@@ -140,6 +142,12 @@
                         ]
                     }
                 ]
+            }
+        },
+
+        methods: {
+            test (chosenObject) {
+                alert(chosenObject)
             }
         }
     }

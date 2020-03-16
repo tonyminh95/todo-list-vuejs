@@ -1,12 +1,12 @@
 <template>
     <div>
         <span
-            v-for="(item, index) in a"
+            v-for="(item, index) in items"
             :key="index"
-            :class="toggleClass"
-            @click="b(index)"
+            :class="`btn-${item.target}`"
+            @click="changeTarget(index)"
         >
-            {{ item }}
+            {{ item.title }}
         </span>
     </div>
 </template>
@@ -15,25 +15,39 @@
 export default {
     name: 'BaseToggleButton',
 
-    computed: {
-        toggleClass (item) {
-            console.log(`btn-${this.a[item]}`)
-            return `btn-${this.a[item]}`
+    props: {
+        entries: {
+            required: true,
+            type: Array
         }
     },
 
     data() {
         return {
-            a: ['default', 'default', 'default'],
-            targetStatus: 0
+            items: null,
         }
     },
 
     methods: {
-        b (indexa) {
-            const test = this.a.map((object, index) => )
-            console.log(this.a)
+        changeTarget (targetObject) {
+            this.items = this.items.map((item, index) => {
+                return {
+                    title: item.title,
+                    target: index == targetObject ? this.items[targetObject].title.replace(' ', '-') : 'default'
+                }
+            })
+
+            this.$emit('chosen-target', targetObject)
         }
+    },
+
+    created () {
+        this.items = this.entries.map(entry => {
+            return {
+                title: entry,
+                target: 'default'
+            }
+        })
     }
 }
 </script>
