@@ -9,8 +9,8 @@
             @edit="editModal = true"
             @delete="deleteModal = true, targetObjectId = $event"
         >
-            <!-- <div slot="moreFilter" class="u-display-inline-block u-margin-left-small">
-            </div> -->
+            <div slot="moreFilter" class="u-display-inline-block u-margin-left-small">
+            </div>
         </datatable>
 
         <!-- modal -->
@@ -26,21 +26,21 @@
                 <div class="form__item">
                     <label>Title</label>
                     <div>
-                        <input type="text">
+                        <input type="text" v-model="task.title">
                     </div>
                 </div>
 
                 <div class="form__item">
                     <label>Description</label>
                     <div>
-                        <textarea rows="5"></textarea>
+                        <textarea rows="5" v-model="task.description"></textarea>
                     </div>
                 </div>
 
                 <div class="form__item">
                     <label>Deadline</label>
                     <div>
-                        <vue-datepicker :format="'yyyy/MM/dd'"></vue-datepicker>
+                        <vue-datepicker :format="'dd/MM/yyyy'" v-model="task.deadline"></vue-datepicker>
                     </div>
                 </div>
 
@@ -48,14 +48,14 @@
                     <label>Status</label>
                     <status-toggle-button
                         :entries="['open', 'in progress', 'closed']"
-                        @chosen-target="test"
+                        @chosen-target="task.status = $event"
                     />
                 </div>
             </div>
 
             <div slot="footer">
                 <span class="btn-cancel" @click="createModal = false">Cancel</span>
-                <span class="btn-create" @click="createModal = false">Create</span>
+                <span class="btn-create" @click="createTask">Create</span>
             </div>
         </modal>
 
@@ -116,7 +116,7 @@
                         type: 'text'
                     },
                     {
-                        width: '40%',
+                        width: '35%',
                         title: 'description',
                         sort: true,
                         type: 'text'
@@ -134,20 +134,37 @@
                         statusType: ['open', 'in progress', 'closed']
                     },
                     {
-                        width: '10%',
+                        width: '15%',
                         type: 'button',
                         buttons: [
                             { type: 'edit', icon: ['far', 'edit'] },
                             { type: 'delete', icon: ['far', 'trash-alt'] }
                         ]
                     }
-                ]
+                ],
+
+                // crud
+                task: {
+                    title: '',
+                    description: '',
+                    deadline: '',
+                    status: 0
+                }
             }
         },
 
         methods: {
-            test (chosenObject) {
-                alert(chosenObject)
+            // crud
+            createTask () {
+                if (this.task.title != '')  {
+                    this.createModal = false
+                    this.$store.dispatch('createTask', this.task).then(() => {
+                        this.task.title = ''
+                        this.task.description = ''
+                        this.task.deadline = ''
+                        this.task.status = 0
+                    })
+                }
             }
         }
     }

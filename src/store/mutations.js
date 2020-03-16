@@ -1,5 +1,5 @@
 export default {
-    // createTask: (state, todo) => state.todos.push(todo),
+    createTask: (state, task) => state.tasks.push(task),
 
     // updateTask: (state, { index, item }) => state.todos[index] = item,
 

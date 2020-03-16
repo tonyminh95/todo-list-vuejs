@@ -1,13 +1,17 @@
-// import { formattedDate } from "@/utils";
+import { formattedDate } from "@/utils";
 // import moment from "moment"
 
 export default {
-    // createTask: ({state, commit}, title) => {
-    //     const id = Math.max.apply(Math, state.todos.map(todo => todo.id)) + 1
-    //     const deadline = formattedDate(new Date())
+    createTask: ({state, commit}, {title, description, deadline, status}) => {
+        return new Promise((resolve) => {
+            const id = Math.max.apply(Math, state.tasks.map(task => task.id)) + 1
+            const formatedDeadline = formattedDate(deadline)
 
-    //     commit('createTask', { id, title, description: null, deadline, status: 1 })
-    // },
+            commit('createTask', { id, title, description, formatedDeadline, status })
+
+            resolve()
+        })
+    },
 
     // updateTask ({state, commit}) {
     //     const item = state.updateTask
