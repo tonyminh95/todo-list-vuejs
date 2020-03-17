@@ -7,7 +7,7 @@ export default {
             const id = Math.max.apply(Math, state.tasks.map(task => task.id)) + 1
             const formatedDeadline = formattedDate(deadline)
 
-            commit('createTask', { id, title, description, formatedDeadline, status })
+            commit('createTask', { id, title, description, deadline: formatedDeadline, status })
 
             resolve()
         })

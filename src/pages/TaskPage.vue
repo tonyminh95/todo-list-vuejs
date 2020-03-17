@@ -10,7 +10,9 @@
             @delete="deleteModal = true, targetObjectId = $event"
         >
             <div slot="moreFilter" class="u-display-inline-block u-margin-left-small">
-                <u>today task</u> <div class="u-red-circle" v-if="todayTask">{{ todayTask }}</div>
+                <span class="u-cursor-pointer" @click="fetchTodayTask">
+                    <u>today task</u> <div class="u-red-circle">2</div>
+                </span>
             </div>
         </datatable>
 
@@ -96,11 +98,15 @@
 
         computed: {
             bodies () {
-                return this.$store.getters.fetchTask
+                return this[bodyType]
             },
 
-            todayTask () {
-                return this.$store.getters.getTodayTask
+            fetchAllTasks () {
+                return this.$store.getters.fetchTasks
+            },
+
+            fetchTodayTasks () {
+                return this.$store.getters.fetchTodayTasks
             }
         },
 
@@ -152,7 +158,7 @@
                 task: {
                     title: '',
                     description: '',
-                    deadline: '',
+                    deadline: new Date(),
                     status: 0
                 }
             }
@@ -166,11 +172,22 @@
                     this.$store.dispatch('createTask', this.task).then(() => {
                         this.task.title = ''
                         this.task.description = ''
-                        this.task.deadline = ''
+                        this.task.deadline = new Date()
                         this.task.status = 0
                     })
                 }
+            },
+
+            // other
+            fetchTodayTask () {
+                if (this.todayTasks) {
+                    this.bodies = this.$store.getters.fetchTodayTasks
+                }
             }
+        },
+
+        created () {
+            console.log(this)
         }
     }
 </script>

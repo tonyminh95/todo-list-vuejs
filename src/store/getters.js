@@ -27,7 +27,9 @@ export default {
 
     // countTodayTask: state => state.todos.filter(todo => todo.deadline == formattedDate(new Date())).length,
 
-    fetchTask: state => state.tasks,
+    fetchTasks: state => state.tasks,
 
-    getTodayTask: state => state.tasks.filter(task => task.deadline == formattedDate(new Date())).length
+    fetchTodayTasks: state => state.tasks.filter(task => task.deadline == formattedDate(new Date())),
+
+    getTodayTasks: state => state.tasks.filter(task => task.deadline == formattedDate(new Date())).length
 }
