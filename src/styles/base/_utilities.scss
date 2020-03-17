@@ -18,3 +18,13 @@
 .u-background-color-white { background-color: $color-white; }
 
 .u-cursor-pointer { cursor: pointer; }
+
+.u-red-circle {
+    border-radius: 100px;
+    background-color: darken(map-get($theme-colors, delete), 20%);
+    width: 20px;
+    height: 20px;
+    padding: 5px;
+    text-align: center;
+    display: inline-block;
+}

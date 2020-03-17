@@ -10,6 +10,7 @@
             @delete="deleteModal = true, targetObjectId = $event"
         >
             <div slot="moreFilter" class="u-display-inline-block u-margin-left-small">
+                <u>today task</u> <div class="u-red-circle" v-if="todayTask">{{ todayTask }}</div>
             </div>
         </datatable>
 
@@ -96,6 +97,10 @@
         computed: {
             bodies () {
                 return this.$store.getters.fetchTask
+            },
+
+            todayTask () {
+                return this.$store.getters.getTodayTask
             }
         },
 
