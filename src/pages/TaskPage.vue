@@ -9,11 +9,7 @@
             @edit="editModal = true"
             @delete="deleteModal = true, targetObjectId = $event"
         >
-            <div slot="moreFilter" class="u-display-inline-block u-margin-left-small">
-                <span class="u-cursor-pointer" @click="fetchTodayTask">
-                    <u>today task</u> <div class="u-red-circle">2</div>
-                </span>
-            </div>
+            <div slot="moreFilter" class="u-display-inline-block u-margin-left-small"></div>
         </datatable>
 
         <!-- modal -->
@@ -98,7 +94,7 @@
 
         computed: {
             bodies () {
-                return this[bodyType]
+                return this[this.bodyType]
             },
 
             fetchAllTasks () {
@@ -160,7 +156,9 @@
                     description: '',
                     deadline: new Date(),
                     status: 0
-                }
+                },
+
+                bodyType: 'fetchAllTasks'
             }
         },
 
@@ -176,18 +174,7 @@
                         this.task.status = 0
                     })
                 }
-            },
-
-            // other
-            fetchTodayTask () {
-                if (this.todayTasks) {
-                    this.bodies = this.$store.getters.fetchTodayTasks
-                }
             }
-        },
-
-        created () {
-            console.log(this)
         }
     }
 </script>

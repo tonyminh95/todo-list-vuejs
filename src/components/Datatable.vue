@@ -5,7 +5,12 @@
                 <th :colspan="headers.length">
                     <div class="table__header">
                         <span class="heading-primary">{{ tableName }}</span>
-                        <input type="text" placeholder="Search" class="table__header__search-input" v-model="search">
+                        <span class="table__header__search">
+                            <select class="table__header__search-select">
+                                <option value="a">asd</option>
+                            </select>
+                            <input type="text" placeholder="Search" class="table__header__search-input" v-model="search">
+                        </span>
                     </div>
                 </th>
             </tr>
