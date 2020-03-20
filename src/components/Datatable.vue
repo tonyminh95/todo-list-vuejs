@@ -6,9 +6,6 @@
                     <div class="table__header">
                         <span class="heading-primary">{{ tableName }}</span>
                         <span class="table__header__search">
-                            <select class="table__header__search-select">
-                                <option value="a">asd</option>
-                            </select>
                             <input type="text" placeholder="Search" class="table__header__search-input" v-model="search">
                         </span>
                     </div>
@@ -18,8 +15,6 @@
                 <th :colspan="headers.length">
                     <div class="table__header">
                         <div class="btn-create" @click="$emit('create')">new +</div>
-
-                        <slot name="moreFilter"></slot>
 
                         <ul class="table__header__pagination">
                             <li class="u-display-inline-block u-margin-right-small">
@@ -37,6 +32,17 @@
                                 />
                             </li>
                         </ul>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th :colspan="headers.length">
+                    <div class="table__header">
+                        <select>
+                            <option v-for="(filter, index) in headerFilters" :key="index" :value="filter.title">
+                                {{ filter.title }}
+                            </option>
+                        </select>
                     </div>
                 </th>
             </tr>
@@ -138,6 +144,10 @@ export default {
                         return action.call(this, prev[this.sortObject], next[this.sortObject])
                     })
                     .slice(this.page_size * (this.page_number - 1), this.page_size * (this.page_number - 1) + this.page_size)
+        },
+
+        headerFilters () {
+            return this.headers.filter(header => header.type !== 'button')
         }
     },
 

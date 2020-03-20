@@ -8,9 +8,6 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 // import 'bootstrap/dist/css/bootstrap.css'
 import store from '@/store/index'
 import router from './router'
-// filter
-import { status } from '@/utils'
-Vue.filter('status', status)
 
 Vue.use(require('vue-moment'));
 

@@ -8,9 +8,7 @@
             @create="createModal = true"
             @edit="editModal = true"
             @delete="deleteModal = true, targetObjectId = $event"
-        >
-            <div slot="moreFilter" class="u-display-inline-block u-margin-left-small"></div>
-        </datatable>
+        />
 
         <!-- modal -->
         <modal
