@@ -57,10 +57,9 @@
                 <td v-for="(header, index) in headers" :key="index">
                     <div
                         v-if="header.type === 'status'"
-                        :class="statusClass(header.statusType[item[header.title]])"
                     >
                         <span :class="statusClass(header.statusType[item[header.title]])"></span>
-                        {{ header.statusType[item[header.title]] }}
+                        <span class="u-margin-left-xsmall">{{ header.statusType[item[header.title]] }}</span>
                     </div>
                     <div
                         v-else-if="header.type === 'text'"

@@ -1,10 +1,12 @@
 @mixin status ($type) {
-    background-color: map-get($theme-colors, $type);
+    background-color: darken(map-get($theme-colors, $type), 15%);
 }
 
 %status {
-    padding: $default-dimension / 2 $default-dimension;
+    // padding: $default-dimension / 2 $default-dimension;
     border-radius: $border-radius-small;
+    width: 8px;
+    height: 8px;
     display: inline-block;
 }
 
