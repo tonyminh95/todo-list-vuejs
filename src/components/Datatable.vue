@@ -6,7 +6,10 @@
                     <div class="table__header">
                         <span class="heading-primary">{{ tableName }}</span>
                         <span class="table__header__search">
-                            <input type="text" placeholder="Search" class="table__header__search-input" v-model="search">
+                            <datatable-filter
+                                :filters="headerFilters"
+                            />
+                            <!-- <input type="text" placeholder="Search" class="table__header__search-input" v-model="search"> -->
                         </span>
                     </div>
                 </th>
@@ -36,17 +39,6 @@
                 </th>
             </tr>
             <tr>
-                <th :colspan="headers.length">
-                    <div class="table__header">
-                        <select>
-                            <option v-for="(filter, index) in headerFilters" :key="index" :value="filter.title">
-                                {{ filter.title }}
-                            </option>
-                        </select>
-                    </div>
-                </th>
-            </tr>
-            <tr>
                 <th v-for="(header, index) in headers" :key="index" :width="header.width">
                     {{ header.title }}
                     <span
@@ -67,6 +59,7 @@
                         v-if="header.type === 'status'"
                         :class="statusClass(header.statusType[item[header.title]])"
                     >
+                        <span :class="statusClass(header.statusType[item[header.title]])"></span>
                         {{ header.statusType[item[header.title]] }}
                     </div>
                     <div
@@ -95,6 +88,7 @@
 <script>
 import Pagination from '@/components/bases/BasePagination'
 import Dropdown from '@/components/bases/BaseDropdown'
+import DatatableFilter from '@/components/DatatableFilter'
 import moment from "moment"
 
 export default {
@@ -102,7 +96,8 @@ export default {
 
     components: {
         Pagination,
-        Dropdown
+        Dropdown,
+        DatatableFilter
     },
 
     props: {
