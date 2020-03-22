@@ -6,10 +6,7 @@
                     <div class="table__header">
                         <span class="heading-primary">{{ tableName }}</span>
                         <span class="table__header__search">
-                            <datatable-filter
-                                :filters="headerFilters"
-                            />
-                            <!-- <input type="text" placeholder="Search" class="table__header__search-input" v-model="search"> -->
+                            <input type="text" placeholder="Search" v-model="search">
                         </span>
                     </div>
                 </th>
@@ -87,7 +84,6 @@
 <script>
 import Pagination from '@/components/bases/BasePagination'
 import Dropdown from '@/components/bases/BaseDropdown'
-import DatatableFilter from '@/components/DatatableFilter'
 import moment from "moment"
 
 export default {
@@ -95,8 +91,7 @@ export default {
 
     components: {
         Pagination,
-        Dropdown,
-        DatatableFilter
+        Dropdown
     },
 
     props: {
@@ -138,10 +133,6 @@ export default {
                         return action.call(this, prev[this.sortObject], next[this.sortObject])
                     })
                     .slice(this.page_size * (this.page_number - 1), this.page_size * (this.page_number - 1) + this.page_size)
-        },
-
-        headerFilters () {
-            return this.headers.filter(header => header.type !== 'button')
         }
     },
 
