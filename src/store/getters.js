@@ -32,4 +32,7 @@ export default {
     fetchTodayTasks: state => state.tasks.filter(task => task.deadline == formattedDate(new Date())),
 
     getTodayTasks: state => state.tasks.filter(task => task.deadline == formattedDate(new Date())).length
+
+
+    allTasks todayTasks openTasks inprogressTasks closedTasks
 }
