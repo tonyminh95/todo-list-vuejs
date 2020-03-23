@@ -50,7 +50,12 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="item in items" :key="item.id">
+            <tr v-if="items.length == 0">
+                <td :colspan="headers.length">
+                    No data!!!
+                </td>
+            </tr>
+            <tr v-else v-for="item in items" :key="item.id">
                 <td v-for="(header, index) in headers" :key="index">
                     <div
                         v-if="header.type === 'status'"
@@ -212,6 +217,12 @@ export default {
         deleteObject (id) {
             this.$emit('delete', id)
         }
+    },
+
+    created () {
+        this.search = 'minhaa'
+
+        console.log(this.items)
     }
 }
 </script>

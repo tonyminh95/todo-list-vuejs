@@ -4,11 +4,11 @@ import { formattedDate } from "../utils";
 
 // const countQuantitiesByStatus = status => state  => countObjectProperties(state.todos.filter(todo => todo.status == status))
 
-const status = {
-    OPEN: 0,
-    IN_PROGRESS: 1,
-    CLOSED: 2
-}
+// const status = {
+//     OPEN: 0,
+//     IN_PROGRESS: 1,
+//     CLOSED: 2
+// }
 
 export default {
     // getOpenStatus: countQuantitiesByStatus(TODO_STATUS.STATUS_OPEN),
@@ -45,13 +45,13 @@ export default {
 
 
 
-    getAllTasks: state => state.tasks,
+    // getAllTasks: state => state.tasks,
 
-    getTodayTasks: state => state.tasks.filter(task => task.deadline == formattedDate(new Date())),
+    // getTodayTasks: state => state.tasks.filter(task => task.deadline == formattedDate(new Date())),
 
-    getOpenTasks: state => state.tasks.filter(task => task.status == status.OPEN),
+    // getOpenTasks: state => state.tasks.filter(task => task.status == status.OPEN),
 
-    getInprogressTasks: state => state.tasks.filter(task => task.status == status.IN_PROGRESS),
+    // getInprogressTasks: state => state.tasks.filter(task => task.status == status.IN_PROGRESS),
 
-    getClosedTasks: state => state.tasks.filter(task => task.status == status.CLOSED)
+    // getClosedTasks: state => state.tasks.filter(task => task.status == status.CLOSED)
 }
