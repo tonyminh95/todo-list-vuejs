@@ -64,7 +64,7 @@
                         <span class="u-margin-left-xsmall">{{ header.statusType[item[header.title]] }}</span>
                     </div>
                     <div
-                        v-else-if="header.type === 'text'"
+                        v-else-if="header.type === 'text' || header.type === 'date'"
                         v-html="$options.filters.highlightText(item[header.title], search)">
                     </div>
                     <div v-else-if="header.type === 'button'">
@@ -217,12 +217,6 @@ export default {
         deleteObject (id) {
             this.$emit('delete', id)
         }
-    },
-
-    created () {
-        this.search = 'minhaa'
-
-        console.log(this.items)
     }
 }
 </script>
