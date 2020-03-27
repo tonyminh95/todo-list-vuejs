@@ -1,0 +1,59 @@
+@mixin btn ($type) {
+    $buttonColor: map-get($theme-colors, $type);
+    background-color: $buttonColor;
+
+    &:hover {
+        background: darken($buttonColor, 15%) radial-gradient(circle, transparent 1%, darken($buttonColor, 15%) 1%) center/15000%;
+    }
+
+    &:active {
+        background-color: lighten($buttonColor, 15%);
+        background-size: 100%;
+        transition: background 0s;
+    }
+}
+
+%btn {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-position: center;
+    transition: background 0.8s;
+    cursor: pointer;
+}
+
+%table-button {
+    display: inline-block;
+    vertical-align: middle;
+
+    &:not(:first-child) {
+        margin-left: 1rem;
+    }
+}
+
+.btn-create, .btn-open {
+    @extend %btn;
+    @extend %table-button;
+
+    @include btn(create);
+}
+
+.btn-edit, .btn-in-progress {
+    @extend %btn;
+    @extend %table-button;
+
+    @include btn(edit);
+}
+
+.btn-delete, .btn-closed {
+    @extend %btn;
+    @extend %table-button;
+
+    @include btn(delete);
+}
+
+.btn-cancel, .btn-default {
+    @extend %btn;
+    @extend %table-button;
+
+    @include btn(cancel);
+}

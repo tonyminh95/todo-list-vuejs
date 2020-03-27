@@ -5,11 +5,9 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import 'bootstrap/dist/css/bootstrap.css'
+// import 'bootstrap/dist/css/bootstrap.css'
 import store from '@/store/index'
-// filter
-import { status } from '@/utils'
-Vue.filter('status', status)
+import router from './router'
 
 Vue.use(require('vue-moment'));
 
@@ -24,6 +22,7 @@ Vue.component('vue-datepicker', Datepicker)
 Vue.config.productionTip = false
 
 new Vue({
+  router,
   store,
   render: h => h(App),
 }).$mount('#app')

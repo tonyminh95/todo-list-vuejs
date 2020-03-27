@@ -4,6 +4,12 @@ import { formattedDate } from "../utils";
 
 // const countQuantitiesByStatus = status => state  => countObjectProperties(state.todos.filter(todo => todo.status == status))
 
+// const status = {
+//     OPEN: 0,
+//     IN_PROGRESS: 1,
+//     CLOSED: 2
+// }
+
 export default {
     // getOpenStatus: countQuantitiesByStatus(TODO_STATUS.STATUS_OPEN),
 
@@ -13,11 +19,11 @@ export default {
 
     // getTodosFilterByStatus: (state, status) => state.todos.filter(todo => todo.status == status)
 
-    getTodayTask: state => state.todos.filter(todo => todo.deadline == formattedDate(new Date())),
+    // getTodayTask: state => state.todos.filter(todo => todo.deadline == formattedDate(new Date())),
 
     // getTaskByStatus: status => state => ,
 
-    getTaskSortByDeadline: state => sortType => state.todos.sort((pre, next) => (sortType === 'asc') ? new Date(next.deadline) - new Date(pre.deadline) : Date(next.deadline) - new Date(pre.deadline)),
+    // getTaskSortByDeadline: state => sortType => state.todos.sort((pre, next) => (sortType === 'asc') ? new Date(next.deadline) - new Date(pre.deadline) : Date(next.deadline) - new Date(pre.deadline)),
 
 
 
@@ -25,22 +31,27 @@ export default {
 
 
 
-    countTodayTask: state => state.todos.filter(todo => todo.deadline == formattedDate(new Date())).length,
+    // countTodayTask: state => state.todos.filter(todo => todo.deadline == formattedDate(new Date())).length,
 
-    getStatusLabel () {
-        return (status) => {
-            return (status == 1) ? 'open' : (status == 2) ? 'is progress' : (status == 3) ? 'closed' : null
-        }
-    },
+    fetchTasks: state => state.tasks,
 
-    getStatusClass () {
-        return (status) => {
-            return 'status ' + ((status == 1) ? 'status-open' : (status == 2) ? 'status-isprogress' : (status == 3) ? 'status-closed' : null)
-        }
-    },
+    fetchTodayTasks: state => state.tasks.filter(task => task.deadline == formattedDate(new Date())),
+
+    getTodayTasks: state => state.tasks.filter(task => task.deadline == formattedDate(new Date())).length,
 
 
 
 
-    getAllTask: state => state.todos.filter(todo => todo)
+
+
+
+    // getAllTasks: state => state.tasks,
+
+    // getTodayTasks: state => state.tasks.filter(task => task.deadline == formattedDate(new Date())),
+
+    // getOpenTasks: state => state.tasks.filter(task => task.status == status.OPEN),
+
+    // getInprogressTasks: state => state.tasks.filter(task => task.status == status.IN_PROGRESS),
+
+    // getClosedTasks: state => state.tasks.filter(task => task.status == status.CLOSED)
 }
