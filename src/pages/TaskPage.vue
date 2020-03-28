@@ -1,14 +1,16 @@
 <template>
     <div style="width: 85%; margin: 0 auto; margin-top: 50px;">
 
-        <datatable
+        <!-- <datatable
             :table_name="'task management'"
             :headers="headers"
             :bodies="bodies"
             @create="createModal = true"
             @edit="editModal = true"
             @delete="deleteModal = true, targetObjectId = $event"
-        />
+        /> -->
+
+        <test />
 
         <!-- modal -->
         <modal
@@ -77,17 +79,19 @@
 </template>
 
 <script>
-    import Datatable from '@/components/Datatable'
+    // import Datatable from '@/components/Datatable'
     import Modal from '@/components/bases/BaseModal'
     import StatusToggleButton from '@/components/bases/BaseToggleButton'
+    import Test from '@/components/Test'
 
     export default {
         name: 'TaskPage',
 
         components: {
-            Datatable,
+            // Datatable,
             Modal,
-            StatusToggleButton
+            StatusToggleButton,
+            Test
         },
 
         computed: {
