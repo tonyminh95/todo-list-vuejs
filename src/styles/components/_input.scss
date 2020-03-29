@@ -1,7 +1,6 @@
 %input {
     outline: none;
     border: 1px solid lighten($color-gray, 25%);
-    border-radius: 8px;
     font-size: 16px;
     background-color: $color-white;
 }
@@ -20,5 +19,6 @@ select {
 input {
     @extend %input;
 
+    border-radius: 100px;
     padding: 8px 16px;
 }
