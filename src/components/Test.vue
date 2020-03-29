@@ -4,7 +4,11 @@
             <!-- table name + search -->
             <tr>
                 <th>
-                    table name + search
+                    <!-- table name + search -->
+                    <h4 class="table__heading">task management</h4>
+                    <div class="table__search">
+                        <input type="text" placeholder="Search">
+                    </div>
                     <!-- <div class="table__header">
                         <span class="heading-primary">{{ tableName }}</span>
                         <span class="table__header__search">

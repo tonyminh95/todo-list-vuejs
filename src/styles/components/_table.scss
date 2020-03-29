@@ -1,8 +1,9 @@
 .table {
     width: 100%;
-    -webkit-box-shadow: 0px 0px 10px 5px rgba($color-gray, 0.35);
-    -moz-box-shadow: 0px 0px 10px 5px rgba($color-gray, 0.35);
-    box-shadow: 0px 0px 10px 5px rgba($color-gray, 0.35);
+    -webkit-box-shadow: 0 1.5rem 4rem rgba($color-gray, 0.15);
+    -moz-box-shadow: 0 1.5rem 4rem rgba($color-gray, 0.15);
+    box-shadow: 0 1.5rem 4rem rgba($color-gray, 0.15);
+    background-color: $color-white;
 //     border-collapse: collapse;
 //     text-align: left;
 //     border-radius: $border-radius-medium;
