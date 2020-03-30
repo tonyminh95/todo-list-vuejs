@@ -47,23 +47,23 @@
                 </th>
             </tr>
 
+
+
+
             <tr>
-                <th>
-                    <input type="text">
+                <th v-for="(header, index) in headers" :key="index">
+                    <input type="text" v-if="header.type === 'text' || header.type === 'date'">
+
+                    <select v-if="header.type === 'status'">
+                        <option v-for="(type, key) in header.statusType" :key="key" :value="type">
+                            {{ type }}
+                        </option>
+                    </select>
                 </th>
-                <th>
-                    <input type="text">
-                </th>
-                <th>
-                    <input type="text">
-                </th>
-                <th>
-                    <select name="" id=""></select>
-                </th>
-                <th>title</th>
             </tr>
         </thead>
-        <!-- <tbody>
+
+        <tbody>
             <tr v-if="items.length == 0">
                 <td :colspan="headers.length">
                     No data!!!
@@ -96,14 +96,14 @@
                     </div>
                 </td>
             </tr>
-        </tbody> -->
+        </tbody>
     </table>
 </template>
 
 <script>
 import Pagination from '@/components/bases/BasePagination'
 import Dropdown from '@/components/bases/BaseDropdown'
-// import moment from "moment"
+import moment from "moment"
 
 export default {
     name: 'Datatable',
@@ -130,44 +130,44 @@ export default {
             return this.table_name ? this.table_name : 'table name here'
         },
 
-        // items () {
-        //     return this.bodies
-        //             .filter(body => {
-        //                 const filter = {...body}
-        //                 delete filter.id
+        items () {
+            return this.bodies
+                    .filter(body => {
+                        const filter = {...body}
+                        delete filter.id
 
-        //                 this.headers.forEach(element => {
-        //                     if (element.type !== 'text') {
-        //                         delete filter[element.title]
-        //                     }
-        //                 });
+                        this.headers.forEach(element => {
+                            if (element.type !== 'text') {
+                                delete filter[element.title]
+                            }
+                        });
 
-        //                 return Object.values(filter).toString().toLowerCase().includes(this.search.toLowerCase())
-        //             })
-        //             .sort((prev, next) => {
-        //                 const action = this.sortActions[this.sortObjectType]
+                        return Object.values(filter).toString().toLowerCase().includes(this.search.toLowerCase())
+                    })
+                    .sort((prev, next) => {
+                        const action = this.sortActions[this.sortObjectType]
 
-        //                 return action.call(this, prev[this.sortObject], next[this.sortObject])
-        //             })
-        //             .slice(this.page_size * (this.page_number - 1), this.page_size * (this.page_number - 1) + this.page_size)
-        // }
+                        return action.call(this, prev[this.sortObject], next[this.sortObject])
+                    })
+                    .slice(this.page_size * (this.page_number - 1), this.page_size * (this.page_number - 1) + this.page_size)
+        }
     },
 
     data() {
         return {
-            // // search
-            // search: '',
+            // search
+            search: '',
 
-            // // sort
-            // sortObject: 'id',
-            // sortObjectType: 'number',
-            // sortType: 1,
-            // sortActions: {
-            //     number: this.sortedByNumber,
-            //     status: this.sortedByNumber,
-            //     text: this.sortedByString,
-            //     date: this.sortedByDate
-            // },
+            // sort
+            sortObject: 'id',
+            sortObjectType: 'number',
+            sortType: 1,
+            sortActions: {
+                number: this.sortedByNumber,
+                status: this.sortedByNumber,
+                text: this.sortedByString,
+                date: this.sortedByDate
+            },
 
             // pagination
             page_size: 10,
@@ -175,60 +175,60 @@ export default {
             entries: [10, 25, 50, 75, 100],
 
             // button
-            // buttonActions: {
-            //     edit: this.editObject,
-            //     delete: this.deleteObject
-            // }
+            buttonActions: {
+                edit: this.editObject,
+                delete: this.deleteObject
+            }
         }
     },
 
-    // filters: {
-    //     highlightText (value, search) {
-    //         return search
-    //             ?
-    //                 value.toString().replace(new RegExp(search, 'gi'), (matched) => `<span class="text-highlight">${matched}</span>`)
-    //             :
-    //                 value
-    //         }
-    // },
+    filters: {
+        highlightText (value, search) {
+            return search
+                ?
+                    value.toString().replace(new RegExp(search, 'gi'), (matched) => `<span class="text-highlight">${matched}</span>`)
+                :
+                    value
+            }
+    },
 
-    // methods: {
-    //     // sort
-    //     sortCondition (headerTitle, headerType) {
-    //         this.sortObject = headerTitle
-    //         this.sortType *= -1
-    //         this.sortObjectType = headerType
-    //     },
+    methods: {
+        // sort
+        sortCondition (headerTitle, headerType) {
+            this.sortObject = headerTitle
+            this.sortType *= -1
+            this.sortObjectType = headerType
+        },
 
-    //     sortedByNumber (prev, next) {
-    //         return (prev - next) * this.sortType
-    //     },
+        sortedByNumber (prev, next) {
+            return (prev - next) * this.sortType
+        },
 
-    //     sortedByString (prev, next) {
-    //         if (prev.toLowerCase() < next.toLowerCase()) return this.sortType
-    //         if (prev.toLowerCase() > next.toLowerCase()) return this.sortType * -1
-    //         return 0
-    //     },
+        sortedByString (prev, next) {
+            if (prev.toLowerCase() < next.toLowerCase()) return this.sortType
+            if (prev.toLowerCase() > next.toLowerCase()) return this.sortType * -1
+            return 0
+        },
 
-    //     sortedByDate (prev, next) {
-    //         if (moment(prev, 'DD/MM/YYYY') < moment(next, 'DD/MM/YYYY')) return this.sortType
-    //         if (moment(prev, 'DD/MM/YYYY') > moment(next, 'DD/MM/YYYY')) return this.sortType * -1
-    //         return 0
-    //     },
+        sortedByDate (prev, next) {
+            if (moment(prev, 'DD/MM/YYYY') < moment(next, 'DD/MM/YYYY')) return this.sortType
+            if (moment(prev, 'DD/MM/YYYY') > moment(next, 'DD/MM/YYYY')) return this.sortType * -1
+            return 0
+        },
 
-    //     // status
-    //     statusClass (status) {
-    //         return `status status-${status.replace(' ', '-')}`
-    //     },
+        // status
+        statusClass (status) {
+            return `status status-${status.replace(' ', '-')}`
+        },
 
-    //     // button
-    //     editObject (id) {
-    //         this.$emit('edit', id)
-    //     },
+        // button
+        editObject (id) {
+            this.$emit('edit', id)
+        },
 
-    //     deleteObject (id) {
-    //         this.$emit('delete', id)
-    //     }
-    // }
+        deleteObject (id) {
+            this.$emit('delete', id)
+        }
+    }
 }
 </script>
