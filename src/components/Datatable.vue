@@ -35,35 +35,32 @@
             </tr>
             <tr>
                 <th v-for="(header, index) in headers" :key="index" :width="header.width">
-                    {{ header.title }}
-                    <span
-                        v-if="typeof header.sort !== 'undefined'"
-                        @click="sortCondition(header.title, header.type), header.sort = !header.sort"
-                        class="u-cursor-pointer"
-                    >
-                        <fa-icon :icon="['fas', 'sort-amount-down-alt']" v-if="header.sort"></fa-icon>
-                        <fa-icon :icon="['fas', 'sort-amount-up-alt']" v-else></fa-icon>
-                    </span>
-                </th>
-            </tr>
+                    <div>
+                        {{ header.title }}
+                        <span
+                            v-if="typeof header.sort !== 'undefined'"
+                            @click="sortCondition(header.title, header.type), header.sort = !header.sort"
+                            class="u-cursor-pointer"
+                        >
+                            <fa-icon :icon="['fas', 'sort-amount-down-alt']" v-if="header.sort"></fa-icon>
+                            <fa-icon :icon="['fas', 'sort-amount-up-alt']" v-else></fa-icon>
+                        </span>
+                    </div>
 
+                    <div>
+                        <input type="text" v-if="header.type === 'text' || header.type === 'date'">
 
-
-
-            <tr>
-                <th v-for="(header, index) in headers" :key="index">
-                    <input type="text" v-if="header.type === 'text' || header.type === 'date'">
-
-                    <select v-if="header.type === 'status'">
-                        <option v-for="(type, key) in header.statusType" :key="key" :value="type">
-                            {{ type }}
-                        </option>
-                    </select>
+                        <select v-if="header.type === 'status'">
+                            <option v-for="(type, key) in header.statusType" :key="key" :value="type">
+                                {{ type }}
+                            </option>
+                        </select>
+                    </div>
                 </th>
             </tr>
         </thead>
 
-        <tbody>
+        <!-- <tbody>
             <tr v-if="items.length == 0">
                 <td :colspan="headers.length">
                     No data!!!
@@ -96,7 +93,7 @@
                     </div>
                 </td>
             </tr>
-        </tbody>
+        </tbody> -->
     </table>
 </template>
 

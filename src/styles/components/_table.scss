@@ -14,13 +14,13 @@
         align-items: center;
     }
 
-    thead,
-    tbody {
-        th,
-        td {
-            padding: 16px 32px;
-        }
-    }
+    // thead,
+    // tbody {
+    //     th,
+    //     td {
+    //         padding: 16px 32px;
+    //     }
+    // }
 
     thead {
         text-transform: uppercase;
@@ -31,34 +31,47 @@
 
         tr:nth-last-child(2) {
             border-top: 1px solid lighten($color-gray, 35%);
+
+            th {
+                padding: 8px 16px 0 16px;
+            }
         }
 
         tr:last-child {
-            border-top: 1px solid lighten($color-gray, 40%);
+
+
+            th {
+                padding: 16px;
+            }
+        }
+    }
+
+    thead {
+        tr:last-child {
             border-bottom: 2px solid lighten($color-gray, 40%);
         }
     }
 
-    > tbody > tr {
-        cursor: pointer;
-        vertical-align: top;
+    // > tbody > tr {
+    //     cursor: pointer;
+    //     vertical-align: top;
 
-        &:hover > td {
-            background-color: lighten($color-gray, 45%);
-        }
+    //     &:hover > td {
+    //         background-color: lighten($color-gray, 45%);
+    //     }
 
-        &:last-child {
-            > td:first-child {
-                border-radius: 0 0 0 $border-radius-medium;
-            }
+    //     &:last-child {
+    //         > td:first-child {
+    //             border-radius: 0 0 0 $border-radius-medium;
+    //         }
 
-            > td:last-child {
-                border-radius: 0 0 $border-radius-medium 0;
-            }
-        }
+    //         > td:last-child {
+    //             border-radius: 0 0 $border-radius-medium 0;
+    //         }
+    //     }
 
-        &:not(:last-child) {
-            border-bottom: 1px solid lighten($color-gray, 40%)
-        }
-    }
+    //     &:not(:last-child) {
+    //         border-bottom: 1px solid lighten($color-gray, 40%)
+    //     }
+    // }
 }
