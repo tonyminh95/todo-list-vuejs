@@ -1,24 +1,51 @@
-%input {
+input {
     outline: none;
-    border: 1px solid lighten($color-gray, 25%);
+    border: 1px solid lighten($color-gray, 35%);
+    color: lighten($color-gray, 35%);
+    box-sizing : border-box;
     font-size: 16px;
-    background-color: $color-white;
+    font-weight: 300;
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+
+    &:focus {
+        border: 1px solid darken($color-gray, 10%);
+        color: $color-black;
+    }
+}
+
+input[type=text] {
+    width: 100%;
+}
+
+input[type=search] {
+    border-radius: 100px;
 }
 
 select {
-    @extend %input;
-
-    text-transform: capitalize;
-    background: url(assets/svg/sort-down.svg) no-repeat;
-    background-position: right 8px top 50%;
-    background-size: 8px;
-    -webkit-appearance: none;
-    padding: 8px 24px 8px 16px;
+    @extend input;
 }
+//     text-transform: capitalize;
+//     background: url(assets/svg/sort-down.svg) no-repeat;
+//     background-position: right 8px top 50%;
+//     background-size: 8px;
+//     -webkit-appearance: none;
+//     padding: 8px 24px 8px 16px;
+// }
 
-input {
-    @extend %input;
+// .input-search {
+//     outline: none;
+//     border: 1px solid lighten($color-gray, 25%);
+//     font-size: 16px;
+//     background-color: $color-white;
+//     border-radius: 100px;
+//     padding: 8px 16px;
+// }
 
-    border-radius: 100px;
-    padding: 8px 16px;
-}
+// input {
+//     @extend %input;
+
+    // border-radius: 100px;
+    // padding: 8px 16px;
+// }
