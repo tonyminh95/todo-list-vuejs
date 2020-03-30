@@ -1,26 +1,25 @@
 <template>
     <table class="table">
         <thead>
-            <!-- table name + search -->
             <tr>
                 <th>
-                    <!-- table name + search -->
-                    <h4 class="table__heading">task management</h4>
-                    <div class="table__search">
+                    <div class="table__header">
+                        <h2 class="table__header--heading">task management</h2>
+
                         <input type="text" placeholder="Search">
                     </div>
-                    <!-- <div class="table__header">
-                        <span class="heading-primary">{{ tableName }}</span>
-                        <span class="table__header__search">
-                            <input type="text" placeholder="Search" v-model="search">
-                        </span>
-                    </div> -->
                 </th>
             </tr>
-            <!-- create button + pagination -->
             <tr>
                 <th>
-                    create button + pagination
+                    <div class="table__header">
+                        <div>
+                            create button
+                        </div>
+                        <div>
+                            pagination
+                        </div>
+                    </div>
                 </th>
                 <!-- <th :colspan="headers.length">
                     <div class="table__header">
@@ -48,7 +47,7 @@
             <!-- header + sort -->
             <tr>
                 <th>
-                    header + sort
+                    <!-- header + sort -->
                 </th>
                 <!-- <th v-for="(header, index) in headers" :key="index" :width="header.width">
                     {{ header.title }}
@@ -65,7 +64,7 @@
             <!-- filter -->
             <tr>
                 <th>
-                    filter
+                    <!-- filter -->
                 </th>
             </tr>
         </thead>

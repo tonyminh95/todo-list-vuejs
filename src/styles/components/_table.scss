@@ -4,9 +4,19 @@
     -moz-box-shadow: 0 1.5rem 4rem rgba($color-gray, 0.15);
     box-shadow: 0 1.5rem 4rem rgba($color-gray, 0.15);
     background-color: $color-white;
-//     border-collapse: collapse;
+    border-collapse: collapse;
 //     text-align: left;
 //     border-radius: $border-radius-medium;
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        padding: 16px;
+
+        &--heading {
+            font-weight: 300;
+        }
+    }
 
     > thead {
         text-transform: uppercase;
