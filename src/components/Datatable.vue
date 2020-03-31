@@ -60,7 +60,7 @@
             </tr>
         </thead>
 
-        <!-- <tbody>
+        <tbody>
             <tr v-if="items.length == 0">
                 <td :colspan="headers.length">
                     No data!!!
@@ -93,7 +93,7 @@
                     </div>
                 </td>
             </tr>
-        </tbody> -->
+        </tbody>
     </table>
 </template>
 

@@ -5,17 +5,22 @@ input {
     box-sizing : border-box;
     font-size: 16px;
     font-weight: 300;
-    border-radius: 8px;
-    padding: 8px 16px;
+
     cursor: pointer;
 }
 
 input[type=text] {
     width: 100%;
+    padding: 4px;
+
+    &:focus {
+        border: 1px solid darken(map-get($theme-colors, primary), 20%);
+    }
 }
 
 input[type=search] {
     border-radius: 100px;
+    padding: 8px 16px;
 }
 
 select {
@@ -28,5 +33,5 @@ select {
     background-position: right 8px top 50%;
     background-size: 8px;
     -webkit-appearance: none;
-    padding: 8px 24px 8px 16px;
+    padding: 4px 8px 4px 8px;
 }
