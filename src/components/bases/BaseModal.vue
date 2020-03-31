@@ -2,15 +2,15 @@
     <transition name="modal">
         <div class="modal">
             <div class="modal__content">
-                <div :class="`modal__content__header-${modalType}`">
+                <div :class="`modal__content--header-${modal_type}`">
                     <slot name="header"></slot>
                 </div>
 
-                <div class="modal__content__body">
+                <div>
                     <slot name="body"></slot>
                 </div>
 
-                <div class="modal__content__footer u-text-right">
+                <div>
                     <slot name="footer"></slot>
                 </div>
             </div>
@@ -23,7 +23,7 @@
         name: 'BaseModal',
 
         props: {
-            modalType: {
+            modal_type: {
                 type: String,
                 default: 'default'
             }

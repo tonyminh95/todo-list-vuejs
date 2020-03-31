@@ -11,7 +11,7 @@
         />
 
         <!-- modal -->
-        <modal
+        <!-- <modal
             v-if="createModal"
             :modalType="'create'"
         >
@@ -54,40 +54,26 @@
                 <span class="btn-cancel" @click="createModal = false">Cancel</span>
                 <span class="btn-create" @click="createTask">Create</span>
             </div>
-        </modal>
+        </modal> -->
 
-        <modal
-            v-if="deleteModal"
-            :modalType="'delete'"
-        >
-            <div slot="header">
-                Delete Task
-            </div>
-
-            <div slot="body">
-                Do you really want to delete this task?
-            </div>
-
-            <div slot="footer">
-                <span class="btn-cancel" @click="deleteModal = false">Cancel</span>
-                <span class="btn-delete" @click="$store.dispatch('deleteTask', targetObjectId), deleteModal = false">Delete</span>
-            </div>
-        </modal>
+        <task-create/>
+        <task-delete v-if="deleteModal" @deleteTask="deleteTask"/>
     </div>
 </template>
 
 <script>
     import Datatable from '@/components/Datatable'
-    import Modal from '@/components/bases/BaseModal'
-    import StatusToggleButton from '@/components/bases/BaseToggleButton'
+
+import TaskCreate from '@/components/TaskCreate'
+import TaskDelete from '@/components/TaskDelete'
 
     export default {
         name: 'TaskPage',
 
         components: {
             Datatable,
-            Modal,
-            StatusToggleButton
+            TaskCreate,
+            TaskDelete
         },
 
         computed: {
@@ -171,6 +157,14 @@
                         this.task.deadline = new Date()
                         this.task.status = 0
                     })
+                }
+            },
+
+            deleteTask (state) {
+                this.deleteModal = false
+
+                if (state) {
+                    // this.$store.dispatch('deleteTask', targetTask)
                 }
             }
         }

@@ -28,8 +28,30 @@ $theme-colors: (
 $color-background-default: #f6f5f8;
 $color-icon: #2c2834;
 
+
+
+// Colors
+$color-green: #b3eee1;
+$color-green-light: lighten($color-green, 25%);
+$color-green-dark: darken($color-green, 50%);
+
+$color-red: #ffddd9;
+$color-red-light: lighten($color-red, 25%);
+$color-red-dark: darken($color-red, 50%);
+
 // Dimensions
-$default-dimension: 1rem;
+$default-dimension: 8px;
+
+
+
+
+
+
+
+
+
+
+
 $medium-dimension: 4rem;
 $default-letter-spacing: .05rem;
 $default-font-size: 0.8rem;
