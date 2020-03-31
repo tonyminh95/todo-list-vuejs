@@ -15,14 +15,11 @@
 
             <h4>deadline</h4>
 
-            <input type="text">
+            <vue-datepicker :format="'dd/MM/yyyy'"></vue-datepicker>
 
             <h4>status</h4>
 
-            <status-toggle-button
-                :statusEntries="['open', 'in progress', 'closed']"
-                @chosen-target="task.status = $event"
-            />
+            <status-toggle-button :statusEntries="['open', 'in progress', 'closed']"/>
 
             <!-- <div class="form__item">
                 <label>Description</label>
