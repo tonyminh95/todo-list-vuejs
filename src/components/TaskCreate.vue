@@ -20,7 +20,7 @@
             <h4>status</h4>
 
             <status-toggle-button
-                :entries="['open', 'in progress', 'closed']"
+                :statusEntries="['open', 'in progress', 'closed']"
                 @chosen-target="task.status = $event"
             />
 
@@ -56,12 +56,14 @@
 
 <script>
 import Modal from '@/components/bases/BaseModal'
+import StatusToggleButton from '@/components/StatusToggleButton'
 
 export default {
     name: 'TaskCreate',
 
     components: {
-        Modal
+        Modal,
+        StatusToggleButton
     }
 }
 </script>

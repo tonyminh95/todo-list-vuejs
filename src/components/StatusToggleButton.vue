@@ -1,64 +1,32 @@
 <template>
     <div>
-        <a
-            v-for="(baseStatus, index) in baseStatuses"
-            :key="index"
-            class="mr-2"
-            :class="getToggleClass(baseStatus.status)"
-            @click.prevent="changeStatus(index)"
-        >
-            {{ baseStatus.title }}
-        </a>
+        <span v-for="(item, index) in status" :key="index" :class="item.class" @click="target = index">
+            {{ item.title }}
+        </span>
     </div>
 </template>
 
 <script>
-    export default {
-        name: 'StatusToggleButton',
+export default {
+    name: 'StatusToggleButton',
 
-        props: {
-            status: {
-                type: Number,
-                required: true
-            }
-        },
+    props: {
+        statusEntries: {
+            required: true,
+            type: Array
+        }
+    },
 
-        data () {
-            return {
-                baseStatuses: [
-                    { title: 'open', status: 0 },
-                    { title: 'is progress', status: 0 },
-                    { title: 'closed', status: 0 }
-                ],
-                currentStatus: this.status
-            }
-        },
+    computed: {
+        status () {
+            return this.statusEntries.map((status, index) => ({ title: status, class: index == this.target ? `btn-${status.replace(' ', '-')}` : 'btn-default' }))
+        }
+    },
 
-        methods: {
-            getToggleClass (status) {
-                switch (status) {
-                    case 1:
-                        return 'btn-create'
-
-                    case 2:
-                        return 'btn-edit'
-
-                    case 3:
-                        return 'btn-delete'
-
-                    default:
-                        return 'btn-cancel'
-                }
-            },
-
-            changeStatus (index) {
-                this.baseStatuses.map((baseStatus, key) => baseStatus.status = (key == index ? index + 1 : 0))
-                this.$emit('changeStatus', index + 1)
-            }
-        },
-
-        created () {
-            this.baseStatuses[this.currentStatus - 1].status = this.currentStatus
+    data () {
+        return {
+            target: null
         }
     }
+}
 </script>
