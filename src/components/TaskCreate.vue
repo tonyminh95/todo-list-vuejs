@@ -1,10 +1,10 @@
 <template>
-    <modal :modal_type="'create'">
+    <modal :modal_type="'create'" @close="$emit('createTask', false)">
         <div slot="header">
             Create Task
         </div>
 
-        <div slot="body" class="modal__content--body">
+        <div slot="body" class="form">
             <h4>title</h4>
 
             <input type="text">
@@ -45,8 +45,8 @@
 
 
         <div slot="footer">
-            <span class="btn-create" @click="$emit('deleteTask', true)">Create</span>
-            <span class="btn-cancel" @click="$emit('deleteTask', false)">Cancel</span>
+            <span class="btn-create" @click="$emit('createTask', true)">Create</span>
+            <span class="btn-cancel" @click="$emit('createTask', false)">Cancel</span>
         </div>
     </modal>
 </template>

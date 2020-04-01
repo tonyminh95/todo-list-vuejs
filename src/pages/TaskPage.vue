@@ -56,7 +56,8 @@
             </div>
         </modal> -->
 
-        <task-create/>
+        <task-create v-if="createModal" @createTask="createTask"/>
+
         <task-delete v-if="deleteModal" @deleteTask="deleteTask"/>
     </div>
 </template>
@@ -148,16 +149,21 @@ import TaskDelete from '@/components/TaskDelete'
 
         methods: {
             // crud
-            createTask () {
-                if (this.task.title != '')  {
-                    this.createModal = false
-                    this.$store.dispatch('createTask', this.task).then(() => {
-                        this.task.title = ''
-                        this.task.description = ''
-                        this.task.deadline = new Date()
-                        this.task.status = 0
-                    })
+            createTask (state) {
+                this.createModal = false
+
+                if (state) {
+// as
                 }
+                // if (this.task.title != '')  {
+                //     this.createModal = false
+                //     this.$store.dispatch('createTask', this.task).then(() => {
+                //         this.task.title = ''
+                //         this.task.description = ''
+                //         this.task.deadline = new Date()
+                //         this.task.status = 0
+                //     })
+                // }
             },
 
             deleteTask (state) {
