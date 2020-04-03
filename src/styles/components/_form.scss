@@ -1,12 +1,21 @@
 .form {
-    > h4 {
-        text-transform: capitalize;
-        margin-bottom: $default-dimension;
-        font-size: 24px;
-        font-weight: 300;
+    &__row {
+        display: flex;
+        flex-direction: column;
 
-        &:not(:first-child) {
-            margin-top: $default-dimension * 3;
+        &:not(:last-child) {
+            margin-bottom: 16px;
         }
+
+        label {
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+    }
+
+    &__input {
+        outline: none;
+        padding: 8px 16px;
+        border: 1px solid $color-gray-dark-2;
     }
 }

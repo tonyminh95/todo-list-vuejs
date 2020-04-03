@@ -16,13 +16,8 @@
         width: 500px;
 
         > div {
-            &:first-child {
-                text-transform: uppercase;
-                font-size: 16px;
-            }
-
             &:not(:last-child) {
-                margin-bottom: 16px;
+                margin-bottom: 24px;
             }
 
             &:last-child {
@@ -34,10 +29,12 @@
             }
         }
 
-        // &--header {
-        //     display: flex;
-        //     justify-content: space-between;
-        //     align-items: center;
+        &--header {
+            text-transform: uppercase;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
         //     &-create {
         //         color: $color-green-dark;
@@ -54,10 +51,5 @@
         //     &-default {
         //         color: darken($color-gray, 50%);
         //     }
-
-        //     > svg {
-        //         cursor: pointer;
-        //     }
-        // }
     }
 }
