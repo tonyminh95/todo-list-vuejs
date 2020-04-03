@@ -4,12 +4,12 @@ button {
     text-transform: capitalize;
     cursor: pointer;
     border-radius: 4px;
-    padding: 8px 16px;
     background-position: center;
     transition: all .5s;
 }
 
 @mixin btn ($type, $outline: false) {
+    padding: 8px 16px;
     min-width: 72px;
     $buttonMainColor: map-get($button-theme-colors, $type);
     $buttonHoverColor: map-get($button-theme-colors, $type + '-hover');
@@ -50,6 +50,24 @@ button {
     @include btn(cancel, true);
 }
 
+.btn-icon {
+    background-color: $color-gray-light;
+    color: $color-navy;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 16px;
+
+    &:hover {
+        background: $color-gray radial-gradient(circle, transparent 1%, $color-gray 1%) center/15000%;
+    }
+
+    &:active {
+        background-color: $color-gray-light;
+        background-size: 100%;
+        transition: background 0s;
+    }
+}
 
 
 

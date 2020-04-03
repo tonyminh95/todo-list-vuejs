@@ -22,10 +22,6 @@
 
             &:last-child {
                 text-align: right;
-
-                > button:not(:last-child) {
-                    margin-right: 16px;
-                }
             }
         }
 

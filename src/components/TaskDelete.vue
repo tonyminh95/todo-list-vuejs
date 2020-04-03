@@ -1,16 +1,14 @@
 <template>
-    <modal :modal_type="'delete'">
-        <div slot="header">
-            Delete Task
-        </div>
+    <modal :modal_type="'delete'" @close="$emit('deleteTask', false)">
+        <h2 slot="header" class="text-red">Delete Task</h2>
 
         <div slot="body">
-            Do you really want to delete this task?
+            <div class="text-uppercase">Do you really want to delete this task?</div>
         </div>
 
         <div slot="footer">
-            <span class="btn-delete" @click="$emit('deleteTask', true)">Delete</span>
-            <span class="btn-cancel" @click="$emit('deleteTask', false)">Cancel</span>
+            <button class="btn-outline-cancel u-margin-right-2" @click="$emit('deleteTask', true)">cancel</button>
+            <button class="btn-delete" @click="$emit('deleteTask', false)">create</button>
         </div>
     </modal>
 </template>

@@ -1,7 +1,5 @@
 // Colors
 // (main color)
-$color-navy: navy;
-$color-gray: gray;
 $color-white: white;
 $color-teal: teal;
 $color-black: black;
@@ -69,6 +67,8 @@ $color-gray: #f0f0f0;
 $color-gray-light: lighten($color-gray, 25%);
 $color-gray-dark: darken($color-gray, 50%);
 $color-gray-dark-2: darken($color-gray, 15%);
+
+$color-navy: #000080;
 
 // (button theme colors)
 $button-theme-colors: (
