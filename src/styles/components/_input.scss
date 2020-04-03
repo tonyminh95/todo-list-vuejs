@@ -1,37 +1,50 @@
-input {
+// input {
+//     outline: none;
+//     border: 1px solid lighten($color-gray, 35%);
+//     color: $color-black;
+//     box-sizing : border-box;
+//     font-size: 16px;
+//     font-weight: 300;
+
+//     cursor: pointer;
+// }
+
+// input[type=text] {
+//     width: 100%;
+//     padding: 4px;
+
+//     &:focus {
+//         border: 1px solid darken(map-get($theme-colors, primary), 20%);
+//     }
+// }
+
+// input[type=search] {
+//     border-radius: 100px;
+//     padding: 8px 16px;
+// }
+
+.form-input {
     outline: none;
-    border: 1px solid lighten($color-gray, 35%);
-    color: $color-black;
+    padding: 16px;
+    width: 100%;
+    // border: 1px solid lighten($color-gray, 35%);
+    // color: $color-black;
     box-sizing : border-box;
     font-size: 16px;
     font-weight: 300;
 
-    cursor: pointer;
+    // cursor: pointer;
 }
 
-input[type=text] {
-    width: 100%;
-    padding: 4px;
+// select {
+//     @extend input;
 
-    &:focus {
-        border: 1px solid darken(map-get($theme-colors, primary), 20%);
-    }
-}
-
-input[type=search] {
-    border-radius: 100px;
-    padding: 8px 16px;
-}
-
-select {
-    @extend input;
-
-    width: 100%;
-    background-color: $color-white;
-    background: url(assets/svg/sort-down.svg) no-repeat;
-    text-transform: capitalize;
-    background-position: right 8px top 50%;
-    background-size: 8px;
-    -webkit-appearance: none;
-    padding: 4px 8px 4px 8px;
-}
+//     width: 100%;
+//     background-color: $color-white;
+//     background: url(assets/svg/sort-down.svg) no-repeat;
+//     text-transform: capitalize;
+//     background-position: right 8px top 50%;
+//     background-size: 8px;
+//     -webkit-appearance: none;
+//     padding: 4px 8px 4px 8px;
+// }

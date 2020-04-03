@@ -1,21 +1,12 @@
 .form {
-    &__item {
+    > h4 {
+        text-transform: capitalize;
+        margin-bottom: $default-dimension;
+        font-size: 24px;
+        font-weight: 300;
+
         &:not(:first-child) {
-            margin-top: $default-dimension;
+            margin-top: $default-dimension * 3;
         }
-
-        > div {
-            margin-top: $default-dimension / 2;
-        }
-    }
-
-    input, textarea {
-        outline: none;
-        border: 1px solid lighten($color-gray, 20%);
-        border-radius: $border-radius-xsmall;
-        width: 100%;
-        padding: $default-dimension / 2 $default-dimension;
-        box-sizing: border-box;
-        font-size: $default-font-size;
     }
 }

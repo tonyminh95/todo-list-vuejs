@@ -7,7 +7,7 @@
         <div slot="body" class="form">
             <h4>title</h4>
 
-            <input type="text">
+            <input type="text" class="form-input">
 
             <h4>description</h4>
 

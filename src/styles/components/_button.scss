@@ -1,59 +1,93 @@
-@mixin btn ($type) {
-    $buttonColor: map-get($theme-colors, $type);
-    background-color: $buttonColor;
+button {
+    outline: none;
+    border: none;
+    text-transform: capitalize;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 8px 16px;
+    background-position: center;
+    transition: all .5s;
+}
+
+@mixin btn ($type, $outline: false) {
+    min-width: 72px;
+    $buttonMainColor: map-get($button-theme-colors, $type);
+    $buttonHoverColor: map-get($button-theme-colors, $type + '-hover');
+    $buttonActiveColor: map-get($button-theme-colors, $type + '-active');
+
+    @if not $outline {
+        background-color: $buttonMainColor;
+    }
+
+    border: 1px solid $buttonMainColor;
 
     &:hover {
-        background: darken($buttonColor, 15%) radial-gradient(circle, transparent 1%, darken($buttonColor, 15%) 1%) center/15000%;
+        background: $buttonHoverColor radial-gradient(circle, transparent 1%, $buttonHoverColor 1%) center/15000%;
+        border: 1px solid $buttonHoverColor;
     }
 
     &:active {
-        background-color: lighten($buttonColor, 15%);
+        background-color: $buttonActiveColor;
+        border: 1px solid $buttonActiveColor;
         background-size: 100%;
         transition: background 0s;
     }
 }
 
-%btn {
-    padding: 5px 10px;
-    border-radius: 5px;
-    background-position: center;
-    transition: background 0.8s;
-    cursor: pointer;
-}
-
-%table-button {
-    display: inline-block;
-    vertical-align: middle;
-
-    &:not(:first-child) {
-        margin-left: 1rem;
-    }
-}
-
-.btn-create, .btn-open {
-    @extend %btn;
-    @extend %table-button;
-
+.btn-create {
     @include btn(create);
 }
 
-.btn-edit, .btn-in-progress {
-    @extend %btn;
-    @extend %table-button;
-
+.btn-edit {
     @include btn(edit);
 }
 
-.btn-delete, .btn-closed {
-    @extend %btn;
-    @extend %table-button;
-
+.btn-delete {
     @include btn(delete);
 }
 
-.btn-cancel, .btn-default {
-    @extend %btn;
-    @extend %table-button;
-
-    @include btn(cancel);
+.btn-outline-cancel {
+    @include btn(cancel, true);
 }
+
+
+
+
+
+// %table-button {
+//     display: inline-block;
+//     vertical-align: middle;
+
+//     &:not(:first-child) {
+//         margin-left: 1rem;
+//     }
+// }
+
+//  .btn-open {
+//     @extend button;
+//     @extend %table-button;
+
+//     @include btn(create);
+// }
+
+// .btn-edit, .btn-in-progress {
+//     @extend button;
+//     @extend %table-button;
+
+//     @include btn(edit);
+// }
+
+// .btn-delete, .btn-closed {
+//     @extend button;
+//     @extend %table-button;
+
+//     @include btn(delete);
+// }
+
+// .btn-cancel, .btn-default {
+//     @extend button;
+//     @extend %table-button;
+
+//     @include btn(cancel);
+// }
+

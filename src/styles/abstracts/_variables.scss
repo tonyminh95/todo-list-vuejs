@@ -8,12 +8,16 @@ $color-black: black;
 
 // (custom color)
 $theme-colors: (
-    'primary': #c4e9fe,
-    'cancel': #f0f0f0,
     'create': #b3eee1,
+    'cancel': #f0f0f0,
+
+
+    'primary': #c4e9fe,
+
+
     'edit': #feefd8,
     'delete': #ffddd9,
-    // 'info': #8affffee,
+    'info': #8affffee,
     'open': #ffddd9,
     'inprogress': #feefd8,
     'closed': #b3eee1,
@@ -30,17 +34,61 @@ $color-icon: #2c2834;
 
 
 
+
+
+
+
+
+
+
+
+
+
 // Colors
 $color-green: #b3eee1;
 $color-green-light: lighten($color-green, 25%);
 $color-green-dark: darken($color-green, 50%);
 
+$color-yellow: #feefd8;
+$color-yellow-light: lighten($color-yellow, 25%);
+$color-yellow-dark: darken($color-yellow, 50%);
+
 $color-red: #ffddd9;
 $color-red-light: lighten($color-red, 25%);
 $color-red-dark: darken($color-red, 50%);
 
+$color-gray: #f0f0f0;
+$color-gray-light: lighten($color-gray, 25%);
+$color-gray-dark: darken($color-gray, 50%);
+$color-gray-dark-2: darken($color-gray, 15%);
+
+// (button theme colors)
+$button-theme-colors: (
+    'create': $color-green,
+    'create-hover': darken($color-green, 15%),
+    'create-active': lighten($color-green, 15%),
+
+    'edit': $color-yellow,
+    'edit-hover': darken($color-yellow, 15%),
+    'edit-active': lighten($color-yellow, 15%),
+
+    'delete': $color-red,
+    'delete-hover': darken($color-red, 15%),
+    'delete-active': lighten($color-red, 15%),
+
+    'cancel': $color-gray-dark-2,
+    'cancel-hover': $color-gray-dark-2,
+    'cancel-active': $color-gray,
+);
+
 // Dimensions
 $default-dimension: 8px;
+
+
+
+
+
+
 
 
 
@@ -76,4 +124,4 @@ $button-border-radius: 5px;
 $icon-size-default: 2rem;
 
 // (modal)
-$modal-width: 30rem;
+$modal-width: 500px;
