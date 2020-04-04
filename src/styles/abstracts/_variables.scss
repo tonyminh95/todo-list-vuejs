@@ -51,6 +51,9 @@ $color-icon: #2c2834;
 
 
 // Colors
+$color-blue: #c4e9fe;
+$color-blue-dark: darken($color-blue, 50%);
+
 $color-green: #b3eee1;
 $color-green-light: lighten($color-green, 25%);
 $color-green-dark: darken($color-green, 50%);
