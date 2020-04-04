@@ -29,10 +29,10 @@
 
             &--item {
                 height: 32px;
+                line-height: 32px;
                 text-align: center;
 
                 &--date {
-                    line-height: 32px;
                     color: $color-gray-dark-2;
 
                     &:hover {
@@ -48,7 +48,6 @@
                 }
 
                 &--active-date {
-                    line-height: 32px;
                     color: $color-navy;
                     background-color: $color-blue;
                     border-radius: 50%;

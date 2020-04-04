@@ -2,9 +2,9 @@
     <div class="datetime">
         <div class="datetime__content">
             <div class="datetime__content__controller">
-                <button class="btn-icon" @click="previous">&#10094;</button>
-                <span>{{ month }}</span>
-                <button class="btn-icon" @click="next">&#10095;</button>
+                <button class="btn-icon" @click="monthState--">&#10094;</button>
+                <span>{{ transformCurrentMonthToWord }}</span>
+                <button class="btn-icon" @click="monthState++">&#10095;</button>
             </div>
 
             <div class="datetime__content__calendar">
@@ -18,7 +18,7 @@
                     class="datetime__content__calendar--item"
                     :class="{
                         'datetime__content__calendar--item--primary-date': indexOfFirstDateOfCurrentMonth < index && index <= indexOfLastDateOfCurrentMonth,
-                        'datetime__content__calendar--item--active-date': index == indexOfCurrentDate,
+                        'datetime__content__calendar--item--active-date': index == indexOfCurrentDate && currentMonth == currentDate.getMonth(),
                         'datetime__content__calendar--item--date': index != indexOfCurrentDate
                     }"
                     @click="changeCurrentDate(index - 1)"
@@ -37,13 +37,13 @@ export default {
     name: 'BaseDateTimePicker',
 
     computed: {
-        month () {
-            return transformMonthToWord(Math.abs(this.currentMonth % 12))
+        transformCurrentMonthToWord () {
+            const remainderOfMonth = this.currentMonth % 12
+            const indexOfMonth = remainderOfMonth + (this.currentMonth < 0 && this.currentMonth % 12 != 0 ? 12 : 0)
+
+            return transformMonthToWord(indexOfMonth)
+
         },
-
-
-
-
 
         currentYear () {
             return this.currentDate.getFullYear()
@@ -69,15 +69,6 @@ export default {
             return Math.ceil(this.indexOfLastDateOfCurrentMonth / 7) * 7
         },
 
-        renderDateItem () {
-            return index => {
-                const startDate = new Date(this.currentYear, this.currentMonth, (this.indexOfFirstDateOfCurrentMonth - 1) * (-1))
-                const date = new Date(startDate.getTime() + index * 24 * 60 * 60 * 1000)
-
-                return date
-            }
-        },
-
         renderDate () {
             return index => this.renderDateItem(index).getDate()
         },
@@ -96,20 +87,16 @@ export default {
     },
 
     methods: {
+        renderDateItem (index) {
+            const startDate = new Date(this.currentYear, this.currentMonth, (this.indexOfFirstDateOfCurrentMonth - 1) * (-1))
+            const date = new Date(startDate.getTime() + index * 24 * 60 * 60 * 1000)
+
+            return date
+        },
+
         changeCurrentDate (index) {
             this.currentDate = this.renderDateItem(index)
-        },
-
-        previous () {
-            this.monthState--
-
-            console.log(this.currentMonth, Math.abs(this.currentMonth % 12))
-        },
-
-        next () {
-            this.monthState++
-
-            console.log(this.currentMonth, Math.abs(this.currentMonth % 12))
+            this.monthState = 0
         }
     }
 }
