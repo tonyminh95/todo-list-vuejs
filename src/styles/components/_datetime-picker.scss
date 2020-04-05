@@ -19,6 +19,18 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 24px;
+
+            &--title {
+                cursor: pointer;
+                padding: 8px 16px;
+                min-width: 100px;
+                text-align: center;
+                color: $color-black;
+
+                &:hover {
+                    background-color: $color-gray;
+                }
+            }
         }
 
         &__calendar {
@@ -52,6 +64,38 @@
                     background-color: $color-blue;
                     border-radius: 50%;
                     cursor: pointer;
+                }
+            }
+        }
+
+        &__month {
+            display: grid;
+            grid-template-columns: 68px 68px 68px 68px;
+
+            &--item {
+                margin: 8px;
+                padding: 8px 16px;
+                text-align: center;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $color-gray;
+                }
+            }
+        }
+
+        &__year {
+            display: grid;
+            grid-template-columns: 88px 88px 88px ;
+            grid-gap: 4px;
+
+            &--item {
+                padding: 8px 16px;
+                text-align: center;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $color-gray;
                 }
             }
         }

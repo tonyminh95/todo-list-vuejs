@@ -2,15 +2,20 @@
     <div class="datetime">
         <div class="datetime__content">
             <div class="datetime__content__controller">
-                <button class="btn-icon" @click="monthState--">&#10094;</button>
-                <span>{{ transformCurrentMonthToWord }}</span>
-                <button class="btn-icon" @click="monthState++">&#10095;</button>
+                <button class="btn-icon" @click="previous">&#10094;</button>
+                <span
+                    :class="{ 'datetime__content__controller--title': pickerType != 2 }"
+                    @click="changePickerType"
+                >
+                    {{ pickerTitle }}
+                </span>
+                <button class="btn-icon" @click="next">&#10095;</button>
             </div>
 
-            <div class="datetime__content__calendar">
-                <!-- <div v-for="(day, index) in daysOfWeek" :key="index" class="datetime__content__calendar--item datetime__content__calendar--item--label">
+            <div v-if="pickerType == 0" class="datetime__content__calendar">
+                <div v-for="day in daysOfWeek" :key="day" class="datetime__content__calendar--item datetime__content__calendar--item--label" >
                     {{ day }}
-                </div> -->
+                </div>
 
                 <div
                     v-for="index in numberOfDaysToRender"
@@ -26,6 +31,28 @@
                     {{ renderDate(index - 1) }}
                 </div>
             </div>
+
+            <div v-if="pickerType == 1" class="datetime__content__month">
+                <div
+                    v-for="(month, index) in monthsOfYear"
+                    :key="index"
+                    class="datetime__content__month--item"
+                    @click="changeCurrentMonth(index)"
+                >
+                    {{ month }}
+                </div>
+            </div>
+
+            <div v-if="pickerType == 2" class="datetime__content__year">
+                <div
+                    v-for="index in 10"
+                    :key="index"
+                    class="datetime__content__year--item"
+                    @click="changeCurrentYear(index - 1)"
+                >
+                    {{ startYear + index - 1 }}
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -37,20 +64,33 @@ export default {
     name: 'BaseDateTimePicker',
 
     computed: {
+        // year picker
+        currentYear () {
+            return this.currentDate.getFullYear() + this.yearState
+        },
+
+        startYear () {
+            return this.currentYear % 10 == 0 ? this.currentYear - 9 : Math.floor(this.currentYear / 10) * 10 + 1
+        },
+
+        endYear () {
+            return Math.ceil(this.currentYear / 10) * 10
+        },
+
+        yearTitle () {
+            return `${this.startYear} - ${this.endYear}`
+        },
+
+        // month picker
+        currentMonth () {
+            return this.currentDate.getMonth() + this.monthState
+        },
+
         transformCurrentMonthToWord () {
             const remainderOfMonth = this.currentMonth % 12
             const indexOfMonth = remainderOfMonth + (this.currentMonth < 0 && this.currentMonth % 12 != 0 ? 12 : 0)
 
-            return transformMonthToWord(indexOfMonth)
-
-        },
-
-        currentYear () {
-            return this.currentDate.getFullYear()
-        },
-
-        currentMonth () {
-            return this.currentDate.getMonth() + this.monthState
+            return `${this.currentYear} - ${transformMonthToWord(indexOfMonth)}`
         },
 
         indexOfFirstDateOfCurrentMonth () {
@@ -75,18 +115,52 @@ export default {
 
         indexOfCurrentDate () {
             return this.currentDate.getDate() + this.indexOfFirstDateOfCurrentMonth
+        },
+
+        // controller
+        pickerTitle () {
+            return this[this.pickerActions[this.pickerType]]
         }
     },
 
     data() {
         return {
             currentDate: new Date(),
+
+            // year picker
+            yearState: 0,
+
+            // month picker
+            monthsOfYear: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             monthState: 0,
-            daysOfWeek: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+
+            // date picker
+            daysOfWeek: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+
+            // controller
+            pickerType: 0,
+            pickerActions: {
+                0: 'transformCurrentMonthToWord',
+                1: 'currentYear',
+                2: 'yearTitle'
+            }
         }
     },
 
     methods: {
+        // year picker
+        changeCurrentYear (index) {
+            this.yearState = this.yearState + (index - (this.currentYear - this.startYear))
+            this.pickerType = 1
+        },
+
+        // month picker
+        changeCurrentMonth (index) {
+            this.monthState = this.monthState + (index - this.currentMonth)
+            this.pickerType = 0
+        },
+
+        // date picker
         renderDateItem (index) {
             const startDate = new Date(this.currentYear, this.currentMonth, (this.indexOfFirstDateOfCurrentMonth - 1) * (-1))
             const date = new Date(startDate.getTime() + index * 24 * 60 * 60 * 1000)
@@ -97,6 +171,42 @@ export default {
         changeCurrentDate (index) {
             this.currentDate = this.renderDateItem(index)
             this.monthState = 0
+            this.yearState = 0
+
+            console.log(this.currentDate)
+        },
+
+        // controller
+        changePickerType () {
+            if (this.pickerType < 2) {
+                this.pickerType++
+            }
+        },
+
+        previous () {
+            if (this.pickerType == 0) {
+                this.monthState--
+
+                if (this.currentMonth < 0) {
+                    this.monthState = 11 - this.currentDate.getMonth()
+                    this.yearState--
+                }
+            } else {
+                this.yearState = this.yearState - 10
+            }
+        },
+
+        next () {
+            if (this.pickerType == 0) {
+                this.monthState++
+
+                if (this.currentMonth > 11) {
+                    this.monthState = 0 - this.currentDate.getMonth()
+                    this.yearState++
+                }
+            } else {
+                this.yearState = this.yearState + 10
+            }
         }
     }
 }
