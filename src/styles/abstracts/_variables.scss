@@ -87,9 +87,13 @@ $button-theme-colors: (
     'delete-hover': darken($color-red, 15%),
     'delete-active': lighten($color-red, 15%),
 
+    'select': $color-blue,
+    'select-hover': darken($color-blue, 15%),
+    'select-active': lighten($color-blue, 15%),
+
     'cancel': $color-gray-dark-2,
     'cancel-hover': $color-gray-dark-2,
-    'cancel-active': $color-gray,
+    'cancel-active': $color-gray
 );
 
 // Dimensions

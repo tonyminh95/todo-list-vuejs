@@ -1,12 +1,18 @@
 .datetime {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba($color-black, 0.3);
+    &__input {
+        padding: 8px 16px;
+        border: 1px solid $color-gray-dark-2;
+        width: 100px;
+        background: url(assets/svg/sort-down.svg) no-repeat;
+        background-position: right 16px top 50%;
+        background-size: 8px;
+        cursor: pointer;
+    }
 
     &__content {
+        -webkit-box-shadow: 0 0.5rem 4rem rgba($color-black, 0.3);
+        -moz-box-shadow: 0 0.5rem 4rem rgba($color-black, 0.3);
+        box-shadow: 0 0.5rem 4rem rgba($color-black, 0.3);
         position: absolute;
         top: 50%;
         left: 50%;
@@ -86,7 +92,7 @@
 
         &__year {
             display: grid;
-            grid-template-columns: 88px 88px 88px ;
+            grid-template-columns: 88px 88px 88px;
             grid-gap: 4px;
 
             &--item {
@@ -98,6 +104,11 @@
                     background-color: $color-gray;
                 }
             }
+        }
+
+        &__actions {
+            margin-top: 16px;
+            text-align: right;
         }
     }
 }

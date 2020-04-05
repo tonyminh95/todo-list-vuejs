@@ -1,6 +1,10 @@
 <template>
     <div class="datetime">
-        <div class="datetime__content">
+        <div class="datetime__input" @click="popupState = true">
+            {{ formattedDate }}
+        </div>
+
+        <div v-if="popupState" class="datetime__content">
             <div class="datetime__content__controller">
                 <button class="btn-icon" @click="previous">&#10094;</button>
                 <span
@@ -23,7 +27,7 @@
                     class="datetime__content__calendar--item"
                     :class="{
                         'datetime__content__calendar--item--primary-date': indexOfFirstDateOfCurrentMonth < index && index <= indexOfLastDateOfCurrentMonth,
-                        'datetime__content__calendar--item--active-date': index == indexOfCurrentDate && currentMonth == currentDate.getMonth(),
+                        'datetime__content__calendar--item--active-date': index == indexOfCurrentDate && currentMonth == currentDate.getMonth() && currentYear == currentDate.getFullYear(),
                         'datetime__content__calendar--item--date': index != indexOfCurrentDate
                     }"
                     @click="changeCurrentDate(index - 1)"
@@ -53,12 +57,17 @@
                     {{ startYear + index - 1 }}
                 </div>
             </div>
+
+            <div class="datetime__content__actions">
+                <button class="btn-outline-cancel u-margin-right-2" @click="popupStatus = false">cancel</button>
+                <button class="btn-select">select</button>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-import { transformMonthToWord } from '@/utils/datetime-picker'
+import { transformMonthToWord, formattedDate } from '@/utils'
 
 export default {
     name: 'BaseDateTimePicker',
@@ -93,6 +102,7 @@ export default {
             return `${this.currentYear} - ${transformMonthToWord(indexOfMonth)}`
         },
 
+        // date picker
         indexOfFirstDateOfCurrentMonth () {
             const firstDateOfCurrentMonth = new Date(this.currentYear, this.currentMonth, 1)
 
@@ -117,6 +127,10 @@ export default {
             return this.currentDate.getDate() + this.indexOfFirstDateOfCurrentMonth
         },
 
+        formattedDate () {
+            return formattedDate(this.chosenDate)
+        },
+
         // controller
         pickerTitle () {
             return this[this.pickerActions[this.pickerType]]
@@ -136,6 +150,7 @@ export default {
 
             // date picker
             daysOfWeek: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            chosenDate: new Date(),
 
             // controller
             pickerType: 0,
@@ -143,7 +158,9 @@ export default {
                 0: 'transformCurrentMonthToWord',
                 1: 'currentYear',
                 2: 'yearTitle'
-            }
+            },
+
+            popupState: false
         }
     },
 
@@ -172,9 +189,13 @@ export default {
             this.currentDate = this.renderDateItem(index)
             this.monthState = 0
             this.yearState = 0
-
-            console.log(this.currentDate)
         },
+
+        // select () {
+        //     this.currentDate = this.chosenDate
+        //     this.monthState = 0
+        //     this.yearState = 0
+        // },
 
         // controller
         changePickerType () {

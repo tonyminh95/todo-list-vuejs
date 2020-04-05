@@ -13,7 +13,7 @@
             </div>
             <div class="form__row">
                 <label>deadline</label>
-                <input type="text" class="form__input">
+                <date-picker/>
                 <!-- <vue-datepicker :format="'dd/MM/yyyy'"></vue-datepicker> -->
             </div>
             <div class="form__row">
@@ -32,13 +32,15 @@
 <script>
 import Modal from '@/components/bases/BaseModal'
 import StatusToggleButton from '@/components/StatusToggleButton'
+import DatePicker from '@/components/bases/BaseDateTimePicker'
 
 export default {
     name: 'TaskCreate',
 
     components: {
         Modal,
-        StatusToggleButton
+        StatusToggleButton,
+        DatePicker
     }
 }
 </script>

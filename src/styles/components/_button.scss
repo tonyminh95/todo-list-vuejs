@@ -46,6 +46,10 @@ button {
     @include btn(delete);
 }
 
+.btn-select {
+    @include btn(select);
+}
+
 .btn-outline-cancel {
     @include btn(cancel, true);
 }

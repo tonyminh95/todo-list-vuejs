@@ -59,8 +59,6 @@
         <task-create v-if="createModal" @createTask="createTask"/>
 
         <task-delete v-if="deleteModal" @deleteTask="deleteTask"/>
-
-        <date-time-picker />
     </div>
 </template>
 
@@ -70,16 +68,13 @@
 import TaskCreate from '@/components/TaskCreate'
 import TaskDelete from '@/components/TaskDelete'
 
-import DateTimePicker from '@/components/bases/BaseDateTimePicker'
-
     export default {
         name: 'TaskPage',
 
         components: {
             Datatable,
             TaskCreate,
-            TaskDelete,
-            DateTimePicker
+            TaskDelete
         },
 
         computed: {
