@@ -91,6 +91,22 @@ $button-theme-colors: (
     'select-hover': darken($color-blue, 15%),
     'select-active': lighten($color-blue, 15%),
 
+    'open': $color-red,
+    'open-hover': darken($color-red, 15%),
+    'open-active': lighten($color-red, 15%),
+
+    'inprogress': $color-yellow,
+    'inprogress-hover': darken($color-yellow, 15%),
+    'inprogress-active': lighten($color-yellow, 15%),
+
+    'closed': $color-green,
+    'closed-hover': darken($color-green, 15%),
+    'closed-active': lighten($color-green, 15%),
+
+    'default': $color-gray,
+    'default-hover': darken($color-gray, 15%),
+    'default-active': lighten($color-gray, 15%),
+
     'cancel': $color-gray-dark-2,
     'cancel-hover': $color-gray-dark-2,
     'cancel-active': $color-gray

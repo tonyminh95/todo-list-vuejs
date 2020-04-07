@@ -14,11 +14,10 @@
             <div class="form__row">
                 <label>deadline</label>
                 <date-picker/>
-                <!-- <vue-datepicker :format="'dd/MM/yyyy'"></vue-datepicker> -->
             </div>
             <div class="form__row">
                 <label>status</label>
-                <status-toggle-button :statusEntries="['open', 'in progress', 'closed']"/>
+                <toggle-button :statusEntries="['open', 'in progress', 'closed']"/>
             </div>
         </div>
 
@@ -31,7 +30,7 @@
 
 <script>
 import Modal from '@/components/bases/BaseModal'
-import StatusToggleButton from '@/components/StatusToggleButton'
+import ToggleButton from '@/components/bases/BaseToggleButton'
 import DatePicker from '@/components/bases/BaseDateTimePicker'
 
 export default {
@@ -39,7 +38,7 @@ export default {
 
     components: {
         Modal,
-        StatusToggleButton,
+        ToggleButton,
         DatePicker
     }
 }

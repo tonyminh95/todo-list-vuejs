@@ -50,6 +50,23 @@ button {
     @include btn(select);
 }
 
+.btn-open {
+    @include btn(open);
+}
+
+.btn-inprogress {
+    @include btn(inprogress);
+}
+
+.btn-closed {
+    @include btn(closed);
+}
+
+.btn-default {
+    @include btn(default);
+}
+
+
 .btn-outline-cancel {
     @include btn(cancel, true);
 }
