@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import { transformMonthToWord, formattedDate } from '@/utils'
+import { transformMonthToWord, formattedDate, transformMonthBeforeDate } from '@/utils'
 
 export default {
     name: 'BaseDateTimePicker',
@@ -157,7 +157,7 @@ export default {
 
             // date picker
             daysOfWeek: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-            chosenDate: this.targetDate ? new Date(this.targetDate) : new Date(),
+            chosenDate: this.targetDate ? new Date(transformMonthBeforeDate(this.targetDate)) : new Date(),
 
             // controller
             pickerType: 0,

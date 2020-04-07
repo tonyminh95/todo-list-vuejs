@@ -14,6 +14,12 @@ const appendLeadingZeroes = n => n <= 9 ? '0' + n : n
 
 const formattedDate = date => appendLeadingZeroes(date.getDate()) + '/' + appendLeadingZeroes(date.getMonth() + 1) + '/' + date.getFullYear()
 
+const transformMonthBeforeDate = date => {
+    const array = date.split("/")
+
+    return array[1] + '/' + array[0] + '/' + array[2]
+}
+
 export {
     // countObjectProperties,
 
@@ -21,7 +27,8 @@ export {
     // clearObject,
 
     transformMonthToWord,
-    formattedDate
+    formattedDate,
+    transformMonthBeforeDate
 }
 
 

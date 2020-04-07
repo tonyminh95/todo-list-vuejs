@@ -24,7 +24,7 @@ export default {
     },
 
     props: {
-        targetId: {
+        id: {
             required: true,
             type: Number
         }
@@ -32,7 +32,7 @@ export default {
 
     methods: {
         deleteTask () {
-            this.$store.dispatch('deleteTask', this.targetId)
+            this.$store.dispatch('deleteTask', this.id).then(() => console.log('delete success!'))
             this.$emit('closeModal')
         }
     }

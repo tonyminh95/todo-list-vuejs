@@ -13,11 +13,11 @@
             </div>
             <div class="form__row">
                 <label>deadline</label>
-                <date-picker @chosenDate="task.deadline = $event"/>
+                <date-picker @chosenDate="task.deadline = $event" />
             </div>
             <div class="form__row">
                 <label>status</label>
-                <toggle-button :statusEntries="['open', 'in progress', 'closed']" @chosenStatus="task.status = $event"/>
+                <toggle-button :statusEntries="['open', 'in progress', 'closed']" @chosenStatus="task.status = $event" />
             </div>
         </div>
 
@@ -55,7 +55,7 @@ export default {
 
     methods: {
         createTask () {
-            this.$store.dispatch('createTask', this.task).then(() => alert('create success!'))
+            this.$store.dispatch('createTask', this.task).then(() => console.log('create success!'))
             this.$emit('closeModal')
         }
     }
