@@ -7,7 +7,7 @@
             :bodies="bodies"
             @create="createModalState = true"
             @edit="editModalState = true"
-            @delete="deleteModalState = true, targetObjectId = $event"
+            @delete="deleteModalState = true, targetId = $event"
         />
 
         <!-- modal -->
@@ -56,11 +56,11 @@
             </div>
         </modal> -->
 
-        <task-create v-if="createModalState" @createTask="createTask"/>
+        <task-create v-if="createModalState" @closeModal="createModalState = false"/>
 
         <task-edit v-if="editModalState" @editTask="editTask"/>
 
-        <task-delete v-if="deleteModalState" @deleteTask="deleteTask"/>
+        <task-delete v-if="deleteModalState" @deleteTask="deleteTask" @targetId="targetId"/>
     </div>
 </template>
 
@@ -71,121 +71,103 @@ import TaskCreate from '@/components/tasks/TaskCreate'
 import TaskEdit from '@/components/tasks/TaskEdit'
 import TaskDelete from '@/components/tasks/TaskDelete'
 
-    export default {
-        name: 'TaskPage',
+export default {
+    name: 'TaskPage',
 
-        components: {
-            Datatable,
-            TaskCreate,
-            TaskEdit,
-            TaskDelete
+    components: {
+        Datatable,
+        TaskCreate,
+        TaskEdit,
+        TaskDelete
+    },
+
+    computed: {
+        bodies () {
+            return this[this.bodyType]
         },
 
-        computed: {
-            bodies () {
-                return this[this.bodyType]
-            },
-
-            fetchAllTasks () {
-                return this.$store.getters.fetchTasks
-            },
-
-            fetchTodayTasks () {
-                return this.$store.getters.fetchTodayTasks
-            }
+        fetchAllTasks () {
+            return this.$store.getters.fetchTasks
         },
 
-        data () {
-            return {
-                // modal state
-                createModalState: false,
-                editModalState: false,
-                deleteModalState: false,
+        fetchTodayTasks () {
+            return this.$store.getters.fetchTodayTasks
+        }
+    },
 
-                targetObjectId: null,
+    data () {
+        return {
+            // modal state
+            createModalState: false,
+            editModalState: false,
+            deleteModalState: false,
 
-                // datatable
-                headers: [
-                    {
-                        width: '20%',
-                        title: 'title',
-                        sort: true,
-                        type: 'text'
-                    },
-                    {
-                        width: '35%',
-                        title: 'description',
-                        sort: true,
-                        type: 'text'
-                    },
-                    {
-                        width: '15%',
-                        title: 'deadline',
-                        sort: true,
-                        type: 'date'
-                    },
-                    {
-                        width: '15%',
-                        title: 'status',
-                        type: 'status',
-                        statusType: ['open', 'in progress', 'closed']
-                    },
-                    {
-                        width: '15%',
-                        type: 'button',
-                        buttons: [
-                            { type: 'edit', icon: ['far', 'edit'] },
-                            { type: 'delete', icon: ['far', 'trash-alt'] }
-                        ]
-                    }
-                ],
+            targetId: null,
 
-                // crud
-                task: {
-                    title: '',
-                    description: '',
-                    deadline: new Date(),
-                    status: 0
+            // datatable
+            headers: [
+                {
+                    width: '20%',
+                    title: 'title',
+                    sort: true,
+                    type: 'text'
                 },
+                {
+                    width: '35%',
+                    title: 'description',
+                    sort: true,
+                    type: 'text'
+                },
+                {
+                    width: '15%',
+                    title: 'deadline',
+                    sort: true,
+                    type: 'date'
+                },
+                {
+                    width: '15%',
+                    title: 'status',
+                    type: 'status',
+                    statusType: ['open', 'in progress', 'closed']
+                },
+                {
+                    width: '15%',
+                    type: 'button',
+                    buttons: [
+                        { type: 'edit', icon: ['far', 'edit'] },
+                        { type: 'delete', icon: ['far', 'trash-alt'] }
+                    ]
+                }
+            ],
 
-                bodyType: 'fetchAllTasks'
+            // crud
+            task: {
+                title: '',
+                description: '',
+                deadline: new Date(),
+                status: 0
+            },
+
+            bodyType: 'fetchAllTasks'
+        }
+    },
+
+    methods: {
+        editTask (state) {
+            this.editModalState = false
+
+            if (state) {
+//
             }
         },
 
-        methods: {
-            // crud
-            createTask (state) {
-                this.createModalState = false
+        deleteTask (state) {
+            this.deleteModalState = false
 
-                if (state) {
-// as
-                }
-                // if (this.task.title != '')  {
-                //     this.createModal = false
-                //     this.$store.dispatch('createTask', this.task).then(() => {
-                //         this.task.title = ''
-                //         this.task.description = ''
-                //         this.task.deadline = new Date()
-                //         this.task.status = 0
-                //     })
-                // }
-            },
-
-            editTask (state) {
-                this.editModalState = false
-
-                if (state) {
-//
-                }
-            },
-
-            deleteTask (state) {
-                this.deleteModalState = false
-
-                if (state) {
-                    // this.$store.dispatch('deleteTask', targetTask)
-                }
+            if (state) {
+                // this.$store.dispatch('deleteTask', targetTask)
             }
         }
     }
+}
 </script>

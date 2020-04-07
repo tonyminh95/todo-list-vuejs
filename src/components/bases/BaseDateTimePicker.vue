@@ -235,6 +235,7 @@ export default {
         select () {
             this.chosenDate = this.currentDate
             this.popupState = false
+            this.$emit('chosenDate', this.formattedDate)
         },
 
         cancel () {

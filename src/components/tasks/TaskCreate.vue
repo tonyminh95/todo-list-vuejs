@@ -1,29 +1,29 @@
 <template>
-    <modal :modal_type="'create'" @close="$emit('createTask', false)">
+    <modal :modal_type="'create'" @close="$emit('closeModal')">
         <h2 slot="header" class="text-green">create task</h2>
 
         <div slot="body" class="form">
             <div class="form__row">
                 <label>title</label>
-                <input type="text" class="form__input" placeholder="Enter task title">
+                <input type="text" class="form__input" placeholder="Enter task title" v-model="task.title">
             </div>
             <div class="form__row">
                 <label>description</label>
-                <textarea rows="5" class="form__input" placeholder="Enter some description about the task"></textarea>
+                <textarea rows="5" class="form__input" placeholder="Enter some description about the task" v-model="task.description"></textarea>
             </div>
             <div class="form__row">
                 <label>deadline</label>
-                <date-picker/>
+                <date-picker @chosenDate="task.deadline = $event"/>
             </div>
             <div class="form__row">
                 <label>status</label>
-                <toggle-button :statusEntries="['open', 'in progress', 'closed']"/>
+                <toggle-button :statusEntries="['open', 'in progress', 'closed']" @chosenStatus="task.status = $event"/>
             </div>
         </div>
 
         <div slot="footer">
-            <button class="btn-outline-cancel u-margin-right-2" @click="$emit('createTask', true)">cancel</button>
-            <button class="btn-create" @click="$emit('createTask', false)">create</button>
+            <button class="btn-outline-cancel u-margin-right-2" @click="$emit('closeModal')">cancel</button>
+            <button class="btn-create" @click="createTask">create</button>
         </div>
     </modal>
 </template>
@@ -40,6 +40,24 @@ export default {
         Modal,
         ToggleButton,
         DatePicker
+    },
+
+    data () {
+        return {
+            task: {
+                title: null,
+                description: null,
+                deadline: null,
+                status: null
+            }
+        }
+    },
+
+    methods: {
+        createTask () {
+            this.$store.dispatch('createTask', this.task).then(() => alert('create success!'))
+            this.$emit('closeModal')
+        }
     }
 }
 </script>

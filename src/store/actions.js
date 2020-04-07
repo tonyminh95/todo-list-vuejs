@@ -2,12 +2,11 @@ import { formattedDate } from "@/utils";
 import moment from "moment"
 
 export default {
-    createTask: ({state, commit}, {title, description, deadline, status}) => {
+    createTask: ({state, commit}, task) => {
         return new Promise((resolve) => {
             const id = Math.max.apply(Math, state.tasks.map(task => task.id)) + 1
-            const formatedDeadline = formattedDate(deadline)
 
-            commit('createTask', { id, title, description, deadline: formatedDeadline, status })
+            commit('createTask', { id, ...task })
 
             resolve()
         })

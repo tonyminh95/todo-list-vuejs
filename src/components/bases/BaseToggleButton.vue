@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button v-for="(item, index) in status" :key="index" :class="item.class" @click="target = index" class="u-margin-right-2">
+        <button v-for="(item, index) in status" :key="index" :class="item.class" @click="select(index)" class="u-margin-right-2">
             {{ item.title }}
         </button>
     </div>
@@ -31,6 +31,13 @@ export default {
     data () {
         return {
             target: this.targetStatus
+        }
+    },
+
+    methods: {
+        select (index) {
+            this.target = index
+            this.$emit('chosenStatus', this.target)
         }
     }
 }

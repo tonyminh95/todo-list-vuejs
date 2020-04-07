@@ -2,6 +2,9 @@
 
 // const status = status => (status == 1) ? 'open' : (status == 2) ? 'inprogress' : (status == 3) ? 'closed' : 'none'
 
+// clear object
+// const clearObject = object => Object.keys(object).forEach(index => object[index] = null)
+
 // date
 const monthToWords = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -15,6 +18,8 @@ export {
     // countObjectProperties,
 
     // status
+    // clearObject,
+
     transformMonthToWord,
     formattedDate
 }
