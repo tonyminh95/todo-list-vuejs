@@ -23,8 +23,8 @@ export default {
         commit('updateTask', { index, item })
     },
 
-    deleteTask: ({state, commit}, targetObjectId) => {
-        const index = state.tasks.findIndex(task => task.id == targetObjectId);
+    deleteTask: ({state, commit}, targetId) => {
+        const index = state.tasks.findIndex(task => task.id == targetId);
 
         commit('deleteTask', index)
     }

@@ -60,7 +60,7 @@
 
         <task-edit v-if="editModalState" @editTask="editTask"/>
 
-        <task-delete v-if="deleteModalState" @deleteTask="deleteTask" @targetId="targetId"/>
+        <task-delete v-if="deleteModalState" @closeModal="deleteModalState = false" :targetId="targetId"/>
     </div>
 </template>
 
@@ -158,14 +158,6 @@ export default {
 
             if (state) {
 //
-            }
-        },
-
-        deleteTask (state) {
-            this.deleteModalState = false
-
-            if (state) {
-                // this.$store.dispatch('deleteTask', targetTask)
             }
         }
     }

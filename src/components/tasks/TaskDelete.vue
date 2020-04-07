@@ -1,5 +1,5 @@
 <template>
-    <modal :modal_type="'delete'" @close="$emit('deleteTask', false)">
+    <modal :modal_type="'delete'" @close="$emit('closeModal')">
         <h2 slot="header" class="text-red">Delete Task</h2>
 
         <div slot="body">
@@ -7,8 +7,8 @@
         </div>
 
         <div slot="footer">
-            <button class="btn-outline-cancel u-margin-right-2" @click="$emit('deleteTask', true)">cancel</button>
-            <button class="btn-delete" @click="$emit('deleteTask', false)">create</button>
+            <button class="btn-outline-cancel u-margin-right-2" @click="$emit('closeModal')">cancel</button>
+            <button class="btn-delete" @click="deleteTask">create</button>
         </div>
     </modal>
 </template>
@@ -21,6 +21,20 @@ export default {
 
     components: {
         Modal
+    },
+
+    props: {
+        targetId: {
+            required: true,
+            type: Number
+        }
+    },
+
+    methods: {
+        deleteTask () {
+            this.$store.dispatch('deleteTask', this.targetId)
+            this.$emit('closeModal')
+        }
     }
 }
 </script>
