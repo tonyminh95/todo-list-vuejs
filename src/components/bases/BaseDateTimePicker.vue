@@ -60,7 +60,7 @@
 
             <div class="datetime__content__actions">
                 <button class="btn-outline-cancel u-margin-right-2" @click="cancel">cancel</button>
-                <button class="btn-select">select</button>
+                <button class="btn-select" @click="select">select</button>
             </div>
         </div>
     </div>
@@ -128,7 +128,7 @@ export default {
         },
 
         formattedDate () {
-            return formattedDate(this.currentDate)
+            return formattedDate(this.chosenDate)
         },
 
         // controller
@@ -150,7 +150,7 @@ export default {
 
             // date picker
             daysOfWeek: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-            // chosenDate: new Date(),
+            chosenDate: new Date(),
 
             // controller
             pickerType: 0,
@@ -226,14 +226,12 @@ export default {
 
         // button actions
         select () {
-            alert('select')
-            // this.currentDate = this.chosenDate
-            // this.monthState = 0
-            // this.yearState = 0
+            this.chosenDate = this.currentDate
+            this.popupState = false
         },
 
         cancel () {
-            this.currentDate = new Date()
+            this.currentDate = this.chosenDate
             this.popupState = false
         }
     }
