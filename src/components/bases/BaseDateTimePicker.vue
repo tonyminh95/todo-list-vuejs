@@ -72,6 +72,13 @@ import { transformMonthToWord, formattedDate } from '@/utils'
 export default {
     name: 'BaseDateTimePicker',
 
+    props: {
+        targetDate: {
+            type: String,
+            default: null
+        }
+    },
+
     computed: {
         // year picker
         currentYear () {
@@ -150,7 +157,7 @@ export default {
 
             // date picker
             daysOfWeek: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-            chosenDate: new Date(),
+            chosenDate: this.targetDate ? new Date(this.targetDate) : new Date(),
 
             // controller
             pickerType: 0,

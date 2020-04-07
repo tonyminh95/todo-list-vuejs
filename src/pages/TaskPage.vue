@@ -5,9 +5,9 @@
             :table_name="'task management'"
             :headers="headers"
             :bodies="bodies"
-            @create="createModal = true"
-            @edit="editModal = true"
-            @delete="deleteModal = true, targetObjectId = $event"
+            @create="createModalState = true"
+            @edit="editModalState = true"
+            @delete="deleteModalState = true, targetObjectId = $event"
         />
 
         <!-- modal -->
@@ -56,17 +56,20 @@
             </div>
         </modal> -->
 
-        <task-create v-if="createModal" @createTask="createTask"/>
+        <task-create v-if="createModalState" @createTask="createTask"/>
 
-        <task-delete v-if="deleteModal" @deleteTask="deleteTask"/>
+        <task-edit v-if="editModalState" @editTask="editTask"/>
+
+        <task-delete v-if="deleteModalState" @deleteTask="deleteTask"/>
     </div>
 </template>
 
 <script>
     import Datatable from '@/components/Datatable'
 
-import TaskCreate from '@/components/TaskCreate'
-import TaskDelete from '@/components/TaskDelete'
+import TaskCreate from '@/components/tasks/TaskCreate'
+import TaskEdit from '@/components/tasks/TaskEdit'
+import TaskDelete from '@/components/tasks/TaskDelete'
 
     export default {
         name: 'TaskPage',
@@ -74,6 +77,7 @@ import TaskDelete from '@/components/TaskDelete'
         components: {
             Datatable,
             TaskCreate,
+            TaskEdit,
             TaskDelete
         },
 
@@ -93,10 +97,11 @@ import TaskDelete from '@/components/TaskDelete'
 
         data () {
             return {
-                // modal
-                createModal: false,
-                editModal: false,
-                deleteModal: false,
+                // modal state
+                createModalState: false,
+                editModalState: false,
+                deleteModalState: false,
+
                 targetObjectId: null,
 
                 // datatable
@@ -150,7 +155,7 @@ import TaskDelete from '@/components/TaskDelete'
         methods: {
             // crud
             createTask (state) {
-                this.createModal = false
+                this.createModalState = false
 
                 if (state) {
 // as
@@ -166,8 +171,16 @@ import TaskDelete from '@/components/TaskDelete'
                 // }
             },
 
+            editTask (state) {
+                this.editModalState = false
+
+                if (state) {
+//
+                }
+            },
+
             deleteTask (state) {
-                this.deleteModal = false
+                this.deleteModalState = false
 
                 if (state) {
                     // this.$store.dispatch('deleteTask', targetTask)

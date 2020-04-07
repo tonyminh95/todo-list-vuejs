@@ -14,6 +14,11 @@ export default {
         statusEntries: {
             required: true,
             type: Array
+        },
+
+        targetStatus: {
+            type: Number,
+            default: null
         }
     },
 
@@ -25,7 +30,7 @@ export default {
 
     data () {
         return {
-            target: null
+            target: this.targetStatus
         }
     }
 }
