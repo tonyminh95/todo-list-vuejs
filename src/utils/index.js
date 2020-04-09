@@ -20,15 +20,26 @@ const transformMonthBeforeDate = date => {
     return array[1] + '/' + array[0] + '/' + array[2]
 }
 
+// table type
+const TABLE_TYPES = {
+    TABLE_TYPE_TEXT: 'text',
+    TABLE_TYPE_STATUS: 'status',
+    TABLE_TYPE_DATE: 'date'
+}
+
 export {
     // countObjectProperties,
 
     // status
     // clearObject,
 
+    // function
     transformMonthToWord,
     formattedDate,
-    transformMonthBeforeDate
+    transformMonthBeforeDate,
+
+    // variable
+    TABLE_TYPES
 }
 
 

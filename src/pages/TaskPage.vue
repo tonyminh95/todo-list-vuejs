@@ -2,8 +2,10 @@
     <div style="width: 85%; margin: 0 auto; margin-top: 50px;">
         <datatable
             :table_name="'task management'"
+
             :headers="headers"
             :bodies="bodies"
+
             @create="createModalState = true"
             @edit="editModalState = true, targetId = $event"
             @delete="deleteModalState = true, targetId = $event"
@@ -18,11 +20,11 @@
 </template>
 
 <script>
-import Datatable from '@/components/Datatable'
-
+import Datatable from '@/components/bases/BaseDatatable'
 import TaskCreate from '@/components/tasks/TaskCreate'
 import TaskEdit from '@/components/tasks/TaskEdit'
 import TaskDelete from '@/components/tasks/TaskDelete'
+import { TABLE_TYPES } from '@/utils'
 
 export default {
     name: 'TaskPage',
@@ -36,15 +38,7 @@ export default {
 
     computed: {
         bodies () {
-            return this[this.bodyType]
-        },
-
-        fetchAllTasks () {
-            return this.$store.getters.fetchTasks
-        },
-
-        fetchTodayTasks () {
-            return this.$store.getters.fetchTodayTasks
+            return this.$store.state.tasks
         }
     },
 
@@ -55,45 +49,51 @@ export default {
             editModalState: false,
             deleteModalState: false,
 
+            // action target
             targetId: null,
 
             // datatable
-            headers: [
-                {
-                    width: '20%',
-                    title: 'title',
-                    sort: true,
-                    type: 'text'
-                },
-                {
-                    width: '35%',
-                    title: 'description',
-                    sort: true,
-                    type: 'text'
-                },
-                {
-                    width: '15%',
-                    title: 'deadline',
-                    sort: true,
-                    type: 'date'
-                },
-                {
-                    width: '15%',
-                    title: 'status',
-                    type: 'status',
-                    statusType: ['open', 'in progress', 'closed']
-                },
-                {
-                    width: '15%',
-                    type: 'button',
-                    buttons: [
-                        { type: 'edit', icon: ['far', 'edit'] },
-                        { type: 'delete', icon: ['far', 'trash-alt'] }
-                    ]
-                }
-            ],
+            headers: {
+                // buttonActions: true,
+                items: [
+                    {
+                        title: 'title',
+                        width: '25%',
+                        // sort: true,
+                        type: TABLE_TYPES.TABLE_TYPE_TEXT
 
-            bodyType: 'fetchAllTasks'
+                    },
+                    {
+                        title: 'description',
+                        width: '45%',
+                        // sort: true,
+                        type: TABLE_TYPES.TABLE_TYPE_TEXT
+
+                    },
+                    {
+                        title: 'deadline',
+                        width: '15%',
+                        // sort: true,
+                        type: TABLE_TYPES.TABLE_TYPE_DATE
+
+                    },
+                    {
+                        title: 'status',
+                        width: '15%',
+                        type: TABLE_TYPES.TABLE_TYPE_STATUS
+                        // statusType: ['open', 'in progress', 'closed']
+                    }
+                    // {
+                    //     title: 'actions'
+                    //     // width: '15%',
+                    //     // type: 'button',
+                    //     // buttons: [
+                    //     //     { type: 'edit', icon: ['far', 'edit'] },
+                    //     //     { type: 'delete', icon: ['far', 'trash-alt'] }
+                    //     // ]
+                    // }
+                ]
+            }
         }
     }
 }
