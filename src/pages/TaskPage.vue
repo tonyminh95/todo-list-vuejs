@@ -4,8 +4,8 @@
             :table_name="'task management'"
 
             :headers="headers"
-            :bodies="bodies"
 
+            :bodies="bodies"
             @create="createModalState = true"
             @edit="editModalState = true, targetId = $event"
             @delete="deleteModalState = true, targetId = $event"
@@ -24,7 +24,6 @@ import Datatable from '@/components/bases/BaseDatatable'
 import TaskCreate from '@/components/tasks/TaskCreate'
 import TaskEdit from '@/components/tasks/TaskEdit'
 import TaskDelete from '@/components/tasks/TaskDelete'
-import { TABLE_TYPES } from '@/utils'
 
 export default {
     name: 'TaskPage',
@@ -59,29 +58,26 @@ export default {
                     {
                         title: 'title',
                         width: '25%',
-                        // sort: true,
-                        type: TABLE_TYPES.TABLE_TYPE_TEXT
-
+                        sort: 'asc',
+                        type: 'text'
                     },
                     {
                         title: 'description',
                         width: '45%',
-                        // sort: true,
-                        type: TABLE_TYPES.TABLE_TYPE_TEXT
-
+                        sort: 'asc',
+                        type: 'text'
                     },
                     {
                         title: 'deadline',
                         width: '15%',
-                        // sort: true,
-                        type: TABLE_TYPES.TABLE_TYPE_DATE
-
+                        sort: 'desc',
+                        type: 'date'
                     },
                     {
                         title: 'status',
                         width: '15%',
-                        type: TABLE_TYPES.TABLE_TYPE_STATUS
-                        // statusType: ['open', 'in progress', 'closed']
+                        type: 'status',
+                        status: ['open', 'in progress', 'closed']
                     }
                     // {
                     //     title: 'actions'

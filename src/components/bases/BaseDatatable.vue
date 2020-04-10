@@ -23,13 +23,13 @@
                                     </div>
                                 </dropdown>
                             </li>
-                            <li class="u-display-inline-block">
+                            <li class="u-display-inline-block"> -->
                                 <pagination
                                     :page_size="page_size"
                                     :list_size="bodies.length"
                                     @page-number="page_number = $event"
                                 />
-                            </li>
+                            <!-- </li>
                         </ul> -->
                     </div>
                 </th>
@@ -43,14 +43,21 @@
                     <div>
                         {{ item.title }}
 
-                        <span>
-                            <fa-icon :icon="['fas', 'sort-amount-down-alt']"></fa-icon>
-                            <fa-icon :icon="['fas', 'sort-amount-up-alt']"></fa-icon>
+                        <span
+                            v-if="!!item.sort"
+                            @click="sort(item)"
+                        >
+                            <fa-icon :icon="['fas', 'sort-amount-down-alt']" v-if="item.sort === 'asc'"></fa-icon>
+                            <fa-icon :icon="['fas', 'sort-amount-up-alt']" v-if="item.sort === 'desc'"></fa-icon>
                         </span>
                     </div>
 
-                    <div>
+                    <div v-if="!!item.type">
+                        <input type="text" v-if="item.type === 'text'">
 
+                        <datetime-picker v-if="item.type === 'date'" />
+
+                        <!-- <dropdown /> -->
                     </div>
                 </th>
                 <th v-if="headers.buttonActions" width="20%"></th>
@@ -118,17 +125,19 @@
 </template>
 
 <script>
-// import Pagination from '@/components/bases/BasePagination'
+import Pagination from '@/components/bases/BasePagination'
 // import Dropdown from '@/components/bases/BaseDropdown'
 // import moment from "moment"
+import DatetimePicker from '@/components/bases/BaseDateTimePicker'
 
 export default {
     name: 'BaseDatatable',
 
-    // components: {
-    //     Pagination,
-    //     Dropdown
-    // },
+    components: {
+        // Dropdown,
+        Pagination,
+        DatetimePicker
+    },
 
     props: {
         // table name
@@ -143,16 +152,16 @@ export default {
             type: Object
         },
 
-        // bodies: {
-        //     required: true,
-        //     type: Array
-        // }
+        bodies: {
+            required: true,
+            type: Array
+        }
     },
 
     computed: {
         // table content
         numberOfColumns () {
-            return this.headers.items.length + (this.headers.buttonActions ? 1 : 0)
+            return this.headers.items.length + ('buttonActions' in this.headers ? 1 : 0)
         },
 
         headerItems () {
@@ -183,7 +192,7 @@ export default {
         //             })
         //             .slice(this.page_size * (this.page_number - 1), this.page_size * (this.page_number - 1) + this.page_size)
         // }
-    // },
+    },
 
     // data() {
     //     return {
@@ -224,8 +233,16 @@ export default {
     //         }
     // },
 
-    // methods: {
-    //     // sort
+    methods: {
+        // sort
+        sort(item) {
+            if (item.sort == 'asc') {
+                item.sort = 'desc'
+            } else if (item.sort == 'desc') {
+                item.sort = 'asc'
+            }
+
+        }
     //     sortCondition (headerTitle, headerType) {
     //         this.sortObject = headerTitle
     //         this.sortType *= -1
