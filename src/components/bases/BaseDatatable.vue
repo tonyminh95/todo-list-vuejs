@@ -24,11 +24,12 @@
                                 </dropdown>
                             </li>
                             <li class="u-display-inline-block"> -->
-                                <pagination
+                                <pagination />
+                                <!-- <pagination
                                     :page_size="page_size"
                                     :list_size="bodies.length"
                                     @page-number="page_number = $event"
-                                />
+                                /> -->
                             <!-- </li>
                         </ul> -->
                     </div>
