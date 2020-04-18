@@ -53,7 +53,7 @@ export default {
 
             // datatable
             headers: {
-                // buttonActions: true,
+                buttonActions: true,
                 items: [
                     {
                         title: 'title',

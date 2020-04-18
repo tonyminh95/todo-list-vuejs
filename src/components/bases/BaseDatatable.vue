@@ -75,8 +75,15 @@
                     <h3>No data!!!</h3>
                 </td>
             </tr>
-            <!-- <tr v-else v-for="item in items" :key="item.id">
-                <td v-for="(header, index) in headers" :key="index">
+            <tr v-else v-for="item in items" :key="item.id">
+                <td v-for="(item, index) in headerItems" :key="index">
+                    {{ item.title }}
+                </td>
+                <td v-if="headers.buttonActions" width="20%">
+                    <button class="btn-edit"><fa-icon :icon="['far', 'edit']"></fa-icon></button>
+                    <button class="btn-delete"><fa-icon :icon="['far', 'trash-alt']"></fa-icon></button>
+                </td>
+                <!-- <td v-for="(header, index) in headers" :key="index">
                     <div
                         v-if="header.type === 'status'"
                     >
@@ -100,8 +107,8 @@
                     <div v-else>
                         {{ item[header.title] }}
                     </div>
-                </td>
-            </tr> -->
+                </td> -->
+            </tr>
         </tbody>
     </table>
 </template>
