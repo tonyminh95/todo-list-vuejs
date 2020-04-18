@@ -56,7 +56,7 @@
 
             pages () {
                 if (this.numberOfPages <= 7) {
-                    return [...Array(7)].map((_, index) => index + 1)
+                    return [...Array(this.numberOfPages)].map((_, index) => index + 1)
                 } else if (this.pageNumber < 4) {
                     return [1, 2, 3, 4, '...', this.numberOfPages - 1, this.numberOfPages]
                 } else if (this.pageNumber > this.numberOfPages - 3) {

@@ -9,34 +9,34 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         tasks: [
-            {
-                id: 1,
-                title: 'Maecenas Minhpharetra convallis posuere morbiminh',
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ornare suspendisse sed nisi lacus sed viverra tellus. Sed risus pretium quam vulputate dignissim. Amet massa vitae tortor condimentum. Ultricies lacus sed turpis tincidunt id aliquet risus feugiat in.',
-                deadline: '03/02/2020',
-                status: 0
-            },
-            {
-                id: 2,
-                title: 'Volutpat blandit aliqMinhuam etiam erat',
-                description: 'Lorem ipsum dolor minhsit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Netus et malesuada fames ac turpis egestas maecenas. Fermentum odio eu feugiat pretium nibh ipsum consequat nisl vel. Lobortis mattis aliquam faucibus purus in massa. Dignissim suspendisse in est ante in.',
-                deadline: '26/08/2020',
-                status: 0
-            },
-            {
-                id: 3,
-                title: 'Massa tincidunt dui ut minhornare',
-                description: 'Lorem ipsum dolor sit amet, consectetur adMInHipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Est placerat in egestas erat imperdiet sed euismod. Nisi quis eleifend quam adipiscing vitae proin sagittis nisl. Interdum velit laoreet id donec ultrices tincidunt. Tortor at auctor urna nunc id cursus metus aliquam eleifend.',
-                deadline: '13/05/2020',
-                status: 1
-            },
-            {
-                id: 4,
-                title: 'Diam phasellus vestibulum lorem sed',
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Varius quam quisque id diam vel quam. Convallis posuere morbi leo urna. Eu lobortis elementum nibh tellus molestie nunc. Lacus vestibulum sed arcu non odio.',
-                deadline: '03/12/2020',
-                status: 2
-            }
+            // {
+            //     id: 1,
+            //     title: 'Maecenas Minhpharetra convallis posuere morbiminh',
+            //     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ornare suspendisse sed nisi lacus sed viverra tellus. Sed risus pretium quam vulputate dignissim. Amet massa vitae tortor condimentum. Ultricies lacus sed turpis tincidunt id aliquet risus feugiat in.',
+            //     deadline: '03/02/2020',
+            //     status: 0
+            // },
+            // {
+            //     id: 2,
+            //     title: 'Volutpat blandit aliqMinhuam etiam erat',
+            //     description: 'Lorem ipsum dolor minhsit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Netus et malesuada fames ac turpis egestas maecenas. Fermentum odio eu feugiat pretium nibh ipsum consequat nisl vel. Lobortis mattis aliquam faucibus purus in massa. Dignissim suspendisse in est ante in.',
+            //     deadline: '26/08/2020',
+            //     status: 0
+            // },
+            // {
+            //     id: 3,
+            //     title: 'Massa tincidunt dui ut minhornare',
+            //     description: 'Lorem ipsum dolor sit amet, consectetur adMInHipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Est placerat in egestas erat imperdiet sed euismod. Nisi quis eleifend quam adipiscing vitae proin sagittis nisl. Interdum velit laoreet id donec ultrices tincidunt. Tortor at auctor urna nunc id cursus metus aliquam eleifend.',
+            //     deadline: '13/05/2020',
+            //     status: 1
+            // },
+            // {
+            //     id: 4,
+            //     title: 'Diam phasellus vestibulum lorem sed',
+            //     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Varius quam quisque id diam vel quam. Convallis posuere morbi leo urna. Eu lobortis elementum nibh tellus molestie nunc. Lacus vestibulum sed arcu non odio.',
+            //     deadline: '03/12/2020',
+            //     status: 2
+            // }
         ]
     },
 

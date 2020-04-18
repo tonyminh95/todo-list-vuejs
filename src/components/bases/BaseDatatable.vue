@@ -15,23 +15,23 @@
                     <div class="table__header">
                         <button class="btn-create" @click="$emit('create')">create new +</button>
 
-                        <!-- <ul class="table__header__pagination">
-                            <li class="u-display-inline-block u-margin-right-small">
-                                <dropdown :items="entries" @chosen-item="page_size = entries[$event]" :position="'right'">
+                        <ul class="table__header--pagination">
+                            <li>Row per pages</li>
+                            <li>
+                                <dropdown :items="entries" @chosen-item="page_size = entries[$event]">
                                     <div slot="dropdownButton">
-                                        Row per pages <span class="u-border-bottom">{{ page_size }}</span> <fa-icon :icon="['fas', 'sort-down']"></fa-icon>
+                                        <span class="u-border-bottom">{{ page_size }}</span> <fa-icon :icon="['fas', 'sort-down']"></fa-icon>
                                     </div>
                                 </dropdown>
                             </li>
-                            <li class="u-display-inline-block"> -->
-                                <pagination />
-                                <!-- <pagination
+                            <li>
+                                <pagination
                                     :page_size="page_size"
-                                    :list_size="bodies.length"
+                                    :list_size="100"
                                     @page-number="page_number = $event"
-                                /> -->
-                            <!-- </li>
-                        </ul> -->
+                                />
+                            </li>
+                        </ul>
                     </div>
                 </th>
             </tr>
@@ -53,49 +53,30 @@
                         </span>
                     </div>
 
-                    <div v-if="!!item.type">
+                    <div v-if="!!item.type" class="table__header--filter">
                         <input type="text" v-if="item.type === 'text'">
 
                         <datetime-picker v-if="item.type === 'date'" />
 
-                        <!-- <dropdown /> -->
+                        <dropdown v-if="item.type === 'status'" :items="item.status" @chosen-item="page_size = item.status[$event]">
+                            <div slot="dropdownButton">
+                                <span class="u-border-bottom">{{ page_size }}</span> <fa-icon :icon="['fas', 'sort-down']"></fa-icon>
+                            </div>
+                        </dropdown>
                     </div>
                 </th>
                 <th v-if="headers.buttonActions" width="20%"></th>
-                <!--  <th v-for="(header, index) in headers" :key="index" :width="header.width">
-                    <div>
-                        {{ header.title }}
-                        <span
-                            v-if="typeof header.sort !== 'undefined'"
-                            @click="sortCondition(header.title, header.type), header.sort = !header.sort"
-                            class="u-cursor-pointer"
-                        >
-                            <fa-icon :icon="['fas', 'sort-amount-down-alt']" v-if="header.sort"></fa-icon>
-                            <fa-icon :icon="['fas', 'sort-amount-up-alt']" v-else></fa-icon>
-                        </span>
-                    </div>
-
-                    <div>
-                        <input type="text" v-if="header.type === 'text' || header.type === 'date'">
-
-                        <select v-if="header.type === 'status'">
-                            <option v-for="(type, key) in header.statusType" :key="key" :value="type">
-                                {{ type }}
-                            </option>
-                        </select>
-                    </div>
-                </th> -->
             </tr>
         </thead>
 
         <tbody>
-            <!-- <tr v-if="items.length == 0">
+            <tr v-if="items.length == 0">
                 <td :colspan="items.length">
-                    No data!!!
+                    <h3>No data!!!</h3>
                 </td>
             </tr>
-            <tr v-else v-for="item in items" :key="item.id"> -->
-                <!-- <td v-for="(header, index) in headers" :key="index">
+            <!-- <tr v-else v-for="item in items" :key="item.id">
+                <td v-for="(header, index) in headers" :key="index">
                     <div
                         v-if="header.type === 'status'"
                     >
@@ -119,15 +100,15 @@
                     <div v-else>
                         {{ item[header.title] }}
                     </div>
-                </td> -->
-            <!-- </tr> -->
+                </td>
+            </tr> -->
         </tbody>
     </table>
 </template>
 
 <script>
 import Pagination from '@/components/bases/BasePagination'
-// import Dropdown from '@/components/bases/BaseDropdown'
+import Dropdown from '@/components/bases/BaseDropdown'
 // import moment from "moment"
 import DatetimePicker from '@/components/bases/BaseDateTimePicker'
 
@@ -135,7 +116,7 @@ export default {
     name: 'BaseDatatable',
 
     components: {
-        // Dropdown,
+        Dropdown,
         Pagination,
         DatetimePicker
     },
@@ -167,36 +148,33 @@ export default {
 
         headerItems () {
             return this.headers.items
+        },
+
+        items () {
+            return this.bodies
+                //   .filter(body => {
+                //         const filter = {...body}
+                //         delete filter.id
+
+                //         this.headers.forEach(element => {
+                //             if (element.type !== 'text') {
+                //                 delete filter[element.title]
+                //             }
+                //         });
+
+                //         return Object.values(filter).toString().toLowerCase().includes(this.search.toLowerCase())
+                //     })
+                //     .sort((prev, next) => {
+                //         const action = this.sortActions[this.sortObjectType]
+
+                //         return action.call(this, prev[this.sortObject], next[this.sortObject])
+                //     })
+                //     .slice(this.page_size * (this.page_number - 1), this.page_size * (this.page_number - 1) + this.page_size)
         }
-
-        // items() {
-        //     return this.bodies
-        // }
-        // items () {
-        //     return this.bodies
-        //             .filter(body => {
-        //                 const filter = {...body}
-        //                 delete filter.id
-
-        //                 this.headers.forEach(element => {
-        //                     if (element.type !== 'text') {
-        //                         delete filter[element.title]
-        //                     }
-        //                 });
-
-        //                 return Object.values(filter).toString().toLowerCase().includes(this.search.toLowerCase())
-        //             })
-        //             .sort((prev, next) => {
-        //                 const action = this.sortActions[this.sortObjectType]
-
-        //                 return action.call(this, prev[this.sortObject], next[this.sortObject])
-        //             })
-        //             .slice(this.page_size * (this.page_number - 1), this.page_size * (this.page_number - 1) + this.page_size)
-        // }
     },
 
-    // data() {
-    //     return {
+    data() {
+        return {
     //         // search
     //         search: '',
 
@@ -211,18 +189,18 @@ export default {
     //             date: this.sortedByDate
     //         },
 
-    //         // pagination
-    //         page_size: 10,
-    //         page_number: 1,
-    //         entries: [10, 25, 50, 75, 100],
+            // pagination
+            page_size: 5,
+            page_number: 1,
+            entries: [5, 10, 25, 50, 75, 100],
 
     //         // button
     //         buttonActions: {
     //             edit: this.editObject,
     //             delete: this.deleteObject
     //         }
-    //     }
-    // },
+        }
+    },
 
     // filters: {
     //     highlightText (value, search) {
