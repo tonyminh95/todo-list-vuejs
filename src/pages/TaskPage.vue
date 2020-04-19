@@ -2,9 +2,7 @@
     <div style="width: 85%; margin: 0 auto; margin-top: 50px;">
         <datatable
             :table_name="'task management'"
-
             :headers="headers"
-
             :bodies="bodies"
             @create="createModalState = true"
             @edit="editModalState = true, targetId = $event"
@@ -57,37 +55,28 @@ export default {
                 items: [
                     {
                         title: 'title',
-                        width: '25%',
+                        width: '20%',
                         sort: 'asc',
                         type: 'text'
                     },
                     {
                         title: 'description',
-                        width: '45%',
+                        width: '50%',
                         sort: 'asc',
                         type: 'text'
                     },
                     {
                         title: 'deadline',
-                        width: '15%',
+                        width: '10%',
                         sort: 'desc',
                         type: 'date'
                     },
                     {
                         title: 'status',
-                        width: '15%',
+                        width: '10%',
                         type: 'status',
                         status: ['open', 'in progress', 'closed']
                     }
-                    // {
-                    //     title: 'actions'
-                    //     // width: '15%',
-                    //     // type: 'button',
-                    //     // buttons: [
-                    //     //     { type: 'edit', icon: ['far', 'edit'] },
-                    //     //     { type: 'delete', icon: ['far', 'trash-alt'] }
-                    //     // ]
-                    // }
                 ]
             }
         }

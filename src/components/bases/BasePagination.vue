@@ -2,7 +2,6 @@
     <ul class="pagination">
         <li
             class="pagination__item"
-            :class="{ 'pagination__item--disable' : pageNumber === 1 }"
             @click="prev"
         >
             <fa-icon :icon="['fas', 'chevron-left']"></fa-icon>
@@ -69,6 +68,7 @@
 
         methods: {
             prev () {
+                console.log(this.list_size, this.page_size, this.numberOfPages, this.list_size / this.page_size, Math.ceil(this.list_size / this.page_size))
                 if (this.pageNumber > 1) {
                     this.pageNumber--
                     this.$emit('page-number', this.pageNumber)

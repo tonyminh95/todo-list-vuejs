@@ -6,7 +6,7 @@
                     <div class="table__header">
                         <h2>{{ table_name }}</h2>
 
-                        <input type="text" class="table__header--search" placeholder="Search">
+                        <input type="text" class="table__header--search" placeholder="Search" v-model="search">
                     </div>
                 </th>
             </tr>
@@ -27,7 +27,7 @@
                             <li>
                                 <pagination
                                     :page_size="page_size"
-                                    :list_size="100"
+                                    :list_size="items.length"
                                     @page-number="page_number = $event"
                                 />
                             </li>
@@ -65,7 +65,7 @@
                         </dropdown>
                     </div>
                 </th>
-                <th v-if="headers.buttonActions" width="20%"></th>
+                <th v-if="headers.buttonActions" colspan="2"></th>
             </tr>
         </thead>
 
@@ -76,38 +76,27 @@
                 </td>
             </tr>
             <tr v-else v-for="item in items" :key="item.id">
-                <td v-for="(item, index) in headerItems" :key="index">
-                    {{ item.title }}
-                </td>
-                <td v-if="headers.buttonActions" width="20%">
-                    <button class="btn-edit"><fa-icon :icon="['far', 'edit']"></fa-icon></button>
-                    <button class="btn-delete"><fa-icon :icon="['far', 'trash-alt']"></fa-icon></button>
-                </td>
-                <!-- <td v-for="(header, index) in headers" :key="index">
+                <td v-for="(headerItem, index) in headerItems" :key="index">
                     <div
-                        v-if="header.type === 'status'"
+                        v-if="headerItem.type === 'status'"
                     >
-                        <span :class="statusClass(header.statusType[item[header.title]])"></span>
-                        <span class="u-margin-left-xsmall">{{ header.statusType[item[header.title]] }}</span>
+                        <!-- <span :class="statusClass(header.statusType[item[header.title]])"></span> -->
+                        <!-- <span>{{ header.statusType[item[header.title]] }}</span> -->
                     </div>
                     <div
-                        v-else-if="header.type === 'text' || header.type === 'date'"
-                        v-html="$options.filters.highlightText(item[header.title], search)">
-                    </div>
-                    <div v-else-if="header.type === 'button'">
-                        <span
-                            v-for="(action, index) in header.buttons"
-                            :key="index"
-                            :class="[`btn-${action.type}`]"
-                            @click="buttonActions[action.type].call(this, item.id)"
-                        >
-                            <fa-icon :icon="action.icon"></fa-icon>
-                        </span>
+                        v-else-if="headerItem.type === 'text' || headerItem.type === 'date'"
+                        v-html="$options.filters.highlightText(item[headerItem.title], search)">
                     </div>
                     <div v-else>
-                        {{ item[header.title] }}
+                        {{ item[headerItem.title] }}
                     </div>
-                </td> -->
+                </td>
+                <td v-if="headers.buttonActions">
+                    <button class="btn-icon-edit" @click="editObject(item.id)"><fa-icon :icon="['far', 'edit']"></fa-icon></button>
+                </td>
+                <td v-if="headers.buttonActions">
+                    <button class="btn-icon-delete" @click="deleteObject(item.id)"><fa-icon :icon="['far', 'trash-alt']"></fa-icon></button>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -116,7 +105,7 @@
 <script>
 import Pagination from '@/components/bases/BasePagination'
 import Dropdown from '@/components/bases/BaseDropdown'
-// import moment from "moment"
+import moment from "moment"
 import DatetimePicker from '@/components/bases/BaseDateTimePicker'
 
 export default {
@@ -150,7 +139,7 @@ export default {
     computed: {
         // table content
         numberOfColumns () {
-            return this.headers.items.length + ('buttonActions' in this.headers ? 1 : 0)
+            return this.headers.items.length + ('buttonActions' in this.headers ? 2 : 0)
         },
 
         headerItems () {
@@ -159,65 +148,59 @@ export default {
 
         items () {
             return this.bodies
-                //   .filter(body => {
-                //         const filter = {...body}
-                //         delete filter.id
+                  .filter(body => {
+                        const filter = {...body}
+                        delete filter.id
 
-                //         this.headers.forEach(element => {
-                //             if (element.type !== 'text') {
-                //                 delete filter[element.title]
-                //             }
-                //         });
+                        this.headerItems.forEach(element => {
+                            if (element.type !== 'text') {
+                                delete filter[element.title]
+                            }
+                        });
 
-                //         return Object.values(filter).toString().toLowerCase().includes(this.search.toLowerCase())
-                //     })
-                //     .sort((prev, next) => {
-                //         const action = this.sortActions[this.sortObjectType]
+                        return Object.values(filter).toString().toLowerCase().includes(this.search.toLowerCase())
+                    })
+                    .sort((prev, next) => {
+                        const action = this.sortActions[this.sortObjectType]
 
-                //         return action.call(this, prev[this.sortObject], next[this.sortObject])
-                //     })
-                //     .slice(this.page_size * (this.page_number - 1), this.page_size * (this.page_number - 1) + this.page_size)
+                        return action.call(this, prev[this.sortObject], next[this.sortObject])
+                    })
+                    .slice(this.page_size * (this.page_number - 1), this.page_size * (this.page_number - 1) + this.page_size)
         }
     },
 
     data() {
         return {
-    //         // search
-    //         search: '',
+            // search
+            search: '',
 
-    //         // sort
-    //         sortObject: 'id',
-    //         sortObjectType: 'number',
-    //         sortType: 1,
-    //         sortActions: {
-    //             number: this.sortedByNumber,
-    //             status: this.sortedByNumber,
-    //             text: this.sortedByString,
-    //             date: this.sortedByDate
-    //         },
+            // sort
+            sortObject: 'id',
+            sortObjectType: 'number',
+            sortType: 1,
+            sortActions: {
+                number: this.sortedByNumber,
+                status: this.sortedByNumber,
+                text: this.sortedByString,
+                date: this.sortedByDate
+            },
 
             // pagination
             page_size: 5,
             page_number: 1,
-            entries: [5, 10, 25, 50, 75, 100],
-
-    //         // button
-    //         buttonActions: {
-    //             edit: this.editObject,
-    //             delete: this.deleteObject
-    //         }
+            entries: [5, 10, 25, 50, 75, 100]
         }
     },
 
-    // filters: {
-    //     highlightText (value, search) {
-    //         return search
-    //             ?
-    //                 value.toString().replace(new RegExp(search, 'gi'), (matched) => `<span class="text-highlight">${matched}</span>`)
-    //             :
-    //                 value
-    //         }
-    // },
+    filters: {
+        highlightText (value, search) {
+            return search
+                ?
+                    value.toString().replace(new RegExp(search, 'gi'), (matched) => `<span class="text-highlight">${matched}</span>`)
+                :
+                    value
+            }
+    },
 
     methods: {
         // sort
@@ -228,42 +211,43 @@ export default {
                 item.sort = 'asc'
             }
 
+        },
+
+        sortCondition (headerTitle, headerType) {
+            this.sortObject = headerTitle
+            this.sortType *= -1
+            this.sortObjectType = headerType
+        },
+
+        sortedByNumber (prev, next) {
+            return (prev - next) * this.sortType
+        },
+
+        sortedByString (prev, next) {
+            if (prev.toLowerCase() < next.toLowerCase()) return this.sortType
+            if (prev.toLowerCase() > next.toLowerCase()) return this.sortType * -1
+            return 0
+        },
+
+        sortedByDate (prev, next) {
+            if (moment(prev, 'DD/MM/YYYY') < moment(next, 'DD/MM/YYYY')) return this.sortType
+            if (moment(prev, 'DD/MM/YYYY') > moment(next, 'DD/MM/YYYY')) return this.sortType * -1
+            return 0
+        },
+
+        // status
+        statusClass (status) {
+            return `status status-${status.replace(' ', '-')}`
+        },
+
+        // button
+        editObject (id) {
+            this.$emit('edit', id)
+        },
+
+        deleteObject (id) {
+            this.$emit('delete', id)
         }
-    //     sortCondition (headerTitle, headerType) {
-    //         this.sortObject = headerTitle
-    //         this.sortType *= -1
-    //         this.sortObjectType = headerType
-    //     },
-
-    //     sortedByNumber (prev, next) {
-    //         return (prev - next) * this.sortType
-    //     },
-
-    //     sortedByString (prev, next) {
-    //         if (prev.toLowerCase() < next.toLowerCase()) return this.sortType
-    //         if (prev.toLowerCase() > next.toLowerCase()) return this.sortType * -1
-    //         return 0
-    //     },
-
-    //     sortedByDate (prev, next) {
-    //         if (moment(prev, 'DD/MM/YYYY') < moment(next, 'DD/MM/YYYY')) return this.sortType
-    //         if (moment(prev, 'DD/MM/YYYY') > moment(next, 'DD/MM/YYYY')) return this.sortType * -1
-    //         return 0
-    //     },
-
-    //     // status
-    //     statusClass (status) {
-    //         return `status status-${status.replace(' ', '-')}`
-    //     },
-
-    //     // button
-    //     editObject (id) {
-    //         this.$emit('edit', id)
-    //     },
-
-    //     deleteObject (id) {
-    //         this.$emit('delete', id)
-    //     }
     }
 }
 </script>

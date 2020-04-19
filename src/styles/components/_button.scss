@@ -72,25 +72,56 @@ button {
 }
 
 .btn-icon {
-    background-color: $color-gray-light;
-    color: $color-navy;
+    // background-color: $color-gray-light;
+    // color: $color-navy;
+
+    // border-radius: 50%;
+    // font-size: 16px;
+
+    // &:hover {
+    //     background: $color-gray radial-gradient(circle, transparent 1%, $color-gray 1%) center/15000%;
+    // }
+
+    // &:active {
+    //     background-color: $color-gray-light;
+    //     background-size: 100%;
+    //     transition: background 0s;
+    // }
+}
+
+@mixin btn-icon ($type, $outline: false) {
     width: 32px;
     height: 32px;
-    border-radius: 50%;
-    font-size: 16px;
+    $buttonMainColor: map-get($button-theme-colors, $type);
+    $buttonHoverColor: map-get($button-theme-colors, $type + '-hover');
+    $buttonActiveColor: map-get($button-theme-colors, $type + '-active');
+
+    @if not $outline {
+        background-color: $buttonMainColor;
+    }
+
+    border: 1px solid $buttonMainColor;
 
     &:hover {
-        background: $color-gray radial-gradient(circle, transparent 1%, $color-gray 1%) center/15000%;
+        background: $buttonHoverColor radial-gradient(circle, transparent 1%, $buttonHoverColor 1%) center/15000%;
+        border: 1px solid $buttonHoverColor;
     }
 
     &:active {
-        background-color: $color-gray-light;
+        background-color: $buttonActiveColor;
+        border: 1px solid $buttonActiveColor;
         background-size: 100%;
         transition: background 0s;
     }
 }
 
+.btn-icon-edit {
+    @include btn-icon(edit);
+}
 
+.btn-icon-delete {
+    @include btn-icon(delete);
+}
 
 
 
