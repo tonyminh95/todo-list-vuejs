@@ -27,7 +27,7 @@
                             <li>
                                 <pagination
                                     :page_size="page_size"
-                                    :list_size="items.length"
+                                    :list_size="bodies.length"
                                     @page-number="page_number = $event"
                                 />
                             </li>
@@ -71,7 +71,7 @@
 
         <tbody>
             <tr v-if="items.length == 0">
-                <td :colspan="items.length">
+                <td :colspan="numberOfColumns">
                     <h3>No data!!!</h3>
                 </td>
             </tr>
@@ -210,7 +210,6 @@ export default {
             } else if (item.sort == 'desc') {
                 item.sort = 'asc'
             }
-
         },
 
         sortCondition (headerTitle, headerType) {
