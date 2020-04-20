@@ -158,9 +158,9 @@ export default {
             },
 
             // pagination
-            page_size: 10,
+            page_size: 5,
             page_number: 1,
-            entries: [10, 25, 50, 75, 100],
+            entries: [5, 10, 25, 50, 75, 100],
 
             // button
             buttonActions: {

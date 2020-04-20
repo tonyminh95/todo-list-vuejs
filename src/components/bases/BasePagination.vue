@@ -1,27 +1,26 @@
 <template>
-    <div>
-        <ul class="pagination">
-            <li
-                :class="{ 'pagination__disable' : pageNumber === 1 }"
-                @click="prev"
-            >
-                Prev
-            </li>
-            <li
-                v-for="number in numberOfPages" :key="number"
-                :class="{ 'pagination__active' : number === pageNumber}"
-                @click="pageNumber = number, $emit('page-number', pageNumber)"
-            >
-                {{ number }}
-            </li>
-            <li
-                :class="{ 'pagination__disable' : pageNumber === numberOfPages }"
-                @click="next"
-            >
-                Next
-            </li>
-        </ul>
-    </div>
+    <ul class="pagination">
+        <li
+            :class="{ 'pagination__disable' : pageNumber === 1 }"
+            @click="prev"
+        >
+            Prev
+        </li>
+        <li
+            v-for="(page, index) in pages"
+            :key="index"
+            :class="{ 'pagination__active': pageNumber === page }"
+            @click="setPageNumber(page)"
+        >
+            {{ page }}
+        </li>
+        <li
+            :class="{ 'pagination__disable' : pageNumber === numberOfPages }"
+            @click="next"
+        >
+            Next
+        </li>
+    </ul>
 </template>
 
 <script>
@@ -31,7 +30,8 @@
         props: {
             page_size: {
                 required: true,
-                type: Number
+                type: Number,
+                default: 5
             },
 
             list_size: {
@@ -42,13 +42,25 @@
 
         data() {
             return {
-                pageNumber: 1,
+                pageNumber: 1
             }
         },
 
         computed: {
             numberOfPages () {
                 return Math.ceil(this.list_size / this.page_size)
+            },
+
+            pages () {
+                if (this.numberOfPages <= 7) {
+                    return [...Array(this.numberOfPages)].map((_, index) => index + 1)
+                } else if (this.pageNumber < 4) {
+                    return [1, 2, 3, 4, '...', this.numberOfPages - 1, this.numberOfPages]
+                } else if (this.pageNumber > this.numberOfPages - 3) {
+                    return [1, 2, '...', this.numberOfPages - 3, this.numberOfPages - 2, this.numberOfPages - 1, this.numberOfPages]
+                } else {
+                    return [1, '...', this.pageNumber - 1, this.pageNumber, this.pageNumber + 1, '...', this.numberOfPages]
+                }
             }
         },
 
@@ -63,6 +75,13 @@
             next () {
                 if (this.pageNumber < this.numberOfPages) {
                     this.pageNumber++
+                    this.$emit('page-number', this.pageNumber)
+                }
+            },
+
+            setPageNumber (page) {
+                if (page != '...') {
+                    this.pageNumber = page
                     this.$emit('page-number', this.pageNumber)
                 }
             }
