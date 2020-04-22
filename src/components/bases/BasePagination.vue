@@ -1,45 +1,27 @@
 <template>
     <ul class="pagination">
         <li
-<<<<<<< HEAD
-            :class="{ 'pagination__disable' : pageNumber === 1 }"
-            @click="prev"
-        >
-            Prev
-=======
             class="pagination__item"
             :class="{ 'pagination__item--disable' : pageNumber === 1 }"
             @click="prev"
         >
             <fa-icon :icon="['fas', 'chevron-left']"></fa-icon>
->>>>>>> custom-filter
         </li>
         <li
             v-for="(page, index) in pages"
             :key="index"
-<<<<<<< HEAD
-            :class="{ 'pagination__active': pageNumber === page }"
-=======
             class="pagination__item"
             :class="{ 'pagination__item--active': pageNumber === page, 'pagination__item--dots' : page === '...' }"
->>>>>>> custom-filter
             @click="setPageNumber(page)"
         >
             {{ page }}
         </li>
         <li
-<<<<<<< HEAD
-            :class="{ 'pagination__disable' : pageNumber === numberOfPages }"
-            @click="next"
-        >
-            Next
-=======
             class="pagination__item"
             :class="{ 'pagination__item--disable' : pageNumber === numberOfPages }"
             @click="next"
         >
             <fa-icon :icon="['fas', 'chevron-right']"></fa-icon>
->>>>>>> custom-filter
         </li>
     </ul>
 </template>

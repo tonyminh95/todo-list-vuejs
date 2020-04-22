@@ -36,28 +36,6 @@
                 </th>
             </tr>
             <tr>
-<<<<<<< HEAD:src/components/Datatable.vue
-                <th v-for="(header, index) in headers" :key="index" :width="header.width">
-                    <div>
-                        {{ header.title }}
-                        <span
-                            v-if="typeof header.sort !== 'undefined'"
-                            @click="sortCondition(header.title, header.type), header.sort = !header.sort"
-                            class="u-cursor-pointer"
-                        >
-                            <fa-icon :icon="['fas', 'sort-amount-down-alt']" v-if="header.sort"></fa-icon>
-                            <fa-icon :icon="['fas', 'sort-amount-up-alt']" v-else></fa-icon>
-                        </span>
-                    </div>
-                    <div>
-                        <input type="text" v-if="header.type === 'text'" v-model="tableFilters[index]">
-
-                        <vue-datepicker :format="'dd/MM/yyyy'" v-if="header.type === 'date'" v-model="tableFilters[index]"></vue-datepicker>
-
-                        <select v-if="header.type === 'status'">
-                            <option value=""></option>
-                        </select>
-=======
                 <th
                     v-for="(item, index) in headerItems"
                     :key="index"
@@ -85,7 +63,6 @@
                                 <span class="u-border-bottom">{{ page_size }}</span> <fa-icon :icon="['fas', 'sort-down']"></fa-icon>
                             </div>
                         </dropdown> -->
->>>>>>> custom-filter:src/components/bases/BaseDatatable.vue
                     </div>
                 </th>
                 <th v-if="headers.buttonActions" colspan="2"></th>
