@@ -1,8 +1,14 @@
 .heading-primary {
-    font-size: 1.5rem;
+    font-weight: 300;
     color: $color-black;
 }
 
-.text-highlight {
-    background-color: map-get($theme-colors, edit);
-}
+.text-highlight { background-color: $color-yellow; }
+
+.text-green { color: $color-green-dark; }
+
+.text-yellow { color: $color-yellow-dark; }
+
+.text-red { color: $color-red-dark; }
+
+.text-uppercase { text-transform: uppercase; }

@@ -1,30 +1,30 @@
 <template>
     <table class="table">
-        <thead>
+       <thead>
             <tr>
-                <th :colspan="headers.length">
+                <th :colspan="numberOfColumns">
                     <div class="table__header">
-                        <span class="heading-primary">{{ tableName }}</span>
-                        <span class="table__header__search">
-                            <input type="text" placeholder="Search" v-model="search">
-                        </span>
+                        <h2>{{ table_name }}</h2>
+
+                        <input type="text" class="table__header--search" placeholder="Search" v-model="search">
                     </div>
                 </th>
             </tr>
             <tr>
-                <th :colspan="headers.length">
+                <th :colspan="numberOfColumns">
                     <div class="table__header">
-                        <div class="btn-create" @click="$emit('create')">new +</div>
+                        <button class="btn-create" @click="$emit('create')">create new +</button>
 
-                        <ul class="table__header__pagination">
-                            <li class="u-display-inline-block u-margin-right-small">
-                                <dropdown :items="entries" @chosen-item="page_size = entries[$event]" :position="'right'">
+                        <ul class="table__header--pagination">
+                            <li>Row per pages</li>
+                            <li>
+                                <dropdown :items="entries" @chosen-item="page_size = entries[$event]">
                                     <div slot="dropdownButton">
-                                        Row per pages <span class="u-border-bottom">{{ page_size }}</span> <fa-icon :icon="['fas', 'sort-down']"></fa-icon>
+                                        <span class="u-border-bottom">{{ page_size }}</span> <fa-icon :icon="['fas', 'sort-down']"></fa-icon>
                                     </div>
                                 </dropdown>
                             </li>
-                            <li class="u-display-inline-block">
+                            <li>
                                 <pagination
                                     :page_size="page_size"
                                     :list_size="bodies.length"
@@ -36,6 +36,7 @@
                 </th>
             </tr>
             <tr>
+<<<<<<< HEAD:src/components/Datatable.vue
                 <th v-for="(header, index) in headers" :key="index" :width="header.width">
                     <div>
                         {{ header.title }}
@@ -56,41 +57,68 @@
                         <select v-if="header.type === 'status'">
                             <option value=""></option>
                         </select>
+=======
+                <th
+                    v-for="(item, index) in headerItems"
+                    :key="index"
+                    :width="item.width"
+                >
+                    <div>
+                        {{ item.title }}
+
+                        <span
+                            v-if="!!item.sort"
+                            @click="sort(item)"
+                        >
+                            <fa-icon :icon="['fas', 'sort-amount-down-alt']" v-if="item.sort === 'asc'"></fa-icon>
+                            <fa-icon :icon="['fas', 'sort-amount-up-alt']" v-if="item.sort === 'desc'"></fa-icon>
+                        </span>
+                    </div>
+
+                    <div v-if="!!item.type" class="table__header--filter">
+                        <input type="text" v-if="item.type === 'text'">
+
+                        <datetime-picker v-if="item.type === 'date'" />
+
+                        <!-- <dropdown v-if="item.type === 'status'" :items="item.status" @chosen-item="page_size = item.status[$event]">
+                            <div slot="dropdownButton">
+                                <span class="u-border-bottom">{{ page_size }}</span> <fa-icon :icon="['fas', 'sort-down']"></fa-icon>
+                            </div>
+                        </dropdown> -->
+>>>>>>> custom-filter:src/components/bases/BaseDatatable.vue
                     </div>
                 </th>
+                <th v-if="headers.buttonActions" colspan="2"></th>
             </tr>
         </thead>
+
         <tbody>
             <tr v-if="items.length == 0">
-                <td :colspan="headers.length">
-                    No data!!!
+                <td :colspan="numberOfColumns">
+                    <h3>No data!!!</h3>
                 </td>
             </tr>
             <tr v-else v-for="item in items" :key="item.id">
-                <td v-for="(header, index) in headers" :key="index">
+                <td v-for="(headerItem, index) in headerItems" :key="index">
                     <div
-                        v-if="header.type === 'status'"
+                        v-if="headerItem.type === 'status'"
                     >
-                        <span :class="statusClass(header.statusType[item[header.title]])"></span>
-                        <span class="u-margin-left-xsmall">{{ header.statusType[item[header.title]] }}</span>
+                        <!-- <span :class="statusClass(header.statusType[item[header.title]])"></span> -->
+                        <!-- <span>{{ header.statusType[item[header.title]] }}</span> -->
                     </div>
                     <div
-                        v-else-if="header.type === 'text' || header.type === 'date'"
-                        v-html="$options.filters.highlightText(item[header.title], search)">
-                    </div>
-                    <div v-else-if="header.type === 'button'">
-                        <span
-                            v-for="(action, index) in header.buttons"
-                            :key="index"
-                            :class="[`btn-${action.type}`]"
-                            @click="buttonActions[action.type].call(this, item.id)"
-                        >
-                            <fa-icon :icon="action.icon"></fa-icon>
-                        </span>
+                        v-else-if="headerItem.type === 'text' || headerItem.type === 'date'"
+                        v-html="$options.filters.highlightText(item[headerItem.title], search)">
                     </div>
                     <div v-else>
-                        {{ item[header.title] }}
+                        {{ item[headerItem.title] }}
                     </div>
+                </td>
+                <td v-if="headers.buttonActions">
+                    <button class="btn-icon-edit" @click="editObject(item.id)"><fa-icon :icon="['far', 'edit']"></fa-icon></button>
+                </td>
+                <td v-if="headers.buttonActions">
+                    <button class="btn-icon-delete" @click="deleteObject(item.id)"><fa-icon :icon="['far', 'trash-alt']"></fa-icon></button>
                 </td>
             </tr>
         </tbody>
@@ -101,21 +129,28 @@
 import Pagination from '@/components/bases/BasePagination'
 import Dropdown from '@/components/bases/BaseDropdown'
 import moment from "moment"
+import DatetimePicker from '@/components/bases/BaseDateTimePicker'
 
 export default {
-    name: 'Datatable',
+    name: 'BaseDatatable',
 
     components: {
+        Dropdown,
         Pagination,
-        Dropdown
+        DatetimePicker
     },
 
     props: {
-        table_name: String,
+        // table name
+        table_name: {
+            type: String,
+            default: 'table name here'
+        },
 
+        // table content
         headers: {
             required: true,
-            type: Array
+            type: Object
         },
 
         bodies: {
@@ -125,13 +160,18 @@ export default {
     },
 
     computed: {
-        tableName () {
-            return this.table_name ? this.table_name : 'table name here'
+        // table content
+        numberOfColumns () {
+            return this.headers.items.length + ('buttonActions' in this.headers ? 2 : 0)
+        },
+
+        headerItems () {
+            return this.headers.items
         },
 
         items () {
             return this.bodies
-                    .filter(body => {
+                  .filter(body => {
                         const filter = {...body}
 
                         let count = 0
@@ -151,8 +191,13 @@ export default {
                         const filter = {...body}
                         delete filter.id
 
+<<<<<<< HEAD:src/components/Datatable.vue
                         this.headers.forEach(element => {
                             if (element.type !== 'text' && element.type !== 'date') {
+=======
+                        this.headerItems.forEach(element => {
+                            if (element.type !== 'text') {
+>>>>>>> custom-filter:src/components/bases/BaseDatatable.vue
                                 delete filter[element.title]
                             }
                         });
@@ -191,6 +236,7 @@ export default {
             // pagination
             page_size: 5,
             page_number: 1,
+<<<<<<< HEAD:src/components/Datatable.vue
             entries: [5, 10, 25, 50, 75, 100],
 
             // button
@@ -198,6 +244,9 @@ export default {
                 edit: this.editObject,
                 delete: this.deleteObject
             }
+=======
+            entries: [5, 10, 25, 50, 75, 100]
+>>>>>>> custom-filter:src/components/bases/BaseDatatable.vue
         }
     },
 
@@ -213,6 +262,14 @@ export default {
 
     methods: {
         // sort
+        sort(item) {
+            if (item.sort == 'asc') {
+                item.sort = 'desc'
+            } else if (item.sort == 'desc') {
+                item.sort = 'asc'
+            }
+        },
+
         sortCondition (headerTitle, headerType) {
             this.sortObject = headerTitle
             this.sortType *= -1

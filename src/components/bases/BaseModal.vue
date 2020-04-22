@@ -1,16 +1,18 @@
 <template>
-    <transition name="modal">
+    <transition>
         <div class="modal">
             <div class="modal__content">
-                <div :class="`modal__content__header-${modalType}`">
+                <div class="modal__content--header">
                     <slot name="header"></slot>
+
+                    <span class="u-cursor-pointer" @click="$emit('close')">X</span>
                 </div>
 
-                <div class="modal__content__body">
+                <div>
                     <slot name="body"></slot>
                 </div>
 
-                <div class="modal__content__footer u-text-right">
+                <div>
                     <slot name="footer"></slot>
                 </div>
             </div>
@@ -19,14 +21,7 @@
 </template>
 
 <script>
-    export default {
-        name: 'BaseModal',
-
-        props: {
-            modalType: {
-                type: String,
-                default: 'default'
-            }
-        }
-    }
+export default {
+    name: 'BaseModal'
+}
 </script>

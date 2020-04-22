@@ -1,0 +1,164 @@
+// Colors
+// (main color)
+$color-white: white;
+$color-teal: teal;
+$color-black: black;
+
+// (custom color)
+$theme-colors: (
+    'create': #b3eee1,
+    'cancel': #f0f0f0,
+
+
+    'primary': #c4e9fe,
+
+
+    'edit': #feefd8,
+    'delete': #ffddd9,
+    'info': #8affffee,
+    'open': #ffddd9,
+    'inprogress': #feefd8,
+    'closed': #b3eee1,
+);
+// $color-primary: #c4e9fe;
+// $color-secondary: #f0f0f0;
+// $color-success: #b3eee1;
+// $color-delete: #ffddd9;
+// $color-warning: #feefd8;
+// $color-info: #8affffee;
+
+$color-background-default: #f6f5f8;
+$color-icon: #2c2834;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Colors
+$color-blue: #c4e9fe;
+$color-blue-dark: darken($color-blue, 50%);
+
+$color-green: #b3eee1;
+$color-green-light: lighten($color-green, 25%);
+$color-green-dark: darken($color-green, 50%);
+
+$color-yellow: #feefd8;
+$color-yellow-light: lighten($color-yellow, 25%);
+$color-yellow-dark: darken($color-yellow, 50%);
+
+$color-red: #ffddd9;
+$color-red-light: lighten($color-red, 25%);
+$color-red-dark: darken($color-red, 50%);
+
+$color-gray: #f0f0f0;
+$color-gray-light: lighten($color-gray, 25%);
+$color-gray-dark: darken($color-gray, 50%);
+$color-gray-dark-2: darken($color-gray, 15%);
+
+$color-navy: #000080;
+
+// (button theme colors)
+$button-theme-colors: (
+    'create': $color-green,
+    'create-hover': darken($color-green, 15%),
+    'create-active': lighten($color-green, 15%),
+
+    'edit': $color-yellow,
+    'edit-hover': darken($color-yellow, 15%),
+    'edit-active': lighten($color-yellow, 15%),
+
+    'delete': $color-red,
+    'delete-hover': darken($color-red, 15%),
+    'delete-active': lighten($color-red, 15%),
+
+    'select': $color-blue,
+    'select-hover': darken($color-blue, 15%),
+    'select-active': lighten($color-blue, 15%),
+
+    'open': $color-red,
+    'open-hover': darken($color-red, 15%),
+    'open-active': lighten($color-red, 15%),
+
+    'inprogress': $color-yellow,
+    'inprogress-hover': darken($color-yellow, 15%),
+    'inprogress-active': lighten($color-yellow, 15%),
+
+    'closed': $color-green,
+    'closed-hover': darken($color-green, 15%),
+    'closed-active': lighten($color-green, 15%),
+
+    'default': $color-gray,
+    'default-hover': darken($color-gray, 15%),
+    'default-active': lighten($color-gray, 15%),
+
+    'cancel': $color-gray-dark-2,
+    'cancel-hover': $color-gray-dark-2,
+    'cancel-active': $color-gray
+);
+
+// Dimensions
+$default-dimension: 8px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$medium-dimension: 4rem;
+$default-letter-spacing: .05rem;
+$default-font-size: 0.8rem;
+// (border radius)
+$border-radius-xsmall: .3rem;
+$border-radius-small: .5rem;
+$border-radius-medium: 1rem;
+$border-radius-large: 1.5rem;
+
+// (table)
+$table-header-background-color: #e9eff3;
+$table-cell-padding: $default-dimension $default-dimension * 2;
+
+
+
+$table-cell-line-height: 3rem;
+$table-row-border-radius: 10px;
+$table-row-margin-bottom: $default-dimension;
+
+// (button - icon)
+$button-border-radius: 5px;
+$icon-size-default: 2rem;
+
+// (modal)
+$modal-width: 500px;

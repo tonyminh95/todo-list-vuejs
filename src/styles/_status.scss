@@ -24,3 +24,9 @@
     @extend %status;
     @include status(closed)
 }
+
+.status-default {
+    @extend %status;
+
+    @include status(cancel)
+}

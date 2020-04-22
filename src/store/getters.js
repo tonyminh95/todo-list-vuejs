@@ -54,4 +54,10 @@ export default {
     // getInprogressTasks: state => state.tasks.filter(task => task.status == status.IN_PROGRESS),
 
     // getClosedTasks: state => state.tasks.filter(task => task.status == status.CLOSED)
+
+
+
+
+
+    getTaskById: state => id => ({...state.tasks.find(task => task.id == id)})
 }

@@ -1,0 +1,111 @@
+.datetime {
+    &__input {
+        padding: 8px 16px;
+        border: 1px solid $color-gray-dark-2;
+        width: 100px;
+        background: url(assets/svg/sort-down.svg) no-repeat;
+        background-position: right 16px top 50%;
+        background-size: 8px;
+        cursor: pointer;
+    }
+
+    &__content {
+        -webkit-box-shadow: 0 0.5rem 4rem rgba($color-black, 0.3);
+        -moz-box-shadow: 0 0.5rem 4rem rgba($color-black, 0.3);
+        box-shadow: 0 0.5rem 4rem rgba($color-black, 0.3);
+        position: absolute;
+        padding: 16px 24px;
+        background-color: $color-white;
+
+        &__controller {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+
+            &--title {
+                cursor: pointer;
+                padding: 8px 16px;
+                min-width: 100px;
+                text-align: center;
+                color: $color-black;
+
+                &:hover {
+                    background-color: $color-gray;
+                }
+            }
+        }
+
+        &__calendar {
+            display: grid;
+            grid-template-columns: 32px 32px 32px 32px 32px 32px 32px;
+            grid-row-gap: 8px;
+            grid-column-gap: 8px;
+
+            &--item {
+                height: 32px;
+                line-height: 32px;
+                text-align: center;
+
+                &--date {
+                    color: $color-gray-dark-2;
+
+                    &:hover {
+                        background-color: $color-gray;
+                        border-radius: 50%;
+                        color: $color-black;
+                        cursor: pointer;
+                    }
+                }
+
+                &--label, &--primary-date {
+                    color: $color-black;
+                }
+
+                &--active-date {
+                    color: $color-navy;
+                    background-color: $color-blue;
+                    border-radius: 50%;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        &__month {
+            display: grid;
+            grid-template-columns: 68px 68px 68px 68px;
+
+            &--item {
+                margin: 8px;
+                padding: 8px 16px;
+                text-align: center;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $color-gray;
+                }
+            }
+        }
+
+        &__year {
+            display: grid;
+            grid-template-columns: 88px 88px 88px;
+            grid-gap: 4px;
+
+            &--item {
+                padding: 8px 16px;
+                text-align: center;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $color-gray;
+                }
+            }
+        }
+
+        &__actions {
+            margin-top: 16px;
+            text-align: right;
+        }
+    }
+}

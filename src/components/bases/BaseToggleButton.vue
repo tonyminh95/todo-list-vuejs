@@ -1,13 +1,8 @@
 <template>
     <div>
-        <span
-            v-for="(item, index) in items"
-            :key="index"
-            :class="`btn-${item.target}`"
-            @click="changeTarget(index)"
-        >
+        <button v-for="(item, index) in status" :key="index" :class="item.class" @click="select(index)" class="u-margin-right-2">
             {{ item.title }}
-        </span>
+        </button>
     </div>
 </template>
 
@@ -16,38 +11,34 @@ export default {
     name: 'BaseToggleButton',
 
     props: {
-        entries: {
+        statusEntries: {
             required: true,
             type: Array
+        },
+
+        targetStatus: {
+            type: Number,
+            default: null
         }
     },
 
-    data() {
+    computed: {
+        status () {
+            return this.statusEntries.map((status, index) => ({ title: status, class: index == this.target ? `btn-${status.replace(' ', '')}` : 'btn-default' }))
+        }
+    },
+
+    data () {
         return {
-            items: null,
+            target: this.targetStatus
         }
     },
 
     methods: {
-        changeTarget (targetObject) {
-            this.items = this.items.map((item, index) => {
-                return {
-                    title: item.title,
-                    target: index == targetObject ? this.items[targetObject].title.replace(' ', '-') : 'default'
-                }
-            })
-
-            this.$emit('chosen-target', targetObject)
+        select (index) {
+            this.target = index
+            this.$emit('chosenStatus', this.target)
         }
-    },
-
-    created () {
-        this.items = this.entries.map(entry => {
-            return {
-                title: entry,
-                target: 'default'
-            }
-        })
     }
 }
 </script>

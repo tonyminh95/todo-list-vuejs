@@ -2,10 +2,9 @@
     list-style: none;
     position: absolute;
     border-radius: $border-radius-small;
-    -webkit-box-shadow: 0px 0px 10px 5px rgba($color-gray, 0.35);
-    -moz-box-shadow: 0px 0px 10px 5px rgba($color-gray, 0.35);
-    box-shadow: 0px 0px 10px 5px rgba($color-gray, 0.35);
-    text-align: left;
+    -webkit-box-shadow: 0 0.5rem 4rem rgba($color-black, 0.3);
+    -moz-box-shadow: 0 0.5rem 4rem rgba($color-black, 0.3);
+    box-shadow: 0 0.5rem 4rem rgba($color-black, 0.3);
 
     > li {
         padding: $default-dimension $default-dimension * 2;
@@ -21,11 +20,7 @@
         }
 
         &:hover {
-            background-color: lighten($color-gray, 40%);
+            background-color: $color-gray;
         }
     }
-}
-
-.dropdown-right {
-    right: 0;
 }

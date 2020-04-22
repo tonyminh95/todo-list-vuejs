@@ -1,32 +1,31 @@
-import { formattedDate } from "@/utils";
-import moment from "moment"
-
 export default {
-    createTask: ({state, commit}, {title, description, deadline, status}) => {
+    createTask: ({state, commit}, task) => {
         return new Promise((resolve) => {
             const id = Math.max.apply(Math, state.tasks.map(task => task.id)) + 1
-            const formatedDeadline = formattedDate(deadline)
 
-            commit('createTask', { id, title, description, deadline: formatedDeadline, status })
+            commit('createTask', { id, ...task })
 
             resolve()
         })
     },
 
-    updateTask ({state, commit}) {
-        const item = state.updateTask
-        const index = state.todos.findIndex(todo => todo.id == item.id);
+    editTask ({state, commit}, targetTask) {
+        return new Promise((resolve) => {
+            const index = state.tasks.findIndex(task => task.id == targetTask.id)
 
-        if (moment(item.deadline, 'yyyy/MM/dd', true).isValid()) {
-            item.deadline = formattedDate(item.deadline)
-        }
+            commit('editTask', { index, targetTask })
 
-        commit('updateTask', { index, item })
+            resolve()
+        })
     },
 
-    deleteTask: ({state, commit}, targetObjectId) => {
-        const index = state.tasks.findIndex(task => task.id == targetObjectId);
+    deleteTask: ({state, commit}, targetId) => {
+        return new Promise((resolve) => {
+            const index = state.tasks.findIndex(task => task.id == targetId);
 
-        commit('deleteTask', index)
+            commit('deleteTask', index)
+
+            resolve()
+        })
     }
 }
