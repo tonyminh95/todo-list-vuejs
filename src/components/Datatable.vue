@@ -37,15 +37,26 @@
             </tr>
             <tr>
                 <th v-for="(header, index) in headers" :key="index" :width="header.width">
-                    {{ header.title }}
-                    <span
-                        v-if="typeof header.sort !== 'undefined'"
-                        @click="sortCondition(header.title, header.type), header.sort = !header.sort"
-                        class="u-cursor-pointer"
-                    >
-                        <fa-icon :icon="['fas', 'sort-amount-down-alt']" v-if="header.sort"></fa-icon>
-                        <fa-icon :icon="['fas', 'sort-amount-up-alt']" v-else></fa-icon>
-                    </span>
+                    <div>
+                        {{ header.title }}
+                        <span
+                            v-if="typeof header.sort !== 'undefined'"
+                            @click="sortCondition(header.title, header.type), header.sort = !header.sort"
+                            class="u-cursor-pointer"
+                        >
+                            <fa-icon :icon="['fas', 'sort-amount-down-alt']" v-if="header.sort"></fa-icon>
+                            <fa-icon :icon="['fas', 'sort-amount-up-alt']" v-else></fa-icon>
+                        </span>
+                    </div>
+                    <div>
+                        <input type="text" v-if="header.type === 'text'" v-model="tableFilters[index]">
+
+                        <vue-datepicker :format="'dd/MM/yyyy'" v-if="header.type === 'date'" v-model="tableFilters[index]"></vue-datepicker>
+
+                        <select v-if="header.type === 'status'">
+                            <option value=""></option>
+                        </select>
+                    </div>
                 </th>
             </tr>
         </thead>
@@ -122,10 +133,26 @@ export default {
             return this.bodies
                     .filter(body => {
                         const filter = {...body}
+
+                        let count = 0
+
+                        this.headers.forEach((element, index) => {
+                            if (element.type !== 'button') {
+                                if (filter[element.title].toString().toLowerCase().includes(this.tableFilters[index].toLowerCase())) {
+                                    console.log(filter[element.title])
+                                    count++
+                                }
+                            }
+                        })
+
+                        return count == 4
+                    })
+                    .filter(body => {
+                        const filter = {...body}
                         delete filter.id
 
                         this.headers.forEach(element => {
-                            if (element.type !== 'text') {
+                            if (element.type !== 'text' && element.type !== 'date') {
                                 delete filter[element.title]
                             }
                         });
@@ -138,6 +165,10 @@ export default {
                         return action.call(this, prev[this.sortObject], next[this.sortObject])
                     })
                     .slice(this.page_size * (this.page_number - 1), this.page_size * (this.page_number - 1) + this.page_size)
+        },
+
+        tableFilters () {
+            return [...Array(this.headers.length)].fill('')
         }
     },
 
@@ -212,6 +243,7 @@ export default {
         // button
         editObject (id) {
             this.$emit('edit', id)
+            console.log(this.tableFilters)
         },
 
         deleteObject (id) {
