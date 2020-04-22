@@ -58,11 +58,11 @@
 
                         <datetime-picker v-if="item.type === 'date'" />
 
-                        <dropdown v-if="item.type === 'status'" :items="item.status" @chosen-item="page_size = item.status[$event]">
+                        <!-- <dropdown v-if="item.type === 'status'" :items="item.status" @chosen-item="page_size = item.status[$event]">
                             <div slot="dropdownButton">
                                 <span class="u-border-bottom">{{ page_size }}</span> <fa-icon :icon="['fas', 'sort-down']"></fa-icon>
                             </div>
-                        </dropdown>
+                        </dropdown> -->
                     </div>
                 </th>
                 <th v-if="headers.buttonActions" colspan="2"></th>
