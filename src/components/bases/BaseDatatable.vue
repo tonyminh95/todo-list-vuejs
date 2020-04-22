@@ -148,33 +148,12 @@ export default {
 
         items () {
             return this.bodies
-                  .filter(body => {
-                        const filter = {...body}
-
-                        let count = 0
-
-                        this.headers.forEach((element, index) => {
-                            if (element.type !== 'button') {
-                                if (filter[element.title].toString().toLowerCase().includes(this.tableFilters[index].toLowerCase())) {
-                                    console.log(filter[element.title])
-                                    count++
-                                }
-                            }
-                        })
-
-                        return count == 4
-                    })
                     .filter(body => {
                         const filter = {...body}
                         delete filter.id
 
-<<<<<<< HEAD:src/components/Datatable.vue
-                        this.headers.forEach(element => {
-                            if (element.type !== 'text' && element.type !== 'date') {
-=======
                         this.headerItems.forEach(element => {
                             if (element.type !== 'text') {
->>>>>>> custom-filter:src/components/bases/BaseDatatable.vue
                                 delete filter[element.title]
                             }
                         });
@@ -187,10 +166,6 @@ export default {
                         return action.call(this, prev[this.sortObject], next[this.sortObject])
                     })
                     .slice(this.page_size * (this.page_number - 1), this.page_size * (this.page_number - 1) + this.page_size)
-        },
-
-        tableFilters () {
-            return [...Array(this.headers.length)].fill('')
         }
     },
 
@@ -213,17 +188,7 @@ export default {
             // pagination
             page_size: 5,
             page_number: 1,
-<<<<<<< HEAD:src/components/Datatable.vue
-            entries: [5, 10, 25, 50, 75, 100],
-
-            // button
-            buttonActions: {
-                edit: this.editObject,
-                delete: this.deleteObject
-            }
-=======
             entries: [5, 10, 25, 50, 75, 100]
->>>>>>> custom-filter:src/components/bases/BaseDatatable.vue
         }
     },
 
@@ -277,7 +242,6 @@ export default {
         // button
         editObject (id) {
             this.$emit('edit', id)
-            console.log(this.tableFilters)
         },
 
         deleteObject (id) {
